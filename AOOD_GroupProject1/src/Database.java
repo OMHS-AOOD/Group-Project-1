@@ -1,3 +1,5 @@
+import java.io.File;
+import java.net.URL;
 import java.util.ArrayList;
 
 public class Database {
@@ -14,7 +16,9 @@ public class Database {
 		//Fill later
 	}
 	public void getUsersFromFile(){
-		
+		URL location = StudyHelper.class.getProtectionDomain().getCodeSource().getLocation();
+		File f = new File(location.getPath());
+		System.out.println(f.getPath());
 	}
 	public User getUserByIndex(int i){
 		return users.get(i);
