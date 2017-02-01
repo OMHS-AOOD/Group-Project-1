@@ -17,7 +17,7 @@ public class Database {
 	}
 	public void getUsersFromFile(){
 		URL location = StudyHelper.class.getProtectionDomain().getCodeSource().getLocation();
-		File f = new File(location.getPath());
+		File f = new File(location.getPath() + "");
 		System.out.println(f.getPath());
 	}
 	public User getUserByIndex(int i){
