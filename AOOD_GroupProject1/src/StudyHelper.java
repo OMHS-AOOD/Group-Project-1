@@ -1,30 +1,40 @@
+import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 public class StudyHelper {
 	private MainMenu mm;
 	private User currentUser;
 	private Database db;
 	private JFrame userHud;
-	private JLabel userDisplay;
+	private JPanel userPanel;
+	private JLabel userDisplay, userDisplay2;
+	private ProblemStorage ps;
 	public StudyHelper(){
 		
 		db = new Database();
 		mm = new MainMenu("Study Helper v1.0", this);
+		ps = new ProblemStorage();
 		
 		userHud = new JFrame("miniHud");
 		userHud.setSize(200, 100);
 		userHud.setResizable(false);
 		userHud.setLocation(800, 0);
-		userHud.setUndecorated(true);
 		userHud.setVisible(true);
+		userPanel = new JPanel();
+		userHud.add(userPanel);
 		userDisplay = new JLabel();
-		userHud.add(userDisplay);
+		userDisplay2 = new JLabel();
+		userPanel.add(userDisplay);
+		userPanel.add(userDisplay2);
+		userPanel.setLayout(new BoxLayout(userPanel, BoxLayout.Y_AXIS));
 		
 		
 		currentUser = db.getUserByIndex(0);
 		userDisplay.setText("Current User: " + currentUser.getName());
+		userDisplay2.setText("Current Problem set: " + "Unknown");
 	}
 	
 	public void addNewUser(){
