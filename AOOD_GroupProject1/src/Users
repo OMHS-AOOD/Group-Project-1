@@ -1,1 +1,10 @@
 Users
+Format:
+
+"Name"
+"Password" <-- not secure but w/e
+"Enabled Domains"
+
+"=====" <-- end of user
+
+START

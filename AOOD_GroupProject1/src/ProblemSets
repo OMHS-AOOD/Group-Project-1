@@ -1,1 +1,22 @@
 Problem Sets
+Format:
+
+"Domain Name"
+
+"Question Prompt"
+"Answer"
+"Answer Type"
+
+repeat above for each question
+
+"=====" <-- end of domain
+
+START
+Math
+
+cos(pi) = ?
+0
+int
+
+====
+
