@@ -16,6 +16,7 @@ public class StudyHelper {
 	private JPanel userPanel;
 	private JLabel userDisplay, userDisplay2;
 	private DomainSelect ds;
+	private DomainEditor de;
 
 	private ProblemStorage ps;
 	public StudyHelper(){
@@ -24,6 +25,8 @@ public class StudyHelper {
 		mm = new MainMenu("Study Helper v1.0", this);
 		ps = new ProblemStorage();
 		ds = new DomainSelect("Select a domain", ps);
+		de = new DomainEditor(ps);
+		
 		
 		userHud = new JFrame("miniHud");
 		userHud.setSize(200, 100);

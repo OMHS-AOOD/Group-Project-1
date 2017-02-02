@@ -29,4 +29,8 @@ public class ProblemStorage {
 	public ArrayList<ProblemSet> getArray(){
 		return problems;
 	}
+	
+	public void createProblemSet(String n){
+		problems.add(new ProblemSet(n));
+	}
 }

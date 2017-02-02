@@ -1,8 +1,9 @@
 import javax.swing.JFrame;
 
 public class DomainEditor extends JFrame {
-	
-	public DomainEditor(){
-		
+	private ProblemStorage ps;
+	public DomainEditor(ProblemStorage p){
+		ps = p;
 	}
+
 }

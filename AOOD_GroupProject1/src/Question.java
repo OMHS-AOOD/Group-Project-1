@@ -11,4 +11,13 @@ public class Question {
 		answer = a;
 		extra = "";
 	}
+	public void setPrompt(String p){
+		prompt = p;
+	}
+	public void setAnswer(String a){
+		answer = a;
+	}
+	public void setExtra(String e){
+		extra = e;
+	}
 }
