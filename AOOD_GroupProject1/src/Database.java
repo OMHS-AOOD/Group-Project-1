@@ -27,11 +27,13 @@ public class Database {
 			FileReader fr = new FileReader(f);
 			BufferedReader br = new BufferedReader(fr);
 			
+			
 		} catch (FileNotFoundException e) {
 			JOptionPane.showMessageDialog(null, "User database file not found", "Error" , JOptionPane.INFORMATION_MESSAGE);
 		}
 		
 	}
+	
 	public User getUserByIndex(int i){
 		return users.get(i);
 	}

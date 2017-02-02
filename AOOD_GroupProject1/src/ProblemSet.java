@@ -11,5 +11,7 @@ public class ProblemSet {
 	public void addQuestion(Question q){
 		questions.add(q);
 	}
-	
+	public String getName(){
+		return name;
+	}
 }

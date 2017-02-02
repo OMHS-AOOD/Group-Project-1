@@ -3,20 +3,47 @@ Format:
 
 "Domain Name"
 
-"Question Prompt"
-"Answer"
-"Answer Type"
+DC:"Domain Creator"
+AC:"Access" <---- list of users with editing access
+P:"Password" 
+
+Q:"Question Prompt"
+A:"Answer"
+T:"Answer Type"
 
 repeat above for each question
 
 "=====" <-- end of domain
 
 START
-Math
 
-cos(pi) = ?
-0
-int
+DC:Math
+AC:
+P:
+
+Q:cos(pi) = ?
+A:0
+T:int
+
+Q:
+A:
+T:
+
+Q:
+A:
+T:
 
 ====
+DC:
+AC:
+P:
 
+Q:
+A:
+T:
+
+Q:
+A:
+T:
+
+====

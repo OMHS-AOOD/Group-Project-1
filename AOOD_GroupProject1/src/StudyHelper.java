@@ -1,16 +1,23 @@
 import javax.swing.BoxLayout;
+import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 public class StudyHelper {
 	private MainMenu mm;
 	private User currentUser;
+	private ProblemSet currentDomain;
 	private Database db;
-	private JFrame userHud;
+	private JFrame userHud, domainSelect;
 	private JPanel userPanel;
+	private JScrollPane domainPane;
+	private DefaultListModel<String> dlm;
 	private JLabel userDisplay, userDisplay2;
+	private JList domainList;
 	private ProblemStorage ps;
 	public StudyHelper(){
 		
@@ -31,16 +38,32 @@ public class StudyHelper {
 		userPanel.add(userDisplay2);
 		userPanel.setLayout(new BoxLayout(userPanel, BoxLayout.Y_AXIS));
 		
+		domainSelect = new JFrame("Select a domain");
+		dlm = new DefaultListModel<String>();
+		domainSelect.setSize(300, 600);
+		domainSelect.setResizable(false);
+		domainSelect.setVisible(false);
+		for(ProblemSet p: ps.getArray()){
+			dlm.addElement(p.getName());
+		}
+		domainList = new JList(dlm);
+		domainPane = new JScrollPane(domainList, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		domainSelect.add(domainPane);
+		domainSelect.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		currentUser = db.getUserByIndex(0);
 		userDisplay.setText("Current User: " + currentUser.getName());
-		userDisplay2.setText("Current Problem set: " + "Unknown");
+		userDisplay2.setText("Current Problem set: " + "None");
 	}
 	
 	public void addNewUser(){
 		String name = JOptionPane.showInputDialog("Enter a username: ");
 		if(db.checkForUserName(name)){
 			JOptionPane.showMessageDialog(null, "Username already taken", "New User" , JOptionPane.INFORMATION_MESSAGE);
+			return;
+		}
+		if(name == null){
+			JOptionPane.showMessageDialog(null, "No name entered", "User Select" , JOptionPane.INFORMATION_MESSAGE);
 			return;
 		}
 		String password = JOptionPane.showInputDialog("Enter a password: ");
@@ -74,5 +97,7 @@ public class StudyHelper {
 		currentUser = u;
 		userDisplay.setText("Current User: " + currentUser.getName());
 	}
-	
+	public void selectDomain(){
+		domainSelect.setVisible(true);
+	}
 }

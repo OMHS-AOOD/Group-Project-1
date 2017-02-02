@@ -18,14 +18,14 @@ public class MainMenu extends JFrame {
 		add(panel);
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		Graphics g = panel.getGraphics();
-		JButton start = new JButton("Start");
+		JButton selDom = new JButton("Select Domain");
 		JButton addUser = new JButton("Add User");
 		JButton selUser = new JButton("Select User");
 		JButton dispUser = new JButton("Display Users");
-		panel.add(start);
 		panel.add(addUser);
 		panel.add(selUser);
 		panel.add(dispUser);
+		panel.add(selDom);
 		addUser.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e)
@@ -47,11 +47,11 @@ public class MainMenu extends JFrame {
 				sh.selectUser();
 			}
 		});
-		start.addActionListener(new ActionListener() {
+		selDom.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				//start
+				sh.selectDomain();
 			}
 		});
 	}

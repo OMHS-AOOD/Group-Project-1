@@ -25,4 +25,8 @@ public class ProblemStorage {
 		}
 		
 	}
+	
+	public ArrayList<ProblemSet> getArray(){
+		return problems;
+	}
 }
