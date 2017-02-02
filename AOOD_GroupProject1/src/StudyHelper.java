@@ -12,18 +12,18 @@ public class StudyHelper {
 	private User currentUser;
 	private ProblemSet currentDomain;
 	private Database db;
-	private JFrame userHud, domainSelect;
+	private JFrame userHud;
 	private JPanel userPanel;
-	private JScrollPane domainPane;
-	private DefaultListModel<String> dlm;
 	private JLabel userDisplay, userDisplay2;
-	private JList domainList;
+	private DomainSelect ds;
+
 	private ProblemStorage ps;
 	public StudyHelper(){
 		
 		db = new Database();
 		mm = new MainMenu("Study Helper v1.0", this);
 		ps = new ProblemStorage();
+		ds = new DomainSelect("Select a domain", ps);
 		
 		userHud = new JFrame("miniHud");
 		userHud.setSize(200, 100);
@@ -38,20 +38,12 @@ public class StudyHelper {
 		userPanel.add(userDisplay2);
 		userPanel.setLayout(new BoxLayout(userPanel, BoxLayout.Y_AXIS));
 		
-		domainSelect = new JFrame("Select a domain");
-		dlm = new DefaultListModel<String>();
-		domainSelect.setSize(300, 600);
-		domainSelect.setResizable(false);
-		domainSelect.setVisible(false);
-		for(ProblemSet p: ps.getArray()){
-			dlm.addElement(p.getName());
-		}
-		domainList = new JList(dlm);
-		domainPane = new JScrollPane(domainList, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		domainSelect.add(domainPane);
-		domainSelect.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		
 		
 		currentUser = db.getUserByIndex(0);
+		currentDomain = null;
+		
 		userDisplay.setText("Current User: " + currentUser.getName());
 		userDisplay2.setText("Current Problem set: " + "None");
 	}
@@ -98,6 +90,6 @@ public class StudyHelper {
 		userDisplay.setText("Current User: " + currentUser.getName());
 	}
 	public void selectDomain(){
-		domainSelect.setVisible(true);
+		ds.setVisible(true);
 	}
 }
