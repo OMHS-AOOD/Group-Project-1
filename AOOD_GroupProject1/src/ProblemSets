@@ -1,16 +1,15 @@
 Problem Sets
 Format:
 
-DN:"Domain Name"
+"Domain Name"
 
 DC:"Domain Creator"
 AC:"Access" <---- list of users with editing access
-PS:"Password" 
+P:"Password" 
 
-QU:"Question Prompt"
-AN:"Answer"
-AT:"Answer Type"
-EX:"Extra info"
+Q:"Question Prompt"
+A:"Answer"
+T:"Answer Type"
 
 repeat above for each question
 
@@ -18,9 +17,7 @@ repeat above for each question
 
 START
 
-DN:Math
-
-DC:Default
+DC:Math
 AC:
 P:
 
@@ -28,22 +25,44 @@ Q:cos(pi) = ?
 A:0
 T:int
 
-Q:
-A:
-T:
+Q:9/6 = ?
+A:1.5
+T:Double
 
-Q:
-A:
-T:
+Q:2 * ? = 12
+A:2
+T:int
 
 ====
-DC:
+DC:Histoy
 AC:
 P:
 
-Q:
-A:
-T:
+Q:Who was the first president?
+A:George Washington
+T:String
+	
+Q:What the Capital of Canada?
+A:ottawa
+T:String
+
+Q:Who was the first black supreme court justice?
+A:Thurgood Marshall
+T:String
+
+====
+
+DC:Science
+AC:
+P:
+
+Q:What the closest planet to the sun?
+A:Mercury
+T:String
+
+Q:When was the first computer invented?
+A:1943
+T:int
 
 Q:
 A:
