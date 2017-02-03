@@ -67,7 +67,7 @@ public class StudyHelper {
 			JOptionPane.showMessageDialog(null, "Passwords do not match", "New User" , JOptionPane.INFORMATION_MESSAGE);
 			return;
 		}
-		db.addUser(new User(name, password));
+		db.addUser(name, password);
 	}
 	
 	public void showUsers(){

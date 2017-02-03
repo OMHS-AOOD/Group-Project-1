@@ -6,11 +6,18 @@ public class User {
 		name = n;
 		password = p;
 	}
+	public User(String n){
+		name = n;
+		password = "";
+	}
 	public String getName(){
 		return name;
 	}
 	public String getPassword(){
 		return password;
+	}
+	public void setPassword(String p){
+		password = p;
 	}
 	
 	public boolean equals(User u){
