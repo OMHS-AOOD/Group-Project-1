@@ -1,15 +1,16 @@
 Problem Sets
 Format:
 
-"Domain Name"
+DN:"Domain Name"
 
 DC:"Domain Creator"
 AC:"Access" <---- list of users with editing access
-P:"Password" 
+PS:"Password" 
 
-Q:"Question Prompt"
-A:"Answer"
-T:"Answer Type"
+QU:"Question Prompt"
+AN:"Answer"
+AT:"Answer Type"
+EX:"Extra info"
 
 repeat above for each question
 
@@ -17,7 +18,9 @@ repeat above for each question
 
 START
 
-DC:Math
+DN:Math
+
+DC:Default
 AC:
 P:
 

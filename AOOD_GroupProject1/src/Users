@@ -1,9 +1,9 @@
 Users
 Format:
 
-"Name"
-"Password" <-- not secure but w/e
-"Enabled Domains"
+UN:"Username"
+PS:"Password" <-- not secure but w/e
+ED:"Enabled Domains"
 
 "=====" <-- end of user
 

@@ -1,6 +1,6 @@
 
 public class Question {
-	private String prompt, answer, extra;
+	private String prompt, answer, extra, type;
 	public Question(String p, String a, String e){
 		prompt = p;
 		answer = a;
@@ -11,6 +11,9 @@ public class Question {
 		answer = a;
 		extra = "";
 	}
+	public Question(String p){
+		prompt = p;
+	}
 	public void setPrompt(String p){
 		prompt = p;
 	}
@@ -19,5 +22,8 @@ public class Question {
 	}
 	public void setExtra(String e){
 		extra = e;
+	}
+	public void setType(String n){
+		type = n;
 	}
 }

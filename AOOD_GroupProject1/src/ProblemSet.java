@@ -1,11 +1,13 @@
 import java.util.ArrayList;
 
 public class ProblemSet {
-	private String name;
+	private String name, admin, password;
 	private ArrayList<Question> questions;
 	public ProblemSet(String n){
 		questions = new ArrayList<Question>();
 		name = n;
+		admin = "Default";
+		password = "";
 	}
 	
 	public void addQuestion(Question q){
@@ -22,4 +24,10 @@ public class ProblemSet {
 		return questions.get(i);
 	}
 	
+	public void setAdmin(String n){
+		admin = n;
+	}
+	public void setPassword(String n){
+		password = n;
+	}
 }
