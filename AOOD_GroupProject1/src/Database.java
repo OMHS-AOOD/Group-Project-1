@@ -67,7 +67,7 @@ public class Database {
 	    
 	    
 	    try {
-	    	addUser("Default", "");
+	    	//addUser("Default", "");
 	    	FileInputStream fis = new FileInputStream(f);
 		    ObjectInputStream ois = new ObjectInputStream(fis);
 		    ArrayList<User> u = (ArrayList<User>) ois.readObject();
