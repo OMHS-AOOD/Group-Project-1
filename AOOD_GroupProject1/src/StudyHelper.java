@@ -24,7 +24,7 @@ public class StudyHelper {
 		db = new Database();
 		mm = new MainMenu("Study Helper v1.0", this);
 		ps = new ProblemStorage();
-		ds = new DomainSelect("Select a domain", ps);
+		ds = new DomainSelect("Select a domain", ps, this);
 		de = new DomainEditor(ps);
 		
 		
@@ -95,4 +95,6 @@ public class StudyHelper {
 	public void selectDomain(){
 		ds.setVisible(true);
 	}
+	
+	
 }
