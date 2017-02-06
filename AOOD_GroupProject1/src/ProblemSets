@@ -64,8 +64,8 @@ Q:When was the first computer invented?
 A:1943
 T:int
 
-Q:
-A:
-T:
+Q:What is the acceleration of gravity?(In meters)
+A:9.81
+T:double
 
 ====
