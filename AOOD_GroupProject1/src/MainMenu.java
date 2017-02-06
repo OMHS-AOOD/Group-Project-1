@@ -18,18 +18,30 @@ public class MainMenu extends JFrame {
 		setVisible(true);
 		JPanel panel = new JPanel();
 		add(panel);
-		jmb.add(new JMenu("fuck"));
+		
 		this.setJMenuBar(jmb);
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		Graphics g = panel.getGraphics();
-		JButton selDom = new JButton("Select Domain");
-		JButton addUser = new JButton("Add User");
-		JButton selUser = new JButton("Select User");
-		JButton dispUser = new JButton("Display Users");
-		panel.add(addUser);
-		panel.add(selUser);
-		panel.add(dispUser);
-		panel.add(selDom);
+		JMenuItem selDom = new JMenuItem("Select Domain");
+		JMenuItem addUser = new JMenuItem("Add User");
+		JMenuItem selUser = new JMenuItem("Select User");
+		JMenuItem dispUser = new JMenuItem("Display Users");
+		
+		JMenu m1 = new JMenu("User");
+		JMenu m2 = new JMenu("Domain");
+		
+		 
+		
+		
+		jmb.add(m1);
+		jmb.add(m2);
+		
+		m1.add(addUser);
+		m1.add(selUser);
+		m1.add(dispUser);
+		
+		m2.add(selDom);
+		
 		addUser.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e)
