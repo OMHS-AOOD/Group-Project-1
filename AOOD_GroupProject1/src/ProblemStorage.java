@@ -100,4 +100,8 @@ public class ProblemStorage {
 		}
 		return -1;
 	}
+	
+	public ProblemSet getPSByIndex(int n){
+		return problems.get(n);
+	}
 }

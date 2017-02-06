@@ -96,5 +96,9 @@ public class StudyHelper {
 		ds.setVisible(true);
 	}
 	
+	public void setDomain(int i){
+		currentDomain = ps.getPSByIndex(i);
+		userDisplay2.setText("Current Problem set: " + currentDomain.getName());
+	}
 	
 }

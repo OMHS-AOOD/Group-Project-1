@@ -37,7 +37,7 @@ public class DomainSelect extends JFrame {
 		@Override
 		public void mousePressed(MouseEvent e){
 			if(e.getButton() == MouseEvent.BUTTON3){
-				int i = domainList.getSelectedIndex();
+				final int i = domainList.getSelectedIndex();
 				if(i != -1){
 					JPopupMenu jp = new JPopupMenu("FUCK OFF");
 					JMenuItem jm1 = new JMenuItem("Select Domain");
@@ -46,7 +46,7 @@ public class DomainSelect extends JFrame {
 						@Override
 						public void actionPerformed(ActionEvent e)
 						{
-							
+							sh.setDomain(i);
 						}
 					});
 					jp.show(domainPane.getViewport(), e.getX(),e.getY());
