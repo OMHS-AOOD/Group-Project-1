@@ -7,15 +7,19 @@ import javax.swing.*;
 public class MainMenu extends JFrame {
 	private StudyHelper sh;
 	private JLabel userDisplay;
+	private JMenuBar jmb;
 	public MainMenu(String name, StudyHelper s){
 		super(name);
 		sh = s;
+		jmb = new JMenuBar();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(800, 450);
 		setResizable(false);
 		setVisible(true);
 		JPanel panel = new JPanel();
 		add(panel);
+		jmb.add(new JMenu("fuck"));
+		this.setJMenuBar(jmb);
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		Graphics g = panel.getGraphics();
 		JButton selDom = new JButton("Select Domain");
