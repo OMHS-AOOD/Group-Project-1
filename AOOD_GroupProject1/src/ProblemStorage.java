@@ -29,41 +29,44 @@ public class ProblemStorage {
 			int questionIndex = -1;
 			for(int i = x; i < fileLines.size(); i++){
 				String line = fileLines.get(i);
-				String prefix = line.substring(0, 2);
-				String data = line.substring(3);
-				if(prefix.equals("DN")){
-					addProblemSet(data);
-					tempName = data;
-					questionIndex = -1;
+				if(line.length() > 3){
+					String prefix = line.substring(0, 2);
+					String data = line.substring(3);
+					if(prefix.equals("DN")){
+						addProblemSet(data);
+						tempName = data;
+						questionIndex = -1;
+					}
+					else if(prefix.equals("DC")){
+						ProblemSet ps = problems.get(getPSIndexByName(tempName));
+						ps.setAdmin(data);
+					}
+					else if(prefix.equals("PS")){
+						ProblemSet ps = problems.get(getPSIndexByName(tempName));
+						ps.setPassword(data);
+					}
+					else if(prefix.equals("QU")){
+						ProblemSet ps = problems.get(getPSIndexByName(tempName));
+						ps.addQuestion(new Question(data));
+						questionIndex++;
+					}
+					else if(prefix.equals("AN")){
+						ProblemSet ps = problems.get(getPSIndexByName(tempName));
+						Question q = ps.getQuestionByIndex(questionIndex);
+						q.setAnswer(line);
+					}
+					else if(prefix.equals("EX")){
+						ProblemSet ps = problems.get(getPSIndexByName(tempName));
+						Question q = ps.getQuestionByIndex(questionIndex);
+						q.setExtra(line);
+					}
+					else if(prefix.equals("AT")){
+						ProblemSet ps = problems.get(getPSIndexByName(tempName));
+						Question q = ps.getQuestionByIndex(questionIndex);
+						q.setType(line);
+					}
 				}
-				else if(prefix.equals("DC")){
-					ProblemSet ps = problems.get(getPSIndexByName(tempName));
-					ps.setAdmin(data);
-				}
-				else if(prefix.equals("PS")){
-					ProblemSet ps = problems.get(getPSIndexByName(tempName));
-					ps.setPassword(data);
-				}
-				else if(prefix.equals("QU")){
-					ProblemSet ps = problems.get(getPSIndexByName(tempName));
-					ps.addQuestion(new Question(data));
-					questionIndex++;
-				}
-				else if(prefix.equals("AN")){
-					ProblemSet ps = problems.get(getPSIndexByName(tempName));
-					Question q = ps.getQuestionByIndex(questionIndex);
-					q.setAnswer(line);
-				}
-				else if(prefix.equals("EX")){
-					ProblemSet ps = problems.get(getPSIndexByName(tempName));
-					Question q = ps.getQuestionByIndex(questionIndex);
-					q.setExtra(line);
-				}
-				else if(prefix.equals("AT")){
-					ProblemSet ps = problems.get(getPSIndexByName(tempName));
-					Question q = ps.getQuestionByIndex(questionIndex);
-					q.setType(line);
-				}
+				
 			}
 			
 		} catch (IOException e) {

@@ -1,15 +1,16 @@
 Problem Sets
 Format:
 
-"Domain Name"
+DN:"Domain Name"
 
 DC:"Domain Creator"
 AC:"Access" <---- list of users with editing access
-P:"Password" 
+PS:"Password" 
 
-Q:"Question Prompt"
-A:"Answer"
-T:"Answer Type"
+QU:"Question Prompt"
+AN:"Answer"
+AT:"Answer Type"
+EX:"Extra info"
 
 repeat above for each question
 
@@ -17,55 +18,61 @@ repeat above for each question
 
 START
 
-DC:Math
-AC:
-P:
+DN:Math
 
-Q:cos(pi) = ?
-A:0
-T:int
+DC:Default
+AC: 
+PS: 
 
-Q:9/6 = ?
-A:1.5
-T:Double
+QU:cos(pi) = ?
+AN:0
+AT:int
 
-Q:2 * ? = 12
-A:2
-T:int
+QU:9/6 = ?
+AN:1.5
+AT:Double
+
+QU:2 * ? = 12
+AN:2
+AT:int
 
 ====
-DC:Histoy
-AC:
-P:
+DN:History
 
-Q:Who was the first president?
-A:George Washington
-T:String
+
+DC:Default
+AC: 
+PS: 
+
+QU:Who was the first president?
+AN:George Washington
+AT:String
 	
-Q:What the Capital of Canada?
-A:ottawa
-T:String
+QU:What the Capital of Canada?
+AN:Ottawa
+AT:String
 
-Q:Who was the first black supreme court justice?
-A:Thurgood Marshall
-T:String
+QU:Who was the first black supreme court justice?
+AN:Thurgood Marshall
+AT:String
 
 ====
+DN:Science
 
-DC:Science
-AC:
-P:
+DC:Default
+AC: 
+P: 
 
-Q:What the closest planet to the sun?
-A:Mercury
-T:String
+QU:What the closest planet to the sun?
+AN:Mercury
+AT:String
 
-Q:When was the first computer invented?
-A:1943
-T:int
+QU:When was the first computer invented?
+AN:1943
+AT:int
 
-Q:What is the acceleration of gravity?(In meters)
-A:9.81
-T:double
+QU:What is the acceleration of gravity?(In meters)
+AN:9.81
+AT:double
 
 ====
