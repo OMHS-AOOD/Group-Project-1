@@ -10,7 +10,7 @@ public class QuestionWindow extends JFrame {
 	private ProblemSet currentSet;
 	private int qIndex, numRight, numWrong;
 	private JPanel panel;
-	private Question currentQuestion;
+	private Question currentQu;
 	private StudyHelper sh;
 	public QuestionWindow(StudyHelper s){
 		setSize(800, 450);
@@ -52,6 +52,13 @@ public class QuestionWindow extends JFrame {
 				sh.toggleMiniHUD();
 			}
 		});
+		submit.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				submit();
+			}
+		});
 		
 		
 	}
@@ -60,24 +67,33 @@ public class QuestionWindow extends JFrame {
 		setTitle("Quizzing on: " + ps.getName());
 		currentSet = ps;
 		setVisible(true);
+		loadQu();
 		
 		
 	}
 	
 	public void submit(){
 		String answer = entry.getText();
-		if(currentQuestion.getAns().equalsIgnoreCase(answer)){
+		if(currentQu.getAns().equalsIgnoreCase(answer)){
 			numRight++;
 		}
 		else{
 			numWrong++;
 		}
+		qIndex++;
+		if(qIndex < currentSet.getLength()){
+			loadQu();
+		}
+		else{
+			//End set
+		}
+		
 	}
 	
-	public void runSet(){
-		while(qIndex < currentSet.getLength()){
-			
-		}
+	public void loadQu(){
+		currentQu = currentSet.getQuestionByIndex(qIndex);
+		question.setText(currentQu.getPrompt());
+		extra.setText(currentQu.getExtra());
 	}
 	
 	
