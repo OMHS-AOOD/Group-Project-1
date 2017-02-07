@@ -90,8 +90,8 @@ public class QuestionWindow extends JFrame {
 			loadQu();
 		}
 		else{
-			mh.emptyRight();
-			mh.emptyLeft();
+			//mh.emptyRight();
+			//mh.emptyLeft();
 		}
 		
 	}
