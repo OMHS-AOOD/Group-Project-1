@@ -24,8 +24,7 @@ public class MainMenu extends JFrame {
 		Graphics g = panel.getGraphics();
 		JMenuItem selDom = new JMenuItem("Select Domain");
 		JMenuItem addUser = new JMenuItem("Add User");
-		JMenuItem selUser = new JMenuItem("Select User");
-		JMenuItem dispUser = new JMenuItem("Display Users");
+		JMenuItem selUser = new JMenuItem("Select Users");
 		JMenuItem delUser = new JMenuItem("Delete all Users");
 		JMenuItem startDom = new JMenuItem("Start Domain");
 		JMenuItem toggleHUD = new JMenuItem("Toggle miniHUD");
@@ -43,7 +42,6 @@ public class MainMenu extends JFrame {
 		
 		m1.add(addUser);
 		m1.add(selUser);
-		m1.add(dispUser);
 		m1.add(delUser);
 		
 		m2.add(startDom);
@@ -58,18 +56,11 @@ public class MainMenu extends JFrame {
 				sh.addNewUser();
 			}
 		});
-		dispUser.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e)
-			{
-				sh.showUsers();
-			}
-		});
 		selUser.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				sh.selectUser();
+				sh.showUsersWindow();
 			}
 		});
 		selDom.addActionListener(new ActionListener() {

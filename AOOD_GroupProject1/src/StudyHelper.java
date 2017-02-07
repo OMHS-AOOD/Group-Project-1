@@ -17,6 +17,7 @@ public class StudyHelper {
 	private QuestionWindow qw;
 	private miniHUD mh;
 	private ProblemStorage ps;
+	private UserSelect us;
 	public StudyHelper(){
 		
 		db = new Database();
@@ -26,6 +27,7 @@ public class StudyHelper {
 		de = new DomainEditor(ps);
 		mh = new miniHUD();
 		qw = new QuestionWindow(this, mh);
+		us = new UserSelect("Select a user", db, this);
 		
 		currentUser = db.getUserByIndex(0);
 		currentDomain = null;
@@ -51,22 +53,14 @@ public class StudyHelper {
 			return;
 		}
 		db.addUser(name, password);
+		us.updateList();
 	}
 	
-	public void showUsers(){
-		String output = "The current users are: \n" ;
-		for(User u: db.getUserArray()){
-			output += u.getName() + "\n";
-		}
-		JOptionPane.showMessageDialog(null, output, "User List" , JOptionPane.INFORMATION_MESSAGE);
+	public void showUsersWindow(){
+		us.setVisible(true);
 	}
-	public void selectUser(){
-		String name = JOptionPane.showInputDialog("Enter a username: ");
-		if(!db.checkForUserName(name)){
-			JOptionPane.showMessageDialog(null, "No user with that name", "User Select" , JOptionPane.INFORMATION_MESSAGE);
-			return;
-		}
-		User u = db.getUserByName(name);
+	public void selectUser(int i){
+		User u = db.getUserByIndex(i);
 		String password = JOptionPane.showInputDialog("Enter your password: ");
 		if(!password.equals(u.getPassword())){
 			JOptionPane.showMessageDialog(null, "Incorrect Password", "User Select" , JOptionPane.INFORMATION_MESSAGE);
@@ -74,6 +68,7 @@ public class StudyHelper {
 		}
 		currentUser = u;
 		mh.setUser(currentUser.getName());
+		us.setVisible(false);
 	}
 	public void selectDomain(){
 		ds.setVisible(true);
@@ -91,6 +86,7 @@ public class StudyHelper {
 			db.resetUsers();
 			currentUser = db.getUserByIndex(0);
 			mh.setUser(currentUser.getName());
+			us.updateList();
 		}
 	}
 	public void startProblems(){

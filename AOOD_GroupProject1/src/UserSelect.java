@@ -10,20 +10,23 @@ import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 
-public class DomainSelect extends JFrame {
+
+public class UserSelect extends JFrame {
 	private JScrollPane domainPane;
 	private DefaultListModel<String> dlm;
 	private JList domainList;
 	private StudyHelper sh;
-	public DomainSelect(String n, ProblemStorage ps, StudyHelper s){
+	private Database db;
+	public UserSelect(String n, Database d, StudyHelper s){
 		super(n);
 		dlm = new DefaultListModel<String>();
 		sh = s;
+		db = d;
 		setSize(300, 600);
 		setResizable(false);
 		setVisible(false);
-		for(ProblemSet p: ps.getArray()){
-			dlm.addElement(p.getName());
+		for(User u: db.getUserArray()){
+			dlm.addElement(u.getName());
 		}
 
 		domainList = new JList(dlm);
@@ -56,6 +59,10 @@ public class DomainSelect extends JFrame {
 			}
 		}
 	}
-	
-
+	public void updateList(){
+		dlm.removeAllElements();
+		for(User u: db.getUserArray()){
+			dlm.addElement(u.getName());
+		}
+	}
 }
