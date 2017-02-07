@@ -34,7 +34,7 @@ public class QuestionWindow extends JFrame {
 		panel.add(submit);
 		panel.add(entry);
 		
-		
+		entry.setColumns(50);
 		question.setLocation(200, 200);
 		extra.setLocation(200, 300);
 		submit.setLocation(350, 410);
