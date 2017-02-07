@@ -1,3 +1,6 @@
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.*;
 
 public class QuestionWindow extends JFrame {
@@ -8,26 +11,47 @@ public class QuestionWindow extends JFrame {
 	private int qIndex, numRight, numWrong;
 	private JPanel panel;
 	private Question currentQuestion;
-	public QuestionWindow(){
+	private StudyHelper sh;
+	public QuestionWindow(StudyHelper s){
 		setSize(800, 450);
 		setResizable(false);
 		setVisible(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		sh = s;
 		qIndex = 0;
+		JMenuBar jmb = new JMenuBar();
 		question = new JLabel("testing");
 		extra = new JLabel("also testing");
 		submit = new JButton("Submit Answer");
 		panel = new JPanel();
 		entry = new JTextField();
-		
+		JMenu m1 = new JMenu("Options");
+		JMenuItem toggleHUD = new JMenuItem("Toggle miniHUD");
 		this.add(panel);
 		panel.add(question);
 		panel.add(extra);
 		panel.add(submit);
 		panel.add(entry);
+		
+		
 		question.setLocation(200, 200);
 		extra.setLocation(200, 300);
 		submit.setLocation(350, 410);
+		
+		
+		this.setJMenuBar(jmb);
+		jmb.add(m1);
+		m1.add(toggleHUD);
+		
+		
+		toggleHUD.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				sh.toggleMiniHUD();
+			}
+		});
 		
 		
 	}
@@ -55,6 +79,8 @@ public class QuestionWindow extends JFrame {
 			
 		}
 	}
+	
+	
 	
 	
 }

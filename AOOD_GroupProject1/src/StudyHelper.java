@@ -24,7 +24,7 @@ public class StudyHelper {
 		ps = new ProblemStorage();
 		ds = new DomainSelect("Select a domain", ps, this);
 		de = new DomainEditor(ps);
-		qw = new QuestionWindow();
+		qw = new QuestionWindow(this);
 		mh = new miniHUD();
 		
 		currentUser = db.getUserByIndex(0);
