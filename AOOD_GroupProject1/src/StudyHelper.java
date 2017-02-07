@@ -12,13 +12,10 @@ public class StudyHelper {
 	private User currentUser;
 	private ProblemSet currentDomain;
 	private Database db;
-	private JFrame userHud;
-	private JPanel userPanel;
-	private JLabel userDisplay, userDisplay2;
 	private DomainSelect ds;
 	private DomainEditor de;
 	private QuestionWindow qw;
-
+	private miniHUD mh;
 	private ProblemStorage ps;
 	public StudyHelper(){
 		
@@ -28,29 +25,13 @@ public class StudyHelper {
 		ds = new DomainSelect("Select a domain", ps, this);
 		de = new DomainEditor(ps);
 		qw = new QuestionWindow();
-		
-		
-		userHud = new JFrame("miniHud");
-		userHud.setSize(200, 100);
-		userHud.setResizable(false);
-		userHud.setLocation(800, 0);
-		userHud.setVisible(true);
-		userPanel = new JPanel();
-		userHud.add(userPanel);
-		userDisplay = new JLabel();
-		userDisplay2 = new JLabel();
-		userPanel.add(userDisplay);
-		userPanel.add(userDisplay2);
-		userPanel.setLayout(new BoxLayout(userPanel, BoxLayout.Y_AXIS));
-		
-		
-		
+		mh = new miniHUD();
 		
 		currentUser = db.getUserByIndex(0);
 		currentDomain = null;
 		
-		userDisplay.setText("Current User: " + currentUser.getName());
-		userDisplay2.setText("Current Problem set: " + "None");
+		mh.setUser(currentUser.getName());
+		mh.setDomain("None");
 	}
 	
 	public void addNewUser(){
@@ -92,7 +73,7 @@ public class StudyHelper {
 			return;
 		}
 		currentUser = u;
-		userDisplay.setText("Current User: " + currentUser.getName());
+		mh.setUser(currentUser.getName());
 	}
 	public void selectDomain(){
 		ds.setVisible(true);
@@ -100,7 +81,7 @@ public class StudyHelper {
 	
 	public void setDomain(int i){
 		currentDomain = ps.getPSByIndex(i);
-		userDisplay2.setText("Current Problem set: " + currentDomain.getName());
+		mh.setDomain(currentDomain.getName());
 		ds.setVisible(false);
 	}
 	
@@ -109,7 +90,7 @@ public class StudyHelper {
 		if(check.equals("Y")){
 			db.resetUsers();
 			currentUser = db.getUserByIndex(0);
-			userDisplay.setText("Current User: " + currentUser.getName());
+			mh.setUser(currentUser.getName());
 		}
 	}
 	public void startProblems(){
@@ -120,6 +101,10 @@ public class StudyHelper {
 		else{
 			JOptionPane.showMessageDialog(null, "No problem set loaded", "Error" , JOptionPane.INFORMATION_MESSAGE);
 		}
+	}
+	public void toggleMiniHUD(){
+		mh.setVisible(!mh.isVisible());
+
 	}
 	
 }

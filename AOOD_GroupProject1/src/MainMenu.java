@@ -28,15 +28,18 @@ public class MainMenu extends JFrame {
 		JMenuItem dispUser = new JMenuItem("Display Users");
 		JMenuItem delUser = new JMenuItem("Delete all Users");
 		JMenuItem startDom = new JMenuItem("Start Domain");
+		JMenuItem toggleHUD = new JMenuItem("Toggle miniHUD");
 		
 		JMenu m1 = new JMenu("User");
 		JMenu m2 = new JMenu("Domain");
+		JMenu m3 = new JMenu("Windows");
 		
 		 
 		
 		
 		jmb.add(m1);
 		jmb.add(m2);
+		jmb.add(m3);
 		
 		m1.add(addUser);
 		m1.add(selUser);
@@ -45,6 +48,8 @@ public class MainMenu extends JFrame {
 		
 		m2.add(startDom);
 		m2.add(selDom);
+		
+		m3.add(toggleHUD);
 		
 		addUser.addActionListener(new ActionListener() {
 			@Override
@@ -86,6 +91,13 @@ public class MainMenu extends JFrame {
 			public void actionPerformed(ActionEvent e)
 			{
 				sh.startProblems();
+			}
+		});
+		toggleHUD.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				sh.toggleMiniHUD();
 			}
 		});
 		

@@ -6,6 +6,7 @@ public class QuestionWindow extends JFrame {
 	private JButton submit;
 	private ProblemSet currentSet;
 	private int qIndex, numRight, numWrong;
+	private JPanel panel;
 	private Question currentQuestion;
 	public QuestionWindow(){
 		setSize(800, 450);
@@ -13,9 +14,20 @@ public class QuestionWindow extends JFrame {
 		setVisible(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		qIndex = 0;
-		question = new JLabel();
-		extra = new JLabel();
+		question = new JLabel("testing");
+		extra = new JLabel("also testing");
 		submit = new JButton("Submit Answer");
+		panel = new JPanel();
+		entry = new JTextField();
+		
+		this.add(panel);
+		panel.add(question);
+		panel.add(extra);
+		panel.add(submit);
+		panel.add(entry);
+		question.setLocation(200, 200);
+		extra.setLocation(200, 300);
+		submit.setLocation(350, 410);
 		
 		
 	}
