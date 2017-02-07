@@ -17,6 +17,7 @@ public class StudyHelper {
 	private JLabel userDisplay, userDisplay2;
 	private DomainSelect ds;
 	private DomainEditor de;
+	private QuestionWindow qw;
 
 	private ProblemStorage ps;
 	public StudyHelper(){
@@ -26,6 +27,7 @@ public class StudyHelper {
 		ps = new ProblemStorage();
 		ds = new DomainSelect("Select a domain", ps, this);
 		de = new DomainEditor(ps);
+		qw = new QuestionWindow();
 		
 		
 		userHud = new JFrame("miniHud");
@@ -99,6 +101,25 @@ public class StudyHelper {
 	public void setDomain(int i){
 		currentDomain = ps.getPSByIndex(i);
 		userDisplay2.setText("Current Problem set: " + currentDomain.getName());
+		ds.setVisible(false);
+	}
+	
+	public void deleteUsers(){
+		String check = JOptionPane.showInputDialog("Are you sure?(Y/N)").toUpperCase();
+		if(check.equals("Y")){
+			db.resetUsers();
+			currentUser = db.getUserByIndex(0);
+			userDisplay.setText("Current User: " + currentUser.getName());
+		}
+	}
+	public void startProblems(){
+		if(currentDomain != null){
+			mm.setVisible(false);
+			qw.loadWindow(currentDomain);
+		}
+		else{
+			JOptionPane.showMessageDialog(null, "No problem set loaded", "Error" , JOptionPane.INFORMATION_MESSAGE);
+		}
 	}
 	
 }

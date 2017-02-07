@@ -30,4 +30,7 @@ public class ProblemSet {
 	public void setPassword(String n){
 		password = n;
 	}
+	public int getLength(){
+		return questions.size();
+	}
 }

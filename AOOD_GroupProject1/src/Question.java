@@ -26,4 +26,14 @@ public class Question {
 	public void setType(String n){
 		type = n;
 	}
+	
+	public String getAns(){
+		return answer;
+	}
+	public String getPrompt(){
+		return prompt;
+	}
+	public String getExtra(){
+		return extra;
+	}
 }

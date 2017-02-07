@@ -26,6 +26,8 @@ public class MainMenu extends JFrame {
 		JMenuItem addUser = new JMenuItem("Add User");
 		JMenuItem selUser = new JMenuItem("Select User");
 		JMenuItem dispUser = new JMenuItem("Display Users");
+		JMenuItem delUser = new JMenuItem("Delete all Users");
+		JMenuItem startDom = new JMenuItem("Start Domain");
 		
 		JMenu m1 = new JMenu("User");
 		JMenu m2 = new JMenu("Domain");
@@ -39,7 +41,9 @@ public class MainMenu extends JFrame {
 		m1.add(addUser);
 		m1.add(selUser);
 		m1.add(dispUser);
+		m1.add(delUser);
 		
+		m2.add(startDom);
 		m2.add(selDom);
 		
 		addUser.addActionListener(new ActionListener() {
@@ -70,6 +74,22 @@ public class MainMenu extends JFrame {
 				sh.selectDomain();
 			}
 		});
+		delUser.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				sh.deleteUsers();
+			}
+		});
+		startDom.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				sh.startProblems();
+			}
+		});
+		
+		
 	}
 	
 

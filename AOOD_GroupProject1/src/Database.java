@@ -67,7 +67,7 @@ public class Database {
 	    
 	    
 	    try {
-	    	//addUser("Default", "");
+	    	
 	    	FileInputStream fis = new FileInputStream(f);
 		    ObjectInputStream ois = new ObjectInputStream(fis);
 		    ArrayList<User> u = (ArrayList<User>) ois.readObject();
@@ -118,5 +118,11 @@ public class Database {
 			}
 		}
 		return -1;
+	}
+	
+	public void resetUsers(){
+		
+		users = new ArrayList<User>();
+		addUser("Default", "");
 	}
 }
