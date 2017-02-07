@@ -68,6 +68,8 @@ public class QuestionWindow extends JFrame {
 		setTitle("Quizzing on: " + ps.getName());
 		currentSet = ps;
 		setVisible(true);
+		mh.setRight(0);
+		mh.setWrong(0);
 		loadQu();
 		
 		
