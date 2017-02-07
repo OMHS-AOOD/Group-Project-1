@@ -28,7 +28,7 @@ public class ProblemStorage {
 			String tempName = "";
 			int questionIndex = -1;
 			for(int i = x; i < fileLines.size(); i++){
-				String line = fileLines.get(i);
+				String line = fileLines.get(i).trim();
 				if(line.length() > 3){
 					String prefix = line.substring(0, 2);
 					String data = line.substring(3);
@@ -53,17 +53,17 @@ public class ProblemStorage {
 					else if(prefix.equals("AN")){
 						ProblemSet ps = problems.get(getPSIndexByName(tempName));
 						Question q = ps.getQuestionByIndex(questionIndex);
-						q.setAnswer(line);
+						q.setAnswer(data);
 					}
 					else if(prefix.equals("EX")){
 						ProblemSet ps = problems.get(getPSIndexByName(tempName));
 						Question q = ps.getQuestionByIndex(questionIndex);
-						q.setExtra(line);
+						q.setExtra(data);
 					}
 					else if(prefix.equals("AT")){
 						ProblemSet ps = problems.get(getPSIndexByName(tempName));
 						Question q = ps.getQuestionByIndex(questionIndex);
-						q.setType(line);
+						q.setType(data);
 					}
 				}
 				

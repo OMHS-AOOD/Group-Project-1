@@ -76,7 +76,7 @@ public class QuestionWindow extends JFrame {
 	}
 	
 	public void submit(){
-		String answer = entry.getText();
+		String answer = entry.getText().trim();
 		if(currentQu.getAns().equalsIgnoreCase(answer)){
 			numRight++;
 			mh.setRight(numRight);

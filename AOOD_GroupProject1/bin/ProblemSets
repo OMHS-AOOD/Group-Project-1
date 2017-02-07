@@ -25,7 +25,7 @@ AC:
 PS: 
 
 QU:cos(pi) = ?
-AN:0
+AN:-1
 AT:int
 
 QU:9/6 = ?
@@ -33,7 +33,7 @@ AN:1.5
 AT:Double
 
 QU:2 * ? = 12
-AN:2
+AN:6
 AT:int
 
 ====
