@@ -12,12 +12,13 @@ public class QuestionWindow extends JFrame {
 	private JPanel panel;
 	private Question currentQu;
 	private StudyHelper sh;
-	public QuestionWindow(StudyHelper s){
+	private miniHUD mh;
+	public QuestionWindow(StudyHelper s, miniHUD m){
 		setSize(800, 450);
 		setResizable(false);
 		setVisible(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+		mh = m;
 		sh = s;
 		qIndex = 0;
 		JMenuBar jmb = new JMenuBar();
@@ -76,16 +77,19 @@ public class QuestionWindow extends JFrame {
 		String answer = entry.getText();
 		if(currentQu.getAns().equalsIgnoreCase(answer)){
 			numRight++;
+			mh.setRight(numRight);
 		}
 		else{
 			numWrong++;
+			mh.setWrong(numWrong);
 		}
 		qIndex++;
 		if(qIndex < currentSet.getLength()){
 			loadQu();
 		}
 		else{
-			//End set
+			mh.emptyRight();
+			mh.emptyLeft();
 		}
 		
 	}

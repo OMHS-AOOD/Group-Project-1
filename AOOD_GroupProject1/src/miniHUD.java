@@ -37,9 +37,16 @@ public class miniHUD extends JFrame{
 	}
 	
 	public void setRight(int c){
-		userDisplay2.setText("# of Correct Answers: " + c);
+		quDisplay.setText("# of Correct Answers: " + c);
 	}
 	public void setWrong(int w){
-		userDisplay2.setText("Current Problem set: " + dom);
+		quDisplay2.setText("# of Incorrect Answers: " + w);
 	}
+	public void emptyRight(){
+		quDisplay.setText("");
+	}
+	public void emptyLeft(){
+		quDisplay2.setText("");
+	}
+	
 }
