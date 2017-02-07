@@ -30,7 +30,6 @@ public class DomainSelect extends JFrame {
 		domainPane = new JScrollPane(domainList, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		add(domainPane);
 		domainList.addMouseListener(new CoolAdapter());
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
 	private class CoolAdapter extends MouseAdapter{
