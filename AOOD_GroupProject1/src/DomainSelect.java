@@ -39,13 +39,13 @@ public class DomainSelect extends JFrame {
 				final int i = domainList.getSelectedIndex();
 				if(i != -1){
 					JPopupMenu jp = new JPopupMenu();
-					JMenuItem jm1 = new JMenuItem("Select User");
+					JMenuItem jm1 = new JMenuItem("Select Domain");
 					jp.add(jm1);
 					jm1.addActionListener(new ActionListener() {
 						@Override
 						public void actionPerformed(ActionEvent e)
 						{
-							sh.selectUser(i);
+							sh.setDomain(i);
 						}
 					});
 					jp.show(domainPane.getViewport(), e.getX(),e.getY());
@@ -53,6 +53,15 @@ public class DomainSelect extends JFrame {
 				
 				
 			}
+		}
+		public void mouseClicked(MouseEvent e)
+		{
+		  if (e.getClickCount() == 2 && e.getButton() == MouseEvent.BUTTON1) {
+			  final int i = domainList.getSelectedIndex();
+			  if(i != -1){
+				  sh.setDomain(i);
+			  }
+		  }
 		}
 	}
 	

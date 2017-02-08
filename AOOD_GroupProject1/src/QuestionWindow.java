@@ -5,7 +5,7 @@ import javax.swing.*;
 
 public class QuestionWindow extends JFrame {
 	private JTextField entry;
-	private JLabel question, extra;
+	private JLabel question, extra, ansLab;
 	private JButton submit;
 	private ProblemSet currentSet;
 	private int qIndex, numRight, numWrong;
@@ -25,6 +25,7 @@ public class QuestionWindow extends JFrame {
 		question = new JLabel("testing");
 		extra = new JLabel("also testing");
 		submit = new JButton("Submit Answer");
+		ansLab = new JLabel("");
 		panel = new JPanel();
 		entry = new JTextField();
 		JMenu m1 = new JMenu("Options");
@@ -34,6 +35,8 @@ public class QuestionWindow extends JFrame {
 		panel.add(extra);
 		panel.add(submit);
 		panel.add(entry);
+		panel.add(ansLab);
+	
 		
 		entry.setColumns(50);
 		question.setLocation(200, 200);
@@ -77,21 +80,31 @@ public class QuestionWindow extends JFrame {
 	
 	public void submit(){
 		String answer = entry.getText().trim();
+		entry.setText("");
+		
 		if(currentQu.getAns().equalsIgnoreCase(answer)){
 			numRight++;
 			mh.setRight(numRight);
+			ansLab.setText("Correct!");
 		}
 		else{
 			numWrong++;
 			mh.setWrong(numWrong);
+			ansLab.setText("The correct answer was: " + currentQu.getAns() + ".");
 		}
 		qIndex++;
 		if(qIndex < currentSet.getLength()){
 			loadQu();
 		}
 		else{
-			//mh.emptyRight();
-			//mh.emptyLeft();
+			mh.emptyRight();
+			mh.emptyLeft();
+			JOptionPane.showMessageDialog(null, "You got " + numRight + " correct and " + numWrong + " incorrect.", "Results" , JOptionPane.INFORMATION_MESSAGE);
+			currentQu= null;
+			question.setText("");
+			extra.setText("");
+			qIndex = 0;
+			sh.reload();
 		}
 		
 	}

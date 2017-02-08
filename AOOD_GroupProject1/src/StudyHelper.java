@@ -61,8 +61,14 @@ public class StudyHelper {
 	}
 	public void selectUser(int i){
 		User u = db.getUserByIndex(i);
+		if(i == 0){
+			currentUser = u;
+			mh.setUser(currentUser.getName());
+			us.setVisible(false);
+			return;
+		}
 		String password = JOptionPane.showInputDialog("Enter your password: ");
-		if(!password.equals(u.getPassword())){
+		if(password == null || !password.equals(u.getPassword())){
 			JOptionPane.showMessageDialog(null, "Incorrect Password", "User Select" , JOptionPane.INFORMATION_MESSAGE);
 			return;
 		}
@@ -82,6 +88,9 @@ public class StudyHelper {
 	
 	public void deleteUsers(){
 		String check = JOptionPane.showInputDialog("Are you sure?(Y/N)").toUpperCase();
+		if(check == null){
+			return;
+		}
 		if(check.equals("Y")){
 			db.resetUsers();
 			currentUser = db.getUserByIndex(0);
@@ -100,6 +109,11 @@ public class StudyHelper {
 	}
 	public void toggleMiniHUD(){
 		mh.setVisible(!mh.isVisible());
+
+	}
+	public void reload(){
+		qw.setVisible(false);
+		mm.setVisible(true);
 
 	}
 	

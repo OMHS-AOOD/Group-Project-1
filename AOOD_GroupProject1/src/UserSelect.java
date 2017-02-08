@@ -12,9 +12,9 @@ import javax.swing.JScrollPane;
 
 
 public class UserSelect extends JFrame {
-	private JScrollPane domainPane;
+	private JScrollPane userPane;
 	private DefaultListModel<String> dlm;
-	private JList domainList;
+	private JList userList;
 	private StudyHelper sh;
 	private Database db;
 	public UserSelect(String n, Database d, StudyHelper s){
@@ -29,17 +29,17 @@ public class UserSelect extends JFrame {
 			dlm.addElement(u.getName());
 		}
 
-		domainList = new JList(dlm);
-		domainPane = new JScrollPane(domainList, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		add(domainPane);
-		domainList.addMouseListener(new CoolAdapter());
+		userList = new JList(dlm);
+		userPane = new JScrollPane(userList, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		add(userPane);
+		userList.addMouseListener(new CoolAdapter());
 	}
 	
 	private class CoolAdapter extends MouseAdapter{
 		@Override
 		public void mousePressed(MouseEvent e){
 			if(e.getButton() == MouseEvent.BUTTON3){
-				final int i = domainList.getSelectedIndex();
+				final int i = userList.getSelectedIndex();
 				if(i != -1){
 					JPopupMenu jp = new JPopupMenu();
 					JMenuItem jm1 = new JMenuItem("Select User");
@@ -51,11 +51,20 @@ public class UserSelect extends JFrame {
 							sh.selectUser(i);
 						}
 					});
-					jp.show(domainPane.getViewport(), e.getX(),e.getY());
+					jp.show(userPane.getViewport(), e.getX(),e.getY());
 				}
 				
 				
 			}
+		}
+		public void mouseClicked(MouseEvent e)
+		{
+		  if (e.getClickCount() == 2 && e.getButton() == MouseEvent.BUTTON1) {
+			  final int i = userList.getSelectedIndex();
+			  if(i != -1){
+				  sh.selectUser(i);
+			  }
+		  }
 		}
 	}
 	public void updateList(){
