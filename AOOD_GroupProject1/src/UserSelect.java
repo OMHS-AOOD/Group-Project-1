@@ -43,12 +43,27 @@ public class UserSelect extends JFrame {
 				if(i != -1){
 					JPopupMenu jp = new JPopupMenu();
 					JMenuItem jm1 = new JMenuItem("Select User");
+					JMenuItem jm2 = new JMenuItem("Delete User");
+					JMenuItem jm3 = new JMenuItem("Edit Password");
 					jp.add(jm1);
+					jp.add(jm2);
+					jp.add(jm3);
 					jm1.addActionListener(new ActionListener() {
 						@Override
 						public void actionPerformed(ActionEvent e)
 						{
 							sh.selectUser(i);
+						}
+					});
+					jm2.addActionListener(new ActionListener() {
+						@Override
+						public void actionPerformed(ActionEvent e)
+						{
+							sh.deleteUser(i);
+							dlm.removeAllElements();
+							for(User u: db.getUserArray()){
+								dlm.addElement(u.getName());
+							}
 						}
 					});
 					jp.show(userPane.getViewport(), e.getX(),e.getY());

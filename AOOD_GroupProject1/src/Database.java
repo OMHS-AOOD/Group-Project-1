@@ -18,9 +18,14 @@ import javax.imageio.IIOException;
 import javax.swing.JOptionPane;
 
 public class Database {
+	private URL location;
+	private File f;
 	private ArrayList<User> users;
 	
 	public Database(){
+		location = StudyHelper.class.getProtectionDomain().getCodeSource().getLocation();
+		f = new File(location.getPath().substring(0,  location.getPath().length()-4) + "src/Users");
+		
 		users = new ArrayList<User>();
 		getUsersFromFile();
 	}
@@ -35,8 +40,6 @@ public class Database {
 	}
 	public void addUser(String n, String p){
 		if(!checkForUserName(n)){
-			URL location = StudyHelper.class.getProtectionDomain().getCodeSource().getLocation();
-			File f = new File(location.getPath().substring(0,  location.getPath().length()-4) + "src/Users");
 
 		    try {
 		    	
@@ -62,8 +65,7 @@ public class Database {
 		//Fill later
 	}
 	public void getUsersFromFile(){
-		URL location = StudyHelper.class.getProtectionDomain().getCodeSource().getLocation();
-		File f = new File(location.getPath().substring(0,  location.getPath().length()-4) + "src/Users");
+
 	    
 	    
 	    try {
@@ -121,8 +123,29 @@ public class Database {
 	}
 	
 	public void resetUsers(){
+		try {
+			users = new ArrayList<User>();
+			addUser("Default", "");
+	    	FileOutputStream fos = new FileOutputStream(f);
+		    ObjectOutputStream oos = new ObjectOutputStream(fos);
+		    oos.writeObject(users);
+			oos.close();
+		} catch (IOException e) {
+			JOptionPane.showMessageDialog(null, "Error when writing to users file", "Error" , JOptionPane.INFORMATION_MESSAGE);
+		}
+	}
+	public void deleteUser(int i) {
+		try {
+			users.remove(i);
+	    	FileOutputStream fos = new FileOutputStream(f);
+		    ObjectOutputStream oos = new ObjectOutputStream(fos);
+		    oos.writeObject(users);
+			oos.close();
+		} catch (IOException e) {
+			JOptionPane.showMessageDialog(null, "Error when writing to users file", "Error" , JOptionPane.INFORMATION_MESSAGE);
+		}
+
 		
-		users = new ArrayList<User>();
-		addUser("Default", "");
+		
 	}
 }

@@ -15,10 +15,12 @@ public class DomainSelect extends JFrame {
 	private DefaultListModel<String> dlm;
 	private JList domainList;
 	private StudyHelper sh;
-	public DomainSelect(String n, ProblemStorage ps, StudyHelper s){
+	private ProblemStorage ps;
+	public DomainSelect(String n, ProblemStorage prob, StudyHelper s){
 		super(n);
 		dlm = new DefaultListModel<String>();
 		sh = s;
+		ps = prob;
 		setSize(300, 600);
 		setResizable(false);
 		setVisible(false);
@@ -40,12 +42,28 @@ public class DomainSelect extends JFrame {
 				if(i != -1){
 					JPopupMenu jp = new JPopupMenu();
 					JMenuItem jm1 = new JMenuItem("Select Domain");
+					JMenuItem jm2 = new JMenuItem("Edit Domain");
+					JMenuItem jm3 = new JMenuItem("Delete Domain");
 					jp.add(jm1);
+					jp.add(jm2);
+					jp.add(jm3);
 					jm1.addActionListener(new ActionListener() {
 						@Override
 						public void actionPerformed(ActionEvent e)
 						{
 							sh.setDomain(i);
+						}
+					});
+					jm3.addActionListener(new ActionListener() {
+						@Override
+						public void actionPerformed(ActionEvent e)
+						{
+							sh.deleteDomain(i);
+							dlm.removeAllElements();
+							for(ProblemSet p: ps.getArray()){
+								dlm.addElement(p.getName());
+							}
+							
 						}
 					});
 					jp.show(domainPane.getViewport(), e.getX(),e.getY());
@@ -60,6 +78,7 @@ public class DomainSelect extends JFrame {
 			  final int i = domainList.getSelectedIndex();
 			  if(i != -1){
 				  sh.setDomain(i);
+				  sh.startProblems();
 			  }
 		  }
 		}

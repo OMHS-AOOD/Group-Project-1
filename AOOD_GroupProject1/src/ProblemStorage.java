@@ -104,4 +104,8 @@ public class ProblemStorage {
 	public ProblemSet getPSByIndex(int n){
 		return problems.get(n);
 	}
+	
+	public void removeDomain(int i){
+		problems.remove(i);
+	}
 }

@@ -117,4 +117,30 @@ public class StudyHelper {
 
 	}
 	
+	public void deleteDomain(int i){
+		String check = JOptionPane.showInputDialog("Are you sure?(Y/N)").toUpperCase();
+		if(check == null){
+			return;
+		}
+		if(check.equals("Y")){
+			ps.removeDomain(i);
+			currentDomain = null;
+			mh.setDomain("None");
+		}
+	}
+	public void deleteUser(int i){
+		if(i == 0){
+			JOptionPane.showMessageDialog(null, "Can't delete default user", "Error" , JOptionPane.INFORMATION_MESSAGE);
+			return;
+		}
+		String check = JOptionPane.showInputDialog("Are you sure? Please enter your password.");
+		if(check == null){
+			return;
+		}
+		if(check.equals(db.getUserByIndex(i).getPassword())){
+			db.deleteUser(i);
+			currentUser = db.getUserByIndex(0);
+			mh.setUser(currentUser.getName());
+		}
+	}
 }
