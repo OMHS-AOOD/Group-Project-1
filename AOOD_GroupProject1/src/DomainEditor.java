@@ -1,3 +1,6 @@
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.*;
 
 public class DomainEditor extends JFrame {
@@ -16,7 +19,7 @@ public class DomainEditor extends JFrame {
 		promptEntry = new JTextField();
 		extraEntry = new JTextField();
 		answerEntry = new JTextField();
-		nameSubmit = new JButton();
+		nameSubmit = new JButton("Enter");
 		promptSubmit = new JButton("Enter");
 		extraSubmit = new JButton("Enter");
 		answerSubmit = new JButton("Enter");
@@ -25,7 +28,59 @@ public class DomainEditor extends JFrame {
 		
 		this.add(panel);
 		
+		panel.add(nameEntry);
+		panel.add(promptEntry);
+		panel.add(extraEntry);
+		panel.add(answerEntry);
+		panel.add(nameSubmit);
+		panel.add(promptSubmit);
+		panel.add(extraSubmit);
+		panel.add(answerSubmit);
+		panel.add(newQu);
+		panel.add(deleteQu);
 		
+		nameSubmit.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				
+			}
+		});
+		promptSubmit.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				
+			}
+		});
+		extraSubmit.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				
+			}
+		});
+		answerSubmit.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				
+			}
+		});
+		newQu.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				
+			}
+		});
+		deleteQu.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				
+			}
+		});
 	}
 	
 	public void loadWindow(ProblemSet ps){
