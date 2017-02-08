@@ -21,7 +21,7 @@ public class DomainSelect extends JFrame {
 		dlm = new DefaultListModel<String>();
 		sh = s;
 		ps = prob;
-		setSize(300, 600);
+		setSize(300, 250);
 		setResizable(false);
 		setVisible(false);
 		for(ProblemSet p: ps.getArray()){

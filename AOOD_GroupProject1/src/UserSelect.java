@@ -22,7 +22,7 @@ public class UserSelect extends JFrame {
 		dlm = new DefaultListModel<String>();
 		sh = s;
 		db = d;
-		setSize(300, 600);
+		setSize(300, 250);
 		setResizable(false);
 		setVisible(false);
 		for(User u: db.getUserArray()){

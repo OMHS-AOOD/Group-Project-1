@@ -24,7 +24,7 @@ public class StudyHelper {
 		mm = new MainMenu("Study Helper v1.0", this);
 		ps = new ProblemStorage();
 		ds = new DomainSelect("Select a domain", ps, this);
-		de = new DomainEditor(ps);
+		de = new DomainEditor();
 		mh = new miniHUD();
 		qw = new QuestionWindow(this, mh);
 		us = new UserSelect("Select a user", db, this);
@@ -101,6 +101,9 @@ public class StudyHelper {
 	public void startProblems(){
 		if(currentDomain != null){
 			mm.setVisible(false);
+			us.setVisible(false);
+			ds.setVisible(false);
+			mh.setVisible(false);
 			qw.loadWindow(currentDomain);
 		}
 		else{
@@ -142,5 +145,18 @@ public class StudyHelper {
 			currentUser = db.getUserByIndex(0);
 			mh.setUser(currentUser.getName());
 		}
+	}
+	public void startEditor(){
+		if(currentDomain != null){
+			mm.setVisible(false);
+			us.setVisible(false);
+			ds.setVisible(false);
+			mh.setVisible(false);
+			de.loadWindow(currentDomain);
+		}
+		else{
+			JOptionPane.showMessageDialog(null, "No problem set loaded", "Error" , JOptionPane.INFORMATION_MESSAGE);
+		}
+		
 	}
 }
