@@ -1,3 +1,4 @@
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -30,18 +31,22 @@ public class QuestionWindow extends JFrame {
 		entry = new JTextField();
 		JMenu m1 = new JMenu("Options");
 		JMenuItem toggleHUD = new JMenuItem("Toggle miniHUD");
+		panel.setLayout(null);
+		entry.setColumns(50);
+		entry.setBounds(75, 300, 650, 25);
+		question.setBounds(75, 25, 1000, 50);
+		extra.setBounds(75, 50, 1000, 50);
+		submit.setBounds(300, 350, 200, 40);
+		ansLab.setBounds(300, 310, 1000, 40);
 		this.add(panel);
 		panel.add(question);
 		panel.add(extra);
 		panel.add(submit);
 		panel.add(entry);
 		panel.add(ansLab);
-	
 		
-		entry.setColumns(50);
-		question.setLocation(200, 200);
-		extra.setLocation(200, 300);
-		submit.setLocation(350, 410);
+		
+		
 		
 		
 		this.setJMenuBar(jmb);
