@@ -54,6 +54,14 @@ public class DomainSelect extends JFrame {
 							sh.setDomain(i);
 						}
 					});
+					jm2.addActionListener(new ActionListener() {
+						@Override
+						public void actionPerformed(ActionEvent e)
+						{
+							sh.setDomain(i);
+							sh.startEditor();
+						}
+					});
 					jm3.addActionListener(new ActionListener() {
 						@Override
 						public void actionPerformed(ActionEvent e)
