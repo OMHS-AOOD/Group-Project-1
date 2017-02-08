@@ -29,15 +29,25 @@ public class DomainEditor extends JFrame {
 		this.add(panel);
 		
 		panel.add(nameEntry);
+		nameEntry.setBounds(x, y, width, height);
 		panel.add(promptEntry);
+		promptEntry.setBounds(x, y, width, height);
 		panel.add(extraEntry);
+		extraEntry.setBounds(x, y, width, height);
 		panel.add(answerEntry);
+		answerEntry.setBounds(x, y, width, height);
 		panel.add(nameSubmit);
+		nameSubmit.setBounds(x, y, width, height);
 		panel.add(promptSubmit);
+		promptSubmit.setBounds(x, y, width, height);
 		panel.add(extraSubmit);
+		extraSubmit.setBounds(x, y, width, height);
 		panel.add(answerSubmit);
+		answerSubmit.setBounds(x, y, width, height);
 		panel.add(newQu);
+		newQu.setBounds(x, y, width, height);
 		panel.add(deleteQu);
+		deleteQu.setBounds(x, y, width, height);
 		
 		nameSubmit.addActionListener(new ActionListener() {
 			@Override
