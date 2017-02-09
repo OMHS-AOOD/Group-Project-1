@@ -108,4 +108,8 @@ public class ProblemStorage {
 	public void removeDomain(int i){
 		problems.remove(i);
 	}
+	
+	public void updateFile(){
+		
+	}
 }
