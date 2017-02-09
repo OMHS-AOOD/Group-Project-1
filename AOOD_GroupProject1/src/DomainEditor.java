@@ -51,13 +51,17 @@ public class DomainEditor extends JFrame {
 		panel.add(answerSubmit);
 		answerSubmit.setBounds(75, 270, 200, 40);
 		panel.add(newQu);
-		//newQu.setBounds(x, y, width, height);
+		newQu.setBounds(x, y, width, height);
 		panel.add(deleteQu);
-		//deleteQu.setBounds(x, y, width, height);
+		deleteQu.setBounds(x, y, width, height);
 		panel.add(nameLabel);
+		nameLabel.setBounds(x, y, width, height);
 		panel.add(promptLabel);
+		promptLabel.setBounds(x, y, width, height);
 		panel.add(extraLabel);
+		extraLabel.setBounds(x, y, width, height);
 		panel.add(answerLabel);
+		answerLabel.setBounds(x, y, width, height);
 		
 		nameSubmit.addActionListener(new ActionListener() {
 			@Override
