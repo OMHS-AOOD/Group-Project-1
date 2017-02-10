@@ -11,7 +11,7 @@ public class DomainEditor extends JFrame {
 	private JTextField nameEntry, promptEntry, extraEntry, answerEntry;
 	private JButton nameSubmit, promptSubmit, extraSubmit, answerSubmit, newQu, deleteQu; 
 	public DomainEditor(){
-		setSize(800, 450);
+		setSize(900, 450);
 		setResizable(false);
 		setVisible(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
@@ -33,35 +33,35 @@ public class DomainEditor extends JFrame {
 		deleteQu = new JButton("Delete Question");
 		
 		this.add(panel);
-		//panel.setLayout(null);
+		panel.setLayout(null);
 		panel.add(nameEntry);
-		nameEntry.setBounds(75, 50, 650, 25);
+		nameEntry.setBounds(10, 50, 650, 25);
 		panel.add(promptEntry);
-		promptEntry.setBounds(75, 115, 650, 25);
+		promptEntry.setBounds(10, 100, 650, 25);
 		panel.add(extraEntry);
-		extraEntry.setBounds(75, 180, 650, 25);
+		extraEntry.setBounds(10, 150, 650, 25);
 		panel.add(answerEntry);
-		answerEntry.setBounds(75, 245, 650, 25);
+		answerEntry.setBounds(10, 200, 650, 25);
 		panel.add(nameSubmit);
-		nameSubmit.setBounds(75, 75, 200, 40);
+		nameSubmit.setBounds(675, 45, 150, 30);
 		panel.add(promptSubmit);
-		promptSubmit.setBounds(75, 140, 200, 40);
+		promptSubmit.setBounds(675, 95, 150, 30);
 		panel.add(extraSubmit);
-		extraSubmit.setBounds(75, 205, 200, 40);
+		extraSubmit.setBounds(675, 145, 150, 30);
 		panel.add(answerSubmit);
-		answerSubmit.setBounds(75, 270, 200, 40);
-		panel.add(newQu);
-		newQu.setBounds(x, y, width, height);
-		panel.add(deleteQu);
-		deleteQu.setBounds(x, y, width, height);
+		answerSubmit.setBounds(675, 195, 150, 30);
+		//panel.add(newQu);
+		//newQu.setBounds(x, y, width, 25);
+		//panel.add(deleteQu);
+		//deleteQu.setBounds(x, y, width, 25);
 		panel.add(nameLabel);
-		nameLabel.setBounds(x, y, width, height);
+		nameLabel.setBounds(10, 25, 650, 25);
 		panel.add(promptLabel);
-		promptLabel.setBounds(x, y, width, height);
+		promptLabel.setBounds(10, 75, 650, 25);
 		panel.add(extraLabel);
-		extraLabel.setBounds(x, y, width, height);
+		extraLabel.setBounds(10, 125, 650, 25);
 		panel.add(answerLabel);
-		answerLabel.setBounds(x, y, width, height);
+		answerLabel.setBounds(10, 175, 650, 25);
 		
 		nameSubmit.addActionListener(new ActionListener() {
 			@Override
