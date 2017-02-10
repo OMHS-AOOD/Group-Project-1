@@ -28,6 +28,7 @@ public class MainMenu extends JFrame {
 		JMenuItem delUser = new JMenuItem("Delete all Users");
 		JMenuItem startDom = new JMenuItem("Start Domain");
 		JMenuItem editDom = new JMenuItem("Edit Domain");
+		JMenuItem newDom = new JMenuItem("New Domain");
 		JMenuItem toggleHUD = new JMenuItem("Toggle miniHUD");
 		
 		JMenu m1 = new JMenu("User");
@@ -48,6 +49,7 @@ public class MainMenu extends JFrame {
 		m2.add(startDom);
 		m2.add(selDom);
 		m2.add(editDom);
+		m2.add(newDom);
 		
 		m3.add(toggleHUD);
 		
@@ -98,6 +100,13 @@ public class MainMenu extends JFrame {
 			public void actionPerformed(ActionEvent e)
 			{
 				sh.startEditor();
+			}
+		});
+		newDom.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				sh.newDomain();
 			}
 		});
 		

@@ -79,8 +79,18 @@ public class ProblemStorage {
 		return problems;
 	}
 	
+	public void addProblemSet(String n, String u){
+		if(checkForDomainName(n)){
+			JOptionPane.showMessageDialog(null, "Problems set with that name already exists", "Error" , JOptionPane.INFORMATION_MESSAGE);
+		}
+		else{
+			problems.add(new ProblemSet(n));
+			problems.get(problems.size() - 1).setAdmin(u);
+		}
+	}
+	
 	public void addProblemSet(String n){
-		if(getPSIndexByName(n) != -1){
+		if(checkForDomainName(n)){
 			JOptionPane.showMessageDialog(null, "Problems set with that name already exists", "Error" , JOptionPane.INFORMATION_MESSAGE);
 		}
 		else{
@@ -111,5 +121,13 @@ public class ProblemStorage {
 	
 	public void updateFile(){
 		
+	}
+	public boolean checkForDomainName(String name){
+		for(ProblemSet p: problems){
+			if(p.getName().equals(name)){
+				return true;
+			}
+		}
+		return false;
 	}
 }

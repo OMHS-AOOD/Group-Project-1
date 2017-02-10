@@ -168,6 +168,17 @@ public class StudyHelper {
 		}
 		
 	}
+	
+	public void newDomain(){
+		String name = JOptionPane.showInputDialog("Enter a domain name: ");
+		if(name == null){
+			JOptionPane.showMessageDialog(null, "No name entered", "Error" , JOptionPane.INFORMATION_MESSAGE);
+			return;
+		}
+		ps.addProblemSet(name, currentUser.getName());
+		de.updateWindow();
+		
+	}
 
 	
 }
