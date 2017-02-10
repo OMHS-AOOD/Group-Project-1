@@ -73,6 +73,7 @@ public class QuestionWindow extends JFrame {
 	}
 	
 	public void loadWindow(ProblemSet ps){
+		setLocation(0, 0);
 		setTitle("Quizzing on: " + ps.getName());
 		currentSet = ps;
 		setVisible(true);

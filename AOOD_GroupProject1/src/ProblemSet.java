@@ -36,4 +36,8 @@ public class ProblemSet {
 	public int getLength(){
 		return questions.size();
 	}
+	
+	public void deleteQuestion(int i){
+		questions.remove(i);
+	}
 }

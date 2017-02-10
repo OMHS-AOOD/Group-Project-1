@@ -24,7 +24,7 @@ public class StudyHelper {
 		mm = new MainMenu("Study Helper v1.0", this);
 		ps = new ProblemStorage();
 		ds = new DomainSelect("Select a domain", ps, this);
-		de = new DomainEditor(ps);
+		de = new DomainEditor(ps, this);
 		mh = new miniHUD();
 		qw = new QuestionWindow(this, mh);
 		us = new UserSelect("Select a user", db, this);
@@ -57,6 +57,7 @@ public class StudyHelper {
 	}
 	
 	public void showUsersWindow(){
+		us.setLocation(0, 0);
 		us.setVisible(true);
 	}
 	public void selectUser(int i){
@@ -77,6 +78,7 @@ public class StudyHelper {
 		us.setVisible(false);
 	}
 	public void selectDomain(){
+		ds.setLocation(0, 0);
 		ds.setVisible(true);
 	}
 	
@@ -116,8 +118,13 @@ public class StudyHelper {
 
 	}
 	public void reload(){
-		qw.setVisible(false);
 		mm.setVisible(true);
+		us.setVisible(false);
+		ds.setVisible(false);
+		mh.setVisible(false);
+		de.setVisible(false);
+		qw.setVisible(false);
+		mm.setLocation(0, 0);
 
 	}
 	

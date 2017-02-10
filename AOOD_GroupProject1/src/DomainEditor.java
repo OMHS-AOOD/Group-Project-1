@@ -5,19 +5,21 @@ import javax.swing.*;
 
 public class DomainEditor extends JFrame {
 	private ProblemSet currentSet;
+	private StudyHelper sh;
 	private Question currentQu;
 	private ProblemStorage ps;
 	private JPanel panel;
 	private JLabel nameLabel, promptLabel, extraLabel, answerLabel;
 	private JTextField nameEntry, promptEntry, extraEntry, answerEntry;
-	private JButton nameSubmit, promptSubmit, extraSubmit, answerSubmit, newQu, deleteQu, nextQu, lastQu; 
+	private JButton nameSubmit, promptSubmit, extraSubmit, answerSubmit, newQu, deleteQu, nextQu, lastQu, finish; 
 	private int qIndex;
-	public DomainEditor(ProblemStorage p){
-		setSize(900, 450);
+	public DomainEditor(ProblemStorage p, StudyHelper s){
+		setSize(900, 350);
 		setResizable(false);
 		setVisible(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
 		
+		sh =s;
 		ps = p;
 		qIndex = 0;
 		
@@ -38,6 +40,7 @@ public class DomainEditor extends JFrame {
 		deleteQu = new JButton("Delete Question");
 		nextQu = new JButton(">>");
 		lastQu = new JButton("<<");
+		finish = new JButton("Close Editor");
 		
 		this.add(panel);
 		panel.setLayout(null);
@@ -73,7 +76,8 @@ public class DomainEditor extends JFrame {
 		nextQu.setBounds(170, 230, 150, 30);
 		panel.add(lastQu);
 		lastQu.setBounds(10, 230, 150, 30);
-		
+		panel.add(finish);
+		finish.setBounds(725, 280, 150, 30);
 		
 		nameSubmit.addActionListener(new ActionListener() {
 			@Override
@@ -114,21 +118,35 @@ public class DomainEditor extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				
+				String check = JOptionPane.showInputDialog("Are you sure?(Y/N)");
+				if(check == null){
+					return;
+				}
+				check = check.toUpperCase();
+				if(check.equals("Y")){
+					deleteQu();
+				}
 			}
 		});
 		nextQu.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				
+				nextQuestion();
 			}
 		});
 		lastQu.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				
+				lastQuestion();
+			}
+		});
+		finish.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				closeEditor();
 			}
 		});
 	}
@@ -146,6 +164,7 @@ public class DomainEditor extends JFrame {
 		answerLabel.setText("Current Answer: " + currentQu.getAns());
 	}
 	public void loadWindow(ProblemSet ps){
+		setLocation(0, 0);
 		currentSet = ps;
 		currentQu = currentSet.getQuestionByIndex(qIndex);
 		setTitle("Editing: " + currentSet.getName());
@@ -201,6 +220,17 @@ public class DomainEditor extends JFrame {
 		}
 		currentQu = currentSet.getQuestionByIndex(qIndex);
 		updateWindow();
+	}
+	public void deleteQu(){
+		currentSet.deleteQuestion(qIndex);
+		qIndex = 0;
+		currentQu = currentSet.getQuestionByIndex(qIndex);
+		updateWindow();
+	}
+	public void closeEditor(){
+		currentSet = null;
+		currentQu = null;
+		sh.reload();
 	}
 
 }
