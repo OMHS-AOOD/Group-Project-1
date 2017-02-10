@@ -37,7 +37,7 @@ public class QuestionWindow extends JFrame {
 		question.setBounds(75, 25, 1000, 50);
 		extra.setBounds(75, 50, 1000, 50);
 		submit.setBounds(300, 350, 200, 40);
-		ansLab.setBounds(300, 310, 1000, 40);
+		ansLab.setBounds(75, 310, 1000, 40);
 		this.add(panel);
 		panel.add(question);
 		panel.add(extra);

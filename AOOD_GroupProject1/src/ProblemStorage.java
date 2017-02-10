@@ -16,12 +16,11 @@ import javax.swing.JOptionPane;
 
 public class ProblemStorage {
 	private ArrayList<ProblemSet> problems;
-	private File f,f2;
+	private File f;
 	private URL location;
 	public ProblemStorage(){
 		problems = new ArrayList<ProblemSet>();
 		location = StudyHelper.class.getProtectionDomain().getCodeSource().getLocation();
-		f2 = new File(location.getPath().substring(0,  location.getPath().length()-4) + "src/ProblemSets");
 		f = new File(location.getPath().substring(0,  location.getPath().length()-4) + "src/Problems");
 		getProblemsFromFile();
 		updateFile();
@@ -88,7 +87,7 @@ public class ProblemStorage {
 	
 	public void updateFile(){
 		try {
-	    	FileOutputStream fos = new FileOutputStream(f2);
+	    	FileOutputStream fos = new FileOutputStream(f);
 		    ObjectOutputStream oos = new ObjectOutputStream(fos);
 		    oos.writeObject(problems);
 			oos.close();
