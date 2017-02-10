@@ -1,5 +1,8 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 
 import javax.swing.*;
 
@@ -154,6 +157,7 @@ public class DomainEditor extends JFrame {
 	
 	public void updateWindow(){
 		nameLabel.setText("Set Name: " + currentSet.getName());
+		setTitle("Editing: " + currentSet.getName());
 		promptLabel.setText("Current Question: " + currentQu.getPrompt());
 		if(currentQu.getExtra() == null){
 			extraLabel.setText("Current Extra Info: None");
@@ -241,6 +245,21 @@ public class DomainEditor extends JFrame {
 		currentSet = null;
 		currentQu = null;
 		sh.reload();
+	}
+	/*
+	public void exportProblemSet(){
+		try {
+	    	FileOutputStream fos = new FileOutputStream(f);
+		    ObjectOutputStream oos = new ObjectOutputStream(fos);
+		    oos.writeObject(problems);
+			oos.close();
+		} catch (IOException e) {
+			JOptionPane.showMessageDialog(null, "Error when writing to problems file", "Error" , JOptionPane.INFORMATION_MESSAGE);
+		}
+	}
+	*/
+	public void importProblemSet(){
+		
 	}
 
 }
