@@ -87,10 +87,11 @@ public class StudyHelper {
 	}
 	
 	public void deleteUsers(){
-		String check = JOptionPane.showInputDialog("Are you sure?(Y/N)").toUpperCase();
+		String check = JOptionPane.showInputDialog("Are you sure?(Y/N)");
 		if(check == null){
 			return;
 		}
+		check = check.toUpperCase();
 		if(check.equals("Y")){
 			db.resetUsers();
 			currentUser = db.getUserByIndex(0);
@@ -121,10 +122,11 @@ public class StudyHelper {
 	}
 	
 	public void deleteDomain(int i){
-		String check = JOptionPane.showInputDialog("Are you sure?(Y/N)").toUpperCase();
+		String check = JOptionPane.showInputDialog("Are you sure?(Y/N)");	
 		if(check == null){
 			return;
 		}
+		check = check.toUpperCase();
 		if(check.equals("Y")){
 			ps.removeDomain(i);
 			currentDomain = null;
