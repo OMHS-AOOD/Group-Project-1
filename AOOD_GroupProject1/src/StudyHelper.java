@@ -24,7 +24,7 @@ public class StudyHelper {
 		mm = new MainMenu("Study Helper v1.0", this);
 		ps = new ProblemStorage();
 		ds = new DomainSelect("Select a domain", ps, this);
-		de = new DomainEditor();
+		de = new DomainEditor(ps);
 		mh = new miniHUD();
 		qw = new QuestionWindow(this, mh);
 		us = new UserSelect("Select a user", db, this);

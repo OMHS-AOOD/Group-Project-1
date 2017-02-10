@@ -6,15 +6,20 @@ import javax.swing.*;
 public class DomainEditor extends JFrame {
 	private ProblemSet currentSet;
 	private Question currentQu;
+	private ProblemStorage ps;
 	private JPanel panel;
 	private JLabel nameLabel, promptLabel, extraLabel, answerLabel;
 	private JTextField nameEntry, promptEntry, extraEntry, answerEntry;
-	private JButton nameSubmit, promptSubmit, extraSubmit, answerSubmit, newQu, deleteQu; 
-	public DomainEditor(){
+	private JButton nameSubmit, promptSubmit, extraSubmit, answerSubmit, newQu, deleteQu, nextQu, lastQu; 
+	private int qIndex;
+	public DomainEditor(ProblemStorage p){
 		setSize(900, 450);
 		setResizable(false);
 		setVisible(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
+		
+		ps = p;
+		qIndex = 0;
 		
 		nameLabel = new JLabel();
 		promptLabel = new JLabel();
@@ -31,6 +36,8 @@ public class DomainEditor extends JFrame {
 		answerSubmit = new JButton("Change Answer");
 		newQu = new JButton("New Question");
 		deleteQu = new JButton("Delete Question");
+		nextQu = new JButton(">>");
+		lastQu = new JButton("<<");
 		
 		this.add(panel);
 		panel.setLayout(null);
@@ -51,9 +58,9 @@ public class DomainEditor extends JFrame {
 		panel.add(answerSubmit);
 		answerSubmit.setBounds(675, 180, 150, 30);
 		panel.add(newQu);
-		newQu.setBounds(10, 250, 150, 30);
+		newQu.setBounds(10, 280, 150, 30);
 		panel.add(deleteQu);
-		deleteQu.setBounds(170, 250, 150, 30);
+		deleteQu.setBounds(170, 280, 150, 30);
 		panel.add(nameLabel);
 		nameLabel.setBounds(10, 10, 650, 25);
 		panel.add(promptLabel);
@@ -62,6 +69,11 @@ public class DomainEditor extends JFrame {
 		extraLabel.setBounds(10, 110, 650, 25);
 		panel.add(answerLabel);
 		answerLabel.setBounds(10, 160, 650, 25);
+		panel.add(nextQu);
+		nextQu.setBounds(170, 230, 150, 30);
+		panel.add(lastQu);
+		lastQu.setBounds(10, 230, 150, 30);
+		
 		
 		nameSubmit.addActionListener(new ActionListener() {
 			@Override
@@ -95,10 +107,24 @@ public class DomainEditor extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				
+				createNewQuestion();
 			}
 		});
 		deleteQu.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				
+			}
+		});
+		nextQu.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				
+			}
+		});
+		lastQu.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
@@ -117,12 +143,11 @@ public class DomainEditor extends JFrame {
 		else{
 			extraLabel.setText("Current Extra Info: " + currentQu.getExtra());
 		}
-		
 		answerLabel.setText("Current Answer: " + currentQu.getAns());
 	}
 	public void loadWindow(ProblemSet ps){
 		currentSet = ps;
-		currentQu = currentSet.getQuestionByIndex(0);
+		currentQu = currentSet.getQuestionByIndex(qIndex);
 		setTitle("Editing: " + currentSet.getName());
 		setVisible(true);
 		nameLabel.setText("Set Name: " + ps.getName());
@@ -158,6 +183,23 @@ public class DomainEditor extends JFrame {
 	public void createNewQuestion(){
 		currentSet.addQuestion();
 		currentQu = currentSet.getQuestionByIndex(currentSet.getLength()-1);
+		updateWindow();
+	}
+	
+	public void nextQuestion(){
+		qIndex++;
+		if(qIndex == currentSet.getLength()){
+			qIndex = 0;
+		}
+		currentQu = currentSet.getQuestionByIndex(qIndex);
+		updateWindow();
+	}
+	public void lastQuestion(){
+		qIndex--;
+		if(qIndex < 0){
+			qIndex = currentSet.getLength()-1;
+		}
+		currentQu = currentSet.getQuestionByIndex(qIndex);
 		updateWindow();
 	}
 
