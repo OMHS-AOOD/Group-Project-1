@@ -71,7 +71,8 @@ QU:When was the first computer invented?
 AN:1943
 AT:int
 
-QU:What is the acceleration of gravity?(In meters)
+QU:What is the acceleration of gravity?
+EX:(Answer in meters, round to 2 decimal places)
 AN:9.81
 AT:double
 
