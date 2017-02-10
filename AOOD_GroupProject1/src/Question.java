@@ -1,5 +1,6 @@
+import java.io.Serializable;
 
-public class Question {
+public class Question implements Serializable {
 	private String prompt, answer, extra, type;
 	public Question(String p, String a, String e){
 		prompt = p;

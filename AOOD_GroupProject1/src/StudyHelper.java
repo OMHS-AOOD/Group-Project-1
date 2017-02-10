@@ -126,7 +126,11 @@ public class StudyHelper {
 		mh.setVisible(false);
 		de.setVisible(false);
 		qw.setVisible(false);
+		ds.updateList();
+		us.updateList();
 		mm.setLocation(0, 0);
+		mh.setLocation(800, 0);
+		mh.setVisible(true);
 
 	}
 	

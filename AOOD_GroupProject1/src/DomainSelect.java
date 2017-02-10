@@ -92,5 +92,10 @@ public class DomainSelect extends JFrame {
 		}
 	}
 	
-
+	public void updateList(){
+		dlm.removeAllElements();
+		for(ProblemSet p: ps.getArray()){
+			dlm.addElement(p.getName());
+		}
+	}
 }

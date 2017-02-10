@@ -180,6 +180,7 @@ public class DomainEditor extends JFrame {
 			currentSet.setName(nameEntry.getText().trim());
 			nameEntry.setText("");
 			ps.updateFile();
+			updateWindow();
 		}
 	}
 	public void submitPrompt(){
@@ -187,6 +188,7 @@ public class DomainEditor extends JFrame {
 			currentQu.setPrompt(promptEntry.getText().trim());
 			promptEntry.setText("");
 			ps.updateFile();
+			updateWindow();
 		}
 	}
 	public void submitExtra(){
@@ -194,6 +196,7 @@ public class DomainEditor extends JFrame {
 			currentQu.setExtra(extraEntry.getText().trim());
 			extraEntry.setText("");
 			ps.updateFile();
+			updateWindow();
 		}
 	}
 	public void submitAnswer(){
@@ -201,6 +204,7 @@ public class DomainEditor extends JFrame {
 			currentQu.setAnswer(answerEntry.getText().trim());
 			answerEntry.setText("");
 			ps.updateFile();
+			updateWindow();
 		}
 	}
 	public void createNewQuestion(){

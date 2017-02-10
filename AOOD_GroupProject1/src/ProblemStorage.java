@@ -1,9 +1,11 @@
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.URL;
 import java.util.ArrayList;
@@ -19,68 +21,26 @@ public class ProblemStorage {
 	public ProblemStorage(){
 		problems = new ArrayList<ProblemSet>();
 		location = StudyHelper.class.getProtectionDomain().getCodeSource().getLocation();
-		f = new File(location.getPath().substring(0,  location.getPath().length()-4) + "src/ProblemSets");
-		f2 = new File(location.getPath().substring(0,  location.getPath().length()-4) + "src/Problem");
+		f2 = new File(location.getPath().substring(0,  location.getPath().length()-4) + "src/ProblemSets");
+		f = new File(location.getPath().substring(0,  location.getPath().length()-4) + "src/Problems");
 		getProblemsFromFile();
 		updateFile();
 	}
+	
 	public void getProblemsFromFile(){
-		
 		try {
-			List<String> fileLines = Files.readAllLines(f.toPath(), Charset.defaultCharset());
-			int x = 0;
-			while(!fileLines.get(x).equals("START")){
-				x++;
-			}
-			String tempName = "";
-			int questionIndex = -1;
-			for(int i = x; i < fileLines.size(); i++){
-				String line = fileLines.get(i).trim();
-				if(line.length() > 3){
-					String prefix = line.substring(0, 2);
-					String data = line.substring(3);
-					if(prefix.equals("DN")){
-						addProblemSet(data);
-						tempName = data;
-						questionIndex = -1;
-					}
-					else if(prefix.equals("DC")){
-						ProblemSet ps = problems.get(getPSIndexByName(tempName));
-						ps.setAdmin(data);
-					}
-					else if(prefix.equals("PS")){
-						ProblemSet ps = problems.get(getPSIndexByName(tempName));
-						ps.setPassword(data);
-					}
-					else if(prefix.equals("QU")){
-						ProblemSet ps = problems.get(getPSIndexByName(tempName));
-						ps.addQuestion(new Question(data));
-						questionIndex++;
-					}
-					else if(prefix.equals("AN")){
-						ProblemSet ps = problems.get(getPSIndexByName(tempName));
-						Question q = ps.getQuestionByIndex(questionIndex);
-						q.setAnswer(data);
-					}
-					else if(prefix.equals("EX")){
-						ProblemSet ps = problems.get(getPSIndexByName(tempName));
-						Question q = ps.getQuestionByIndex(questionIndex);
-						q.setExtra(data);
-					}
-					else if(prefix.equals("AT")){
-						ProblemSet ps = problems.get(getPSIndexByName(tempName));
-						Question q = ps.getQuestionByIndex(questionIndex);
-						q.setType(data);
-					}
-				}
-				
-			}
-			
-		} catch (IOException e) {
-			JOptionPane.showMessageDialog(null, "Problems set file not found", "Error" , JOptionPane.INFORMATION_MESSAGE);
-		} 
-		
+	    	
+	    	FileInputStream fis = new FileInputStream(f);
+		    ObjectInputStream ois = new ObjectInputStream(fis);
+		    ArrayList<ProblemSet> p = (ArrayList<ProblemSet>) ois.readObject();
+	        problems = p;
+		}
+	    catch (ClassNotFoundException | IOException e) {
+			JOptionPane.showMessageDialog(null, "Error when trying to read problems file", "Error" , JOptionPane.INFORMATION_MESSAGE);
+		}
 	}
+	
+	
 	
 	public ArrayList<ProblemSet> getArray(){
 		return problems;

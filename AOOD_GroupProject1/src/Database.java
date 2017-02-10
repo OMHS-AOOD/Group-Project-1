@@ -21,131 +21,129 @@ public class Database {
 	private URL location;
 	private File f;
 	private ArrayList<User> users;
-	
-	public Database(){
+
+	public Database() {
 		location = StudyHelper.class.getProtectionDomain().getCodeSource().getLocation();
-		f = new File(location.getPath().substring(0,  location.getPath().length()-4) + "src/Users");
-		
+		f = new File(location.getPath().substring(0, location.getPath().length() - 4) + "src/Users");
+
 		users = new ArrayList<User>();
 		getUsersFromFile();
 	}
-	public void addUser(String n){
-		if(!checkForUserName(n)){
-			users.add(new User(n));
-		}
-		else{
-			JOptionPane.showMessageDialog(null, "User already exists", "Error" , JOptionPane.INFORMATION_MESSAGE);
-		}
-		
-	}
-	public void addUser(String n, String p){
-		if(!checkForUserName(n)){
 
-		    try {
-		    	
-		    	FileOutputStream fos = new FileOutputStream(f);
-		    	
-			    ObjectOutputStream oos = new ObjectOutputStream(fos);
-			    
-			    User u = new User(n, p);
+	public void addUser(String n) {
+		if (!checkForUserName(n)) {
+			users.add(new User(n));
+		} else {
+			JOptionPane.showMessageDialog(null, "User already exists", "Error", JOptionPane.INFORMATION_MESSAGE);
+		}
+
+	}
+
+	public void addUser(String n, String p) {
+		if (!checkForUserName(n)) {
+
+			try {
+
+				FileOutputStream fos = new FileOutputStream(f);
+
+				ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+				User u = new User(n, p);
 				users.add(u);
-			    oos.writeObject(users);
+				oos.writeObject(users);
 				oos.close();
 			} catch (IOException e) {
-				JOptionPane.showMessageDialog(null, "Error when writing to users file", "Error" , JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Error when writing to users file", "Error",
+						JOptionPane.INFORMATION_MESSAGE);
 			}
 
+		} else {
+			JOptionPane.showMessageDialog(null, "User already exists", "Error", JOptionPane.INFORMATION_MESSAGE);
 		}
-		else{
-			JOptionPane.showMessageDialog(null, "User already exists", "Error" , JOptionPane.INFORMATION_MESSAGE);
-		}
-		
-	}
-	public void remove(User u){
-		//Fill later
-	}
-	public void getUsersFromFile(){
 
-	    
-	    
-	    try {
-	    	
-	    	FileInputStream fis = new FileInputStream(f);
-		    ObjectInputStream ois = new ObjectInputStream(fis);
-		    ArrayList<User> u = (ArrayList<User>) ois.readObject();
-	        users = u;
-
-			
-		}
-	    catch (ClassNotFoundException | IOException e) {
-			JOptionPane.showMessageDialog(null, "Error when trying to read users file", "Error" , JOptionPane.INFORMATION_MESSAGE);
-			e.printStackTrace(System.out);
-		}
-	    
-
-	    
-		
-		
-		
 	}
-	
-	public User getUserByIndex(int i){
+
+	public void remove(User u) {
+		// Fill later
+	}
+
+	public void getUsersFromFile() {
+
+		try {
+
+			FileInputStream fis = new FileInputStream(f);
+			ObjectInputStream ois = new ObjectInputStream(fis);
+			ArrayList<User> u = (ArrayList<User>) ois.readObject();
+			users = u;
+
+		} catch (ClassNotFoundException | IOException e) {
+			JOptionPane.showMessageDialog(null, "Error when trying to read users file", "Error",
+					JOptionPane.INFORMATION_MESSAGE);
+		}
+
+	}
+
+	public User getUserByIndex(int i) {
 		return users.get(i);
 	}
-	public boolean checkForUserName(String name){
-		for(User u: users){
-			if(u.getName().equals(name)){
+
+	public boolean checkForUserName(String name) {
+		for (User u : users) {
+			if (u.getName().equals(name)) {
 				return true;
 			}
 		}
 		return false;
 	}
-	public ArrayList<User> getUserArray(){
+
+	public ArrayList<User> getUserArray() {
 		return users;
 	}
-	
-	public User getUserByName(String n){
-		for(User u: users){
-			if(u.getName().equals(n)){
+
+	public User getUserByName(String n) {
+		for (User u : users) {
+			if (u.getName().equals(n)) {
 				return u;
 			}
 		}
 		return new User("Error", "");
 	}
-	public int getUserIndexByName(String n){
-		for(int i = 0; i < users.size(); i++){
+
+	public int getUserIndexByName(String n) {
+		for (int i = 0; i < users.size(); i++) {
 			User u = users.get(i);
-			if(u.getName().equals(n)){
+			if (u.getName().equals(n)) {
 				return i;
 			}
 		}
 		return -1;
 	}
-	
-	public void resetUsers(){
+
+	public void resetUsers() {
 		try {
 			users = new ArrayList<User>();
 			addUser("Default", "");
-	    	FileOutputStream fos = new FileOutputStream(f);
-		    ObjectOutputStream oos = new ObjectOutputStream(fos);
-		    oos.writeObject(users);
+			FileOutputStream fos = new FileOutputStream(f);
+			ObjectOutputStream oos = new ObjectOutputStream(fos);
+			oos.writeObject(users);
 			oos.close();
 		} catch (IOException e) {
-			JOptionPane.showMessageDialog(null, "Error when writing to users file", "Error" , JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Error when writing to users file", "Error",
+					JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
+
 	public void deleteUser(int i) {
 		try {
 			users.remove(i);
-	    	FileOutputStream fos = new FileOutputStream(f);
-		    ObjectOutputStream oos = new ObjectOutputStream(fos);
-		    oos.writeObject(users);
+			FileOutputStream fos = new FileOutputStream(f);
+			ObjectOutputStream oos = new ObjectOutputStream(fos);
+			oos.writeObject(users);
 			oos.close();
 		} catch (IOException e) {
-			JOptionPane.showMessageDialog(null, "Error when writing to users file", "Error" , JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Error when writing to users file", "Error",
+					JOptionPane.INFORMATION_MESSAGE);
 		}
 
-		
-		
 	}
 }

@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class ProblemSet {
+public class ProblemSet implements Serializable {
 	private String name, admin, password;
 	private ArrayList<Question> questions;
 	public ProblemSet(String n){
