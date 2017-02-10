@@ -22,6 +22,7 @@ public class ProblemStorage {
 		f = new File(location.getPath().substring(0,  location.getPath().length()-4) + "src/ProblemSets");
 		f2 = new File(location.getPath().substring(0,  location.getPath().length()-4) + "src/Problem");
 		getProblemsFromFile();
+		updateFile();
 	}
 	public void getProblemsFromFile(){
 		
@@ -127,7 +128,7 @@ public class ProblemStorage {
 	
 	public void updateFile(){
 		try {
-	    	FileOutputStream fos = new FileOutputStream(f);
+	    	FileOutputStream fos = new FileOutputStream(f2);
 		    ObjectOutputStream oos = new ObjectOutputStream(fos);
 		    oos.writeObject(problems);
 			oos.close();
