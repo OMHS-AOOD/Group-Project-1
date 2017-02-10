@@ -38,14 +38,16 @@ public class StudyHelper {
 	
 	public void addNewUser(){
 		String name = JOptionPane.showInputDialog("Enter a username: ");
-		if(db.checkForUserName(name)){
-			JOptionPane.showMessageDialog(null, "Username already taken", "New User" , JOptionPane.INFORMATION_MESSAGE);
-			return;
-		}
 		if(name == null){
 			JOptionPane.showMessageDialog(null, "No name entered", "User Select" , JOptionPane.INFORMATION_MESSAGE);
 			return;
 		}
+		name = name.trim();
+		if(db.checkForUserName(name)){
+			JOptionPane.showMessageDialog(null, "Username already taken", "New User" , JOptionPane.INFORMATION_MESSAGE);
+			return;
+		}
+		
 		String password = JOptionPane.showInputDialog("Enter a password: ");
 		String passCheck = JOptionPane.showInputDialog("Re-enter the password: ");
 		if(!password.equals(passCheck)){
@@ -175,6 +177,7 @@ public class StudyHelper {
 			JOptionPane.showMessageDialog(null, "No name entered", "Error" , JOptionPane.INFORMATION_MESSAGE);
 			return;
 		}
+		name = name.trim();
 		ps.addProblemSet(name, currentUser.getName());
 		de.updateWindow();
 		
