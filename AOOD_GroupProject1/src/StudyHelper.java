@@ -129,6 +129,8 @@ public class StudyHelper {
 		ds.updateList();
 		us.updateList();
 		mm.setLocation(0, 0);
+		mh.setUser(currentUser.getName());
+		mh.setDomain(currentDomain.getName());
 		mh.setLocation(800, 0);
 		mh.setVisible(true);
 
