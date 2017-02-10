@@ -1,13 +1,5 @@
+/bin/
 /UserSelect.class
-/UserSelect$CoolAdapter$1.class
-/UserSelect$CoolAdapter.class
-/DomainSelect$CoolAdapter$1.class
-/DomainSelect$CoolAdapter$2.class
-/UserSelect$CoolAdapter$2.class
-/QuestionWindow$1.class
-/QuestionWindow$2.class
-/MainMenu$7.class
-/DomainSelect$CoolAdapter$3.class
 /DomainEditor$1.class
 /DomainEditor$2.class
 /DomainEditor$3.class
@@ -17,5 +9,11 @@
 /DomainEditor$7.class
 /DomainEditor$8.class
 /DomainEditor$9.class
+/DomainSelect$CoolAdapter$2.class
+/DomainSelect$CoolAdapter$3.class
+/MainMenu$7.class
 /MainMenu$8.class
 /PasswordGetter.class
+/UserSelect$CoolAdapter$1.class
+/UserSelect$CoolAdapter$2.class
+/UserSelect$CoolAdapter.class
