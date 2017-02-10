@@ -179,30 +179,35 @@ public class DomainEditor extends JFrame {
 		if(nameEntry.getText() != null){
 			currentSet.setName(nameEntry.getText().trim());
 			nameEntry.setText("");
+			ps.updateFile();
 		}
 	}
 	public void submitPrompt(){
 		if(promptEntry.getText() != null){
 			currentQu.setPrompt(promptEntry.getText().trim());
 			promptEntry.setText("");
+			ps.updateFile();
 		}
 	}
 	public void submitExtra(){
 		if(extraEntry.getText() != null){
 			currentQu.setExtra(extraEntry.getText().trim());
 			extraEntry.setText("");
+			ps.updateFile();
 		}
 	}
 	public void submitAnswer(){
 		if(answerEntry.getText() != null){
 			currentQu.setAnswer(answerEntry.getText().trim());
 			answerEntry.setText("");
+			ps.updateFile();
 		}
 	}
 	public void createNewQuestion(){
 		currentSet.addQuestion();
 		currentQu = currentSet.getQuestionByIndex(currentSet.getLength()-1);
 		updateWindow();
+		ps.updateFile();
 	}
 	
 	public void nextQuestion(){
@@ -225,6 +230,7 @@ public class DomainEditor extends JFrame {
 		currentSet.deleteQuestion(qIndex);
 		qIndex = 0;
 		currentQu = currentSet.getQuestionByIndex(qIndex);
+		ps.updateFile();
 		updateWindow();
 	}
 	public void closeEditor(){

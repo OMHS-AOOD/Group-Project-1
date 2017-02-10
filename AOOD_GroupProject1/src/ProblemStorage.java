@@ -1,8 +1,10 @@
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,13 +14,17 @@ import javax.swing.JOptionPane;
 
 public class ProblemStorage {
 	private ArrayList<ProblemSet> problems;
+	private File f,f2;
+	private URL location;
 	public ProblemStorage(){
 		problems = new ArrayList<ProblemSet>();
+		location = StudyHelper.class.getProtectionDomain().getCodeSource().getLocation();
+		f = new File(location.getPath().substring(0,  location.getPath().length()-4) + "src/ProblemSets");
+		f2 = new File(location.getPath().substring(0,  location.getPath().length()-4) + "src/Problem");
 		getProblemsFromFile();
 	}
 	public void getProblemsFromFile(){
-		URL location = StudyHelper.class.getProtectionDomain().getCodeSource().getLocation();
-		File f = new File(location.getPath().substring(0,  location.getPath().length()-4) + "src/ProblemSets");
+		
 		try {
 			List<String> fileLines = Files.readAllLines(f.toPath(), Charset.defaultCharset());
 			int x = 0;
@@ -86,6 +92,7 @@ public class ProblemStorage {
 		else{
 			problems.add(new ProblemSet(n));
 			problems.get(problems.size() - 1).setAdmin(u);
+			updateFile();
 		}
 	}
 	
@@ -95,12 +102,10 @@ public class ProblemStorage {
 		}
 		else{
 			problems.add(new ProblemSet(n));
+			updateFile();
 		}
 	}
 	
-	public void createProblemSet(String n){
-		problems.add(new ProblemSet(n));
-	}
 	
 	public int getPSIndexByName(String n){
 		for(int i = 0; i < problems.size(); i++){
@@ -117,10 +122,18 @@ public class ProblemStorage {
 	
 	public void removeDomain(int i){
 		problems.remove(i);
+		updateFile();
 	}
 	
 	public void updateFile(){
-		
+		try {
+	    	FileOutputStream fos = new FileOutputStream(f);
+		    ObjectOutputStream oos = new ObjectOutputStream(fos);
+		    oos.writeObject(problems);
+			oos.close();
+		} catch (IOException e) {
+			JOptionPane.showMessageDialog(null, "Error when writing to problems file", "Error" , JOptionPane.INFORMATION_MESSAGE);
+		}
 	}
 	public boolean checkForDomainName(String name){
 		for(ProblemSet p: problems){
