@@ -1,17 +1,15 @@
-import java.io.BufferedReader;
+
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+
 import java.io.FileOutputStream;
-import java.io.FileReader;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
+
 import javax.swing.JOptionPane;
 
 public class ProblemStorage {
@@ -33,6 +31,7 @@ public class ProblemStorage {
 		    ObjectInputStream ois = new ObjectInputStream(fis);
 		    ArrayList<ProblemSet> p = (ArrayList<ProblemSet>) ois.readObject();
 	        problems = p;
+	        ois.close();
 		}
 	    catch (ClassNotFoundException | IOException e) {
 			JOptionPane.showMessageDialog(null, "Error when trying to read problems file", "Error" , JOptionPane.INFORMATION_MESSAGE);

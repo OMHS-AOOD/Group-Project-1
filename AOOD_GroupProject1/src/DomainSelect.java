@@ -11,9 +11,13 @@ import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 
 public class DomainSelect extends JFrame {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1737478697057004436L;
 	private JScrollPane domainPane;
 	private DefaultListModel<String> dlm;
-	private JList domainList;
+	private JList<String> domainList;
 	private StudyHelper sh;
 	private ProblemStorage ps;
 	public DomainSelect(String n, ProblemStorage prob, StudyHelper s){
@@ -28,7 +32,7 @@ public class DomainSelect extends JFrame {
 			dlm.addElement(p.getName());
 		}
 
-		domainList = new JList(dlm);
+		domainList = new JList<String>(dlm);
 		domainPane = new JScrollPane(domainList, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		add(domainPane);
 		domainList.addMouseListener(new CoolAdapter());

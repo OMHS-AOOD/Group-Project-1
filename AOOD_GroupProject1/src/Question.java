@@ -1,6 +1,10 @@
 import java.io.Serializable;
 
 public class Question implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2748485916265420653L;
 	private String prompt, answer, extra, type;
 	public Question(String p, String a, String e){
 		prompt = p;

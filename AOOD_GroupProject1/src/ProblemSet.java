@@ -2,6 +2,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class ProblemSet implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8755540553842138073L;
 	private String name, admin, password;
 	private ArrayList<Question> questions;
 	public ProblemSet(String n){

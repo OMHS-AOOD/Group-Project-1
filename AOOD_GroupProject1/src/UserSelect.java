@@ -12,9 +12,13 @@ import javax.swing.JScrollPane;
 
 
 public class UserSelect extends JFrame {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4036552631328610643L;
 	private JScrollPane userPane;
 	private DefaultListModel<String> dlm;
-	private JList userList;
+	private JList<String> userList;
 	private StudyHelper sh;
 	private Database db;
 	public UserSelect(String n, Database d, StudyHelper s){
@@ -29,7 +33,7 @@ public class UserSelect extends JFrame {
 			dlm.addElement(u.getName());
 		}
 
-		userList = new JList(dlm);
+		userList = new JList<String>(dlm);
 		userPane = new JScrollPane(userList, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		add(userPane);
 		userList.addMouseListener(new CoolAdapter());

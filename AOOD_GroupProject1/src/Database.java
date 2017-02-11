@@ -1,20 +1,18 @@
-import java.io.BufferedReader;
-import java.io.EOFException;
+
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+
 import java.io.FileOutputStream;
-import java.io.FileReader;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.URL;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.List;
 
-import javax.imageio.IIOException;
+import java.util.ArrayList;
+
+
+
 import javax.swing.JOptionPane;
 
 public class Database {
@@ -75,6 +73,7 @@ public class Database {
 			ObjectInputStream ois = new ObjectInputStream(fis);
 			ArrayList<User> u = (ArrayList<User>) ois.readObject();
 			users = u;
+			ois.close();
 
 		} catch (ClassNotFoundException | IOException e) {
 			JOptionPane.showMessageDialog(null, "Error when trying to read users file", "Error",

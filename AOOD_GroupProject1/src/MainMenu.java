@@ -1,12 +1,14 @@
-import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
 public class MainMenu extends JFrame {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2129276826899147774L;
 	private StudyHelper sh;
-	private JLabel userDisplay;
 	private JMenuBar jmb;
 	public MainMenu(String name, StudyHelper s){
 		super(name);
@@ -21,7 +23,6 @@ public class MainMenu extends JFrame {
 		
 		this.setJMenuBar(jmb);
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-		Graphics g = panel.getGraphics();
 		JMenuItem selDom = new JMenuItem("Select Domain");
 		JMenuItem addUser = new JMenuItem("Add User");
 		JMenuItem selUser = new JMenuItem("Select Users");

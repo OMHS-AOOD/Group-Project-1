@@ -4,6 +4,10 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 
 public class PasswordGetter extends JFrame {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2115000111510828044L;
 	private JPanel panel;
 	private JPasswordField passField;
 	private JLabel prompt;

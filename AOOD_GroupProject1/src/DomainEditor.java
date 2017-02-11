@@ -1,12 +1,14 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+
 
 import javax.swing.*;
 
 public class DomainEditor extends JFrame {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2267435614024328026L;
 	private ProblemSet currentSet;
 	private StudyHelper sh;
 	private Question currentQu;

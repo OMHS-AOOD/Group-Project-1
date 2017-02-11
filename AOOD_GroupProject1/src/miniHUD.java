@@ -1,10 +1,14 @@
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JMenuBar;
+
 import javax.swing.JPanel;
 
 public class miniHUD extends JFrame{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6325884092961918654L;
 	private JPanel userPanel;
 	private JLabel userDisplay, userDisplay2, quDisplay, quDisplay2;
 	public miniHUD(){

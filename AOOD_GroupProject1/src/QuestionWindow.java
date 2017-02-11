@@ -1,10 +1,13 @@
-import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
 public class QuestionWindow extends JFrame {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 38476236516135752L;
 	private JTextField entry;
 	private JLabel question, extra, ansLab;
 	private JButton submit;
