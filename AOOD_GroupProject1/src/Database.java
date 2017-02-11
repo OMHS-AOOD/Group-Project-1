@@ -78,6 +78,7 @@ public class Database {
 		} catch (ClassNotFoundException | IOException e) {
 			JOptionPane.showMessageDialog(null, "Error when trying to read users file", "Error",
 					JOptionPane.INFORMATION_MESSAGE);
+			this.addUser("Default");
 		}
 
 	}
