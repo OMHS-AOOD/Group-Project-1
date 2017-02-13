@@ -170,6 +170,7 @@ public class DomainEditor extends JFrame {
 		answerLabel.setText("Current Answer: " + currentQu.getAns());
 	}
 	public void loadWindow(ProblemSet ps){
+		qIndex = 0;
 		setLocation(0, 0);
 		currentSet = ps;
 		currentQu = currentSet.getQuestionByIndex(qIndex);
@@ -215,6 +216,7 @@ public class DomainEditor extends JFrame {
 	}
 	public void createNewQuestion(){
 		currentSet.addQuestion();
+		qIndex++;
 		currentQu = currentSet.getQuestionByIndex(currentSet.getLength()-1);
 		updateWindow();
 		ps.updateFile();
