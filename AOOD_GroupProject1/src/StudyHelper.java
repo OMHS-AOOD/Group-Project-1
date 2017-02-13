@@ -179,6 +179,7 @@ public class StudyHelper {
 		}
 		name = name.trim();
 		ps.addProblemSet(name, currentUser.getName());
+		de.loadWindow(ps.getPSByIndex(ps.getLength()-1));
 		de.updateWindow();
 		
 	}

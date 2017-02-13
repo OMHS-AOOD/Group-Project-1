@@ -13,6 +13,7 @@ public class ProblemSet implements Serializable {
 		name = n;
 		admin = "Default";
 		password = "";
+		addQuestion();
 	}
 	
 	public void addQuestion(Question q){

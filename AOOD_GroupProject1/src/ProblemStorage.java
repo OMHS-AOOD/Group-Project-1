@@ -102,4 +102,7 @@ public class ProblemStorage {
 		}
 		return false;
 	}
+	public int getLength(){
+		return problems.size();
+	}
 }
