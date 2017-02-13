@@ -130,6 +130,58 @@ public class MainMenu extends JFrame {
 		});
 		
 		
+		
+		
+		addUserB.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				sh.addNewUser();
+			}
+		});
+		selUserB.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				sh.showUsersWindow();
+			}
+		});
+		selDomB.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				sh.selectDomain();
+			}
+		});
+		delUserB.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				sh.deleteUsers();
+			}
+		});
+		startDomB.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				sh.startProblems();
+			}
+		});
+		editDomB.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				sh.startEditor();
+			}
+		});
+		newDomB.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				sh.newDomain();
+			}
+		});
+		
 	}
 	
 
