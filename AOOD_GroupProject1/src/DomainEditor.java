@@ -216,8 +216,8 @@ public class DomainEditor extends JFrame {
 	}
 	public void createNewQuestion(){
 		currentSet.addQuestion();
-		qIndex++;
-		currentQu = currentSet.getQuestionByIndex(currentSet.getLength()-1);
+		qIndex = currentSet.getLength()-1;
+		currentQu = currentSet.getQuestionByIndex(qIndex);
 		updateWindow();
 		ps.updateFile();
 	}
