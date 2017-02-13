@@ -32,6 +32,24 @@ public class MainMenu extends JFrame {
 		JMenuItem newDom = new JMenuItem("New Domain");
 		JMenuItem toggleHUD = new JMenuItem("Toggle miniHUD");
 		
+		JButton selDomB = new JButton("Select Domain");
+		JButton addUserB = new JButton("Add User");
+		JButton selUserB = new JButton("Select Users");
+		JButton delUserB = new JButton("Delete all Users");
+		JButton startDomB = new JButton("Start Domain");
+		JButton editDomB = new JButton("Edit Domain");
+		JButton newDomB = new JButton("New Domain");
+		
+		panel.add(selDomB);
+		panel.add(addUserB);
+		panel.add(selUserB);
+		panel.add(delUserB);
+		panel.add(startDomB);
+		panel.add(editDomB);
+		panel.add(newDomB);
+		
+		
+		
 		JMenu m1 = new JMenu("User");
 		JMenu m2 = new JMenu("Domain");
 		JMenu m3 = new JMenu("Windows");
