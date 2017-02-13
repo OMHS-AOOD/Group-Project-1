@@ -29,8 +29,26 @@ public class Database {
 	}
 
 	public void addUser(String n) {
-		if (!checkForUserName(n)) {
-			users.add(new User(n));
+		if (!checkForUserName(n)) {			
+			try {
+
+				FileOutputStream fos = new FileOutputStream(f);
+
+				ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+				User u = new User(n);
+				users.add(u);
+				oos.writeObject(users);
+				oos.close();
+			} catch (IOException e) {
+				JOptionPane.showMessageDialog(null, "Error when writing to users file", "Error",
+						JOptionPane.INFORMATION_MESSAGE);
+			}
+			
+			
+			
+			
+			
 		} else {
 			JOptionPane.showMessageDialog(null, "User already exists", "Error", JOptionPane.INFORMATION_MESSAGE);
 		}
