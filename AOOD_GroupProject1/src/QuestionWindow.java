@@ -41,7 +41,7 @@ public class QuestionWindow extends JFrame {
 		entry.setBounds(75, 300, 650, 25);
 		question.setBounds(75, 25, 1000, 25);
 		extra.setBounds(75, 50, 1000, 25);
-		image.setBounds(75, 75, 600, 200);
+		image.setBounds(75, 100, 600, 150);
 		submit.setBounds(300, 350, 200, 40);
 		ansLab.setBounds(75, 310, 1000, 40);
 		this.add(panel);
@@ -50,7 +50,7 @@ public class QuestionWindow extends JFrame {
 		panel.add(submit);
 		panel.add(entry);
 		panel.add(ansLab);
-		
+		panel.add(image);
 		
 		
 		
@@ -85,6 +85,7 @@ public class QuestionWindow extends JFrame {
 		setVisible(true);
 		mh.setRight(0);
 		mh.setWrong(0);
+		ansLab.setText("");
 		loadQu();
 		
 		
@@ -125,7 +126,7 @@ public class QuestionWindow extends JFrame {
 		currentQu = currentSet.getQuestionByIndex(qIndex);
 		question.setText(currentQu.getPrompt());
 		extra.setText(currentQu.getExtra());
-		if(currentQu.getImage() == null){
+		if(currentQu.getImage() != null){
 			image.setIcon(currentQu.getImage());
 		}
 		else{

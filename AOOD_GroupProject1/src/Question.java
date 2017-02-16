@@ -15,6 +15,8 @@ public class Question implements Serializable {
 	private static final long serialVersionUID = 2748485916265420653L;
 	private String prompt, answer, extra, type;
 	private ImageIcon im;
+	private String path;
+	private String imgName;
 	public Question(String p, String a, String e){
 		prompt = p;
 		answer = a;
@@ -53,11 +55,37 @@ public class Question implements Serializable {
 	
 	
 	public void storeImg(File f){
-		im = new ImageIcon(f.getAbsolutePath());
+		String check = "";
+		if(im != null){
+			check = JOptionPane.showInputDialog("Are you sure you want to replace the current image?(Y/N)");	
+			if(check == null){
+				return;
+			}
+			check = check.toUpperCase();
+		}
+		else{
+			check = "Y";
+		}
+		if(check.equals("Y")){
+			im = new ImageIcon(f.getAbsolutePath());
+			path = f.getAbsolutePath();
+			imgName = f.getName();
+		}
+		
+	}
+	public void storeImg(){
+		if(path != null){
+			im = new ImageIcon(path);
+			imgName = path.split("\\\\")[path.split("\\\\").length-1];
+		}
+
 	}
 	
 	public ImageIcon getImage(){
 		return im;
+	}
+	public String getImgName(){
+		return imgName;
 	}
 
 }

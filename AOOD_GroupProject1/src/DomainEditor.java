@@ -23,6 +23,7 @@ public class DomainEditor extends JFrame {
 	private JLabel nameLabel, promptLabel, extraLabel, answerLabel;
 	private JTextField nameEntry, promptEntry, extraEntry, answerEntry;
 	private JButton nameSubmit, promptSubmit, extraSubmit, answerSubmit, newQu, deleteQu, nextQu, lastQu, finish, export, selIm;
+	private JLabel imgText;
 	private JMenuItem selQu; 
 	private int qIndex;
 	private QuestionSelect qs;
@@ -42,6 +43,7 @@ public class DomainEditor extends JFrame {
 		promptLabel = new JLabel();
 		extraLabel = new JLabel();
 		answerLabel = new JLabel();
+		imgText = new JLabel("Image: None");
 		panel = new JPanel();
 		nameEntry = new JTextField();
 		promptEntry = new JTextField();
@@ -107,6 +109,8 @@ public class DomainEditor extends JFrame {
 		export.setBounds(330, 280, 150, 30);
 		panel.add(selIm);
 		selIm.setBounds(330, 230, 150, 30);
+		panel.add(imgText);
+		imgText.setBounds(490, 230, 150, 25);
 		
 		nameSubmit.addActionListener(new ActionListener() {
 			@Override
@@ -217,6 +221,12 @@ public class DomainEditor extends JFrame {
 			extraLabel.setText("Current Extra Info: " + currentQu.getExtra());
 		}
 		answerLabel.setText("Current Answer: " + currentQu.getAns());
+		if(currentQu.getImage() == null){
+			imgText.setText("Image: None");
+		}
+		else{
+			imgText.setText("Image: " + currentQu.getImgName());
+		}
 	}
 	public void loadWindow(ProblemSet ps){
 		qIndex = 0;
