@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class DomainEditor extends JFrame {
 	/**
@@ -21,7 +22,7 @@ public class DomainEditor extends JFrame {
 	private JMenu m1;
 	private JLabel nameLabel, promptLabel, extraLabel, answerLabel;
 	private JTextField nameEntry, promptEntry, extraEntry, answerEntry;
-	private JButton nameSubmit, promptSubmit, extraSubmit, answerSubmit, newQu, deleteQu, nextQu, lastQu, finish, export;
+	private JButton nameSubmit, promptSubmit, extraSubmit, answerSubmit, newQu, deleteQu, nextQu, lastQu, finish, export, selIm;
 	private JMenuItem selQu; 
 	private int qIndex;
 	private QuestionSelect qs;
@@ -57,6 +58,7 @@ public class DomainEditor extends JFrame {
 		finish = new JButton("Close Editor");
 		export = new JButton("Export Set");
 		selQu = new JMenuItem("Select Question");
+		selIm = new JButton("Select Image");
 		
 		m1 = new JMenu("Options");
 		qs = new QuestionSelect(this);
@@ -103,6 +105,8 @@ public class DomainEditor extends JFrame {
 		finish.setBounds(725, 280, 150, 30);
 		panel.add(export);
 		export.setBounds(330, 280, 150, 30);
+		panel.add(selIm);
+		selIm.setBounds(330, 230, 150, 30);
 		
 		nameSubmit.addActionListener(new ActionListener() {
 			@Override
@@ -186,6 +190,15 @@ public class DomainEditor extends JFrame {
 			public void actionPerformed(ActionEvent e)
 			{
 				showQuestionWindow();
+			}
+
+			
+		});
+		selIm.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				getImage();
 			}
 
 			
@@ -295,6 +308,18 @@ public class DomainEditor extends JFrame {
 		
 	}
 	
+	public void getImage(){
+		JFileChooser jfc = new JFileChooser();
+		jfc.setDialogTitle("Select an image file");
+		jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+		FileNameExtensionFilter filter = new FileNameExtensionFilter("Image files", "jpg", "png");
+		jfc.setFileFilter(filter);
+		int check = jfc.showOpenDialog(new JFrame());
+
+		if(check == JFileChooser.APPROVE_OPTION) {
+			currentQu.storeImg(jfc.getSelectedFile());
+		}
+	}
 	
 	
 	public void updateQIndex(int q){

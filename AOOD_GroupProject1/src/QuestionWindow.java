@@ -10,7 +10,7 @@ public class QuestionWindow extends JFrame {
 	 */
 	private static final long serialVersionUID = 38476236516135752L;
 	private JTextField entry;
-	private JLabel question, extra, ansLab;
+	private JLabel question, extra, ansLab, image;
 	private JButton submit;
 	private ProblemSet currentSet;
 	private int qIndex, numRight, numWrong;
@@ -27,10 +27,11 @@ public class QuestionWindow extends JFrame {
 		sh = s;
 		qIndex = 0;
 		JMenuBar jmb = new JMenuBar();
-		question = new JLabel("testing");
-		extra = new JLabel("also testing");
+		question = new JLabel("");
+		extra = new JLabel("");
 		submit = new JButton("Submit Answer");
 		ansLab = new JLabel("");
+		image = new JLabel();
 		panel = new JPanel();
 		entry = new JTextField();
 		JMenu m1 = new JMenu("Options");
@@ -38,8 +39,9 @@ public class QuestionWindow extends JFrame {
 		panel.setLayout(null);
 		entry.setColumns(50);
 		entry.setBounds(75, 300, 650, 25);
-		question.setBounds(75, 25, 1000, 50);
-		extra.setBounds(75, 50, 1000, 50);
+		question.setBounds(75, 25, 1000, 25);
+		extra.setBounds(75, 50, 1000, 25);
+		image.setBounds(75, 75, 600, 200);
 		submit.setBounds(300, 350, 200, 40);
 		ansLab.setBounds(75, 310, 1000, 40);
 		this.add(panel);
@@ -123,6 +125,13 @@ public class QuestionWindow extends JFrame {
 		currentQu = currentSet.getQuestionByIndex(qIndex);
 		question.setText(currentQu.getPrompt());
 		extra.setText(currentQu.getExtra());
+		if(currentQu.getImage() == null){
+			image.setIcon(currentQu.getImage());
+		}
+		else{
+			image.setIcon(null);
+		}
+		
 	}
 	
 	

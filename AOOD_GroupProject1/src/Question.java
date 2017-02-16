@@ -1,4 +1,12 @@
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
+
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 public class Question implements Serializable {
 	/**
@@ -6,6 +14,7 @@ public class Question implements Serializable {
 	 */
 	private static final long serialVersionUID = 2748485916265420653L;
 	private String prompt, answer, extra, type;
+	private ImageIcon im;
 	public Question(String p, String a, String e){
 		prompt = p;
 		answer = a;
@@ -41,4 +50,14 @@ public class Question implements Serializable {
 	public String getExtra(){
 		return extra;
 	}
+	
+	
+	public void storeImg(File f){
+		im = new ImageIcon(f.getAbsolutePath());
+	}
+	
+	public ImageIcon getImage(){
+		return im;
+	}
+
 }
