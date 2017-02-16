@@ -1,5 +1,6 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.*;
 
@@ -123,6 +124,10 @@ public class QuestionWindow extends JFrame {
 		question.setText(currentQu.getPrompt());
 		extra.setText(currentQu.getExtra());
 	}
+	
+	
+
+	
 	
 	
 	

@@ -64,6 +64,16 @@ public class ProblemStorage {
 			updateFile();
 		}
 	}
+	public void addProblemSet(ProblemSet p){
+		if(checkForDomainName(p.getName())){
+			JOptionPane.showMessageDialog(null, "Problems set with that name already exists", "Error" , JOptionPane.INFORMATION_MESSAGE);
+		}
+		else{
+			problems.add(p);
+			updateFile();
+		}
+	}
+	
 	
 	
 	public int getPSIndexByName(String n){
@@ -105,4 +115,5 @@ public class ProblemStorage {
 	public int getLength(){
 		return problems.size();
 	}
+	
 }

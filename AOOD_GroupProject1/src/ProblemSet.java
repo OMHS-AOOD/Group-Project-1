@@ -46,4 +46,7 @@ public class ProblemSet implements Serializable {
 	public void deleteQuestion(int i){
 		questions.remove(i);
 	}
+	public ArrayList<Question> getList(){
+		return questions;
+	}
 }

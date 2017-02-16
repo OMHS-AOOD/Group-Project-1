@@ -1,5 +1,16 @@
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class StudyHelper {
 	private MainMenu mm;
@@ -183,6 +194,31 @@ public class StudyHelper {
 		de.loadWindow(ps.getPSByIndex(ps.getLength()-1));
 		de.updateWindow();
 		
+	}
+	
+	public void importProblemSet(){
+		JFileChooser jfc = new JFileChooser();
+		jfc.setDialogTitle("Select a problem set");
+		jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+		FileNameExtensionFilter filter = new FileNameExtensionFilter("Problem Set Files(.shps)", "shps");
+		jfc.setFileFilter(filter);
+		int check = jfc.showOpenDialog(new JFrame());
+
+		if(check == JFileChooser.APPROVE_OPTION) {
+			File f = jfc.getSelectedFile();
+			try {
+		    	FileInputStream fis = new FileInputStream(f);
+			    ObjectInputStream ois = new ObjectInputStream(fis);
+			    ProblemSet p = (ProblemSet) ois.readObject();
+		        ps.addProblemSet(p);
+		        ds.updateList();
+		        ois.close();
+			}
+		    catch (ClassNotFoundException | IOException e) {
+				JOptionPane.showMessageDialog(null, "Error when trying to read problems file", "Error" , JOptionPane.INFORMATION_MESSAGE);
+			}
+			
+		}
 	}
 
 	

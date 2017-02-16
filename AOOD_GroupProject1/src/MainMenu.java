@@ -30,6 +30,7 @@ public class MainMenu extends JFrame {
 		JMenuItem startDom = new JMenuItem("Start Domain");
 		JMenuItem editDom = new JMenuItem("Edit Domain");
 		JMenuItem newDom = new JMenuItem("New Domain");
+		JMenuItem impDom = new JMenuItem("Import Domain");
 		JMenuItem toggleHUD = new JMenuItem("Toggle miniHUD");
 		
 		JButton selDomB = new JButton("Select Domain");
@@ -69,6 +70,7 @@ public class MainMenu extends JFrame {
 		m2.add(selDom);
 		m2.add(editDom);
 		m2.add(newDom);
+		m2.add(impDom);
 		
 		m3.add(toggleHUD);
 		
@@ -126,6 +128,13 @@ public class MainMenu extends JFrame {
 			public void actionPerformed(ActionEvent e)
 			{
 				sh.newDomain();
+			}
+		});
+		impDom.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				sh.importProblemSet();
 			}
 		});
 		

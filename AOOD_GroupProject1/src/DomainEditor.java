@@ -1,6 +1,9 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 
 import javax.swing.*;
 
@@ -14,10 +17,13 @@ public class DomainEditor extends JFrame {
 	private Question currentQu;
 	private ProblemStorage ps;
 	private JPanel panel;
+	private JMenuBar jmb;
+	private JMenuItem m1;
 	private JLabel nameLabel, promptLabel, extraLabel, answerLabel;
 	private JTextField nameEntry, promptEntry, extraEntry, answerEntry;
-	private JButton nameSubmit, promptSubmit, extraSubmit, answerSubmit, newQu, deleteQu, nextQu, lastQu, finish; 
+	private JButton nameSubmit, promptSubmit, extraSubmit, answerSubmit, newQu, deleteQu, nextQu, lastQu, finish, export; 
 	private int qIndex;
+	private QuestionSelect qs;
 	public DomainEditor(ProblemStorage p, StudyHelper s){
 		setSize(900, 350);
 		setResizable(false);
@@ -28,6 +34,8 @@ public class DomainEditor extends JFrame {
 		ps = p;
 		qIndex = 0;
 		
+		
+		jmb = new JMenuBar();
 		nameLabel = new JLabel();
 		promptLabel = new JLabel();
 		extraLabel = new JLabel();
@@ -46,6 +54,12 @@ public class DomainEditor extends JFrame {
 		nextQu = new JButton(">>");
 		lastQu = new JButton("<<");
 		finish = new JButton("Close Editor");
+		export = new JButton("Export Set");
+		m1 = new JMenuItem("Select Question");
+		qs = new QuestionSelect(this);
+		
+		this.setJMenuBar(jmb);
+		jmb.add(m1);
 		
 		this.add(panel);
 		panel.setLayout(null);
@@ -83,6 +97,8 @@ public class DomainEditor extends JFrame {
 		lastQu.setBounds(10, 230, 150, 30);
 		panel.add(finish);
 		finish.setBounds(725, 280, 150, 30);
+		panel.add(export);
+		export.setBounds(330, 280, 150, 30);
 		
 		nameSubmit.addActionListener(new ActionListener() {
 			@Override
@@ -154,6 +170,22 @@ public class DomainEditor extends JFrame {
 				closeEditor();
 			}
 		});
+		export.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				exportProblemSet();
+			}
+		});
+		m1.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				showQuestionWindow();
+			}
+
+			
+		});
 	}
 	
 	
@@ -219,6 +251,7 @@ public class DomainEditor extends JFrame {
 		qIndex = currentSet.getLength()-1;
 		currentQu = currentSet.getQuestionByIndex(qIndex);
 		updateWindow();
+		qs.updateList();
 		ps.updateFile();
 	}
 	
@@ -243,6 +276,7 @@ public class DomainEditor extends JFrame {
 		qIndex = 0;
 		currentQu = currentSet.getQuestionByIndex(qIndex);
 		ps.updateFile();
+		qs.updateList();
 		updateWindow();
 	}
 	public void closeEditor(){
@@ -250,20 +284,55 @@ public class DomainEditor extends JFrame {
 		currentQu = null;
 		sh.reload();
 	}
-	/*
-	public void exportProblemSet(){
-		try {
-	    	FileOutputStream fos = new FileOutputStream(f);
-		    ObjectOutputStream oos = new ObjectOutputStream(fos);
-		    oos.writeObject(problems);
-			oos.close();
-		} catch (IOException e) {
-			JOptionPane.showMessageDialog(null, "Error when writing to problems file", "Error" , JOptionPane.INFORMATION_MESSAGE);
-		}
-	}
-	*/
-	public void importProblemSet(){
+
+	public void showQuestionWindow() {
+		qs.setSet(currentSet);
+		qs.setVisible(true);
 		
 	}
+	
+	
+	
+	public void updateQIndex(int q){
+		qIndex = q;
+		currentQu = currentSet.getQuestionByIndex(qIndex);
+		updateWindow();
+	}
+	
+	
+	public void exportProblemSet(){
+		JFileChooser jfc = new JFileChooser();
+		jfc.setDialogTitle("Select a location to save");
+		jfc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+		int check = jfc.showSaveDialog(new JFrame());
+
+		if(check == JFileChooser.APPROVE_OPTION) {
+			
+			File f = jfc.getSelectedFile();
+			String path = f.getAbsolutePath();
+			
+			try {
+				FileOutputStream fos;
+				if(path.endsWith("\\")){
+			    	fos = new FileOutputStream(new File(path + currentSet.getName() + ".shps"));
+
+				}
+				else{
+			    	fos = new FileOutputStream(new File(path + ".shps"));
+				}
+			    ObjectOutputStream oos = new ObjectOutputStream(fos);
+			    oos.writeObject(currentSet);
+				oos.close();
+			} catch (IOException e) {
+				JOptionPane.showMessageDialog(null, "Error when writing to file", "Error" , JOptionPane.INFORMATION_MESSAGE);
+			}
+			
+		}
+		
+		
+		
+	}
+
+
 
 }
