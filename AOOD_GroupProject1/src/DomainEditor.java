@@ -18,14 +18,15 @@ public class DomainEditor extends JFrame {
 	private ProblemStorage ps;
 	private JPanel panel;
 	private JMenuBar jmb;
-	private JMenuItem m1;
+	private JMenu m1;
 	private JLabel nameLabel, promptLabel, extraLabel, answerLabel;
 	private JTextField nameEntry, promptEntry, extraEntry, answerEntry;
-	private JButton nameSubmit, promptSubmit, extraSubmit, answerSubmit, newQu, deleteQu, nextQu, lastQu, finish, export; 
+	private JButton nameSubmit, promptSubmit, extraSubmit, answerSubmit, newQu, deleteQu, nextQu, lastQu, finish, export;
+	private JMenuItem selQu; 
 	private int qIndex;
 	private QuestionSelect qs;
 	public DomainEditor(ProblemStorage p, StudyHelper s){
-		setSize(900, 350);
+		setSize(900, 370);
 		setResizable(false);
 		setVisible(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
@@ -55,11 +56,14 @@ public class DomainEditor extends JFrame {
 		lastQu = new JButton("<<");
 		finish = new JButton("Close Editor");
 		export = new JButton("Export Set");
-		m1 = new JMenuItem("Select Question");
+		selQu = new JMenuItem("Select Question");
+		
+		m1 = new JMenu("Options");
 		qs = new QuestionSelect(this);
 		
 		this.setJMenuBar(jmb);
 		jmb.add(m1);
+		m1.add(selQu);
 		
 		this.add(panel);
 		panel.setLayout(null);
@@ -177,7 +181,7 @@ public class DomainEditor extends JFrame {
 				exportProblemSet();
 			}
 		});
-		m1.addActionListener(new ActionListener() {
+		selQu.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{

@@ -28,9 +28,6 @@ public class QuestionSelect extends JFrame {
 		setSize(500, 250);
 		setResizable(false);
 		setVisible(false);
-		for(Question q: ps.getList()){
-			dlm.addElement(q.getPrompt());
-		}
 
 		domainList = new JList<String>(dlm);
 		domainPane = new JScrollPane(domainList, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -54,6 +51,7 @@ public class QuestionSelect extends JFrame {
 						public void actionPerformed(ActionEvent e)
 						{
 							de.updateQIndex(i); 
+							setVisible(false);
 						}
 					});
 					jm3.addActionListener(new ActionListener() {
@@ -67,6 +65,7 @@ public class QuestionSelect extends JFrame {
 							check = check.toUpperCase();
 							if(check.equals("Y")){
 								de.deleteQu();
+								setVisible(false);
 							}
 							
 						}
@@ -83,6 +82,7 @@ public class QuestionSelect extends JFrame {
 			  final int i = domainList.getSelectedIndex();
 			  if(i != -1){
 				  de.updateQIndex(i);
+				  setVisible(false);
 			  }
 		  }
 		}
