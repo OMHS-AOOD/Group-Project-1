@@ -20,10 +20,11 @@ public class DomainEditor extends JFrame {
 	private JPanel panel;
 	private JMenuBar jmb;
 	private JMenu m1;
+	private JFrame picDisplay;
 	private JLabel nameLabel, promptLabel, extraLabel, answerLabel;
 	private JTextField nameEntry, promptEntry, extraEntry, answerEntry;
-	private JButton nameSubmit, promptSubmit, extraSubmit, answerSubmit, newQu, deleteQu, nextQu, lastQu, finish, export, selIm;
-	private JLabel imgText;
+	private JButton nameSubmit, promptSubmit, extraSubmit, answerSubmit, newQu, deleteQu, nextQu, lastQu, finish, export, selIm, remImg, prevImg;
+	private JLabel imgDisplay;
 	private JMenuItem selQu; 
 	private int qIndex;
 	private QuestionSelect qs;
@@ -43,7 +44,7 @@ public class DomainEditor extends JFrame {
 		promptLabel = new JLabel();
 		extraLabel = new JLabel();
 		answerLabel = new JLabel();
-		imgText = new JLabel("Image: None");
+		imgDisplay = new JLabel();
 		panel = new JPanel();
 		nameEntry = new JTextField();
 		promptEntry = new JTextField();
@@ -61,6 +62,8 @@ public class DomainEditor extends JFrame {
 		export = new JButton("Export Set");
 		selQu = new JMenuItem("Select Question");
 		selIm = new JButton("Select Image");
+		remImg = new JButton("Remove Image");
+		prevImg = new JButton("Preview Image");
 		
 		m1 = new JMenu("Options");
 		qs = new QuestionSelect(this);
@@ -109,8 +112,17 @@ public class DomainEditor extends JFrame {
 		export.setBounds(330, 280, 150, 30);
 		panel.add(selIm);
 		selIm.setBounds(330, 230, 150, 30);
-		panel.add(imgText);
-		imgText.setBounds(490, 230, 150, 25);
+		panel.add(prevImg);
+		prevImg.setBounds(490, 230, 150, 30);
+		panel.add(remImg);
+		remImg.setBounds(490, 280, 150, 30);
+		
+		
+		
+		picDisplay = new JFrame("Image Display");
+		picDisplay.setVisible(false);
+		picDisplay.add(imgDisplay);
+		
 		
 		nameSubmit.addActionListener(new ActionListener() {
 			@Override
@@ -207,8 +219,33 @@ public class DomainEditor extends JFrame {
 
 			
 		});
+		remImg.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				removeImg();
+			}
+
+			
+		});
+		prevImg.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				previewImg();
+			}
+
+			
+		});
 	}
 	
+	
+	public void previewImg(){
+		picDisplay.setLocation(0,0);
+		picDisplay.setSize(currentQu.getImage().getIconWidth(), currentQu.getImage().getIconHeight());
+		picDisplay.setVisible(true);
+		imgDisplay.setIcon(currentQu.getImage());
+	}
 	
 	public void updateWindow(){
 		nameLabel.setText("Set Name: " + currentSet.getName());
@@ -222,10 +259,10 @@ public class DomainEditor extends JFrame {
 		}
 		answerLabel.setText("Current Answer: " + currentQu.getAns());
 		if(currentQu.getImage() == null){
-			imgText.setText("Image: None");
+			prevImg.setVisible(false);
 		}
 		else{
-			imgText.setText("Image: " + currentQu.getImgName());
+			prevImg.setVisible(true);
 		}
 	}
 	public void loadWindow(ProblemSet ps){
@@ -327,8 +364,17 @@ public class DomainEditor extends JFrame {
 		int check = jfc.showOpenDialog(new JFrame());
 
 		if(check == JFileChooser.APPROVE_OPTION) {
+			picDisplay.setVisible(false);
+			ps.updateFile();
 			currentQu.storeImg(jfc.getSelectedFile());
+			updateWindow();
 		}
+	}
+	
+	public void removeImg(){
+		currentQu.removeImg();
+		picDisplay.setVisible(false);
+		updateWindow();
 	}
 	
 	

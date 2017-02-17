@@ -31,11 +31,6 @@ public class ProblemStorage {
 		    ObjectInputStream ois = new ObjectInputStream(fis);
 		    ArrayList<ProblemSet> p = (ArrayList<ProblemSet>) ois.readObject();
 	        problems = p;
-	        for(ProblemSet ps: problems){
-	        	for(Question q: ps.getList()){
-	        		//q.storeImg();
-	        	}
-	        }
 	        ois.close();
 		}
 	    catch (ClassNotFoundException | IOException e) {
