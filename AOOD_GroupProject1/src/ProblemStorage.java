@@ -33,7 +33,7 @@ public class ProblemStorage {
 	        problems = p;
 	        for(ProblemSet ps: problems){
 	        	for(Question q: ps.getList()){
-	        		q.storeImg();
+	        		//q.storeImg();
 	        	}
 	        }
 	        ois.close();
