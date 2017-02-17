@@ -75,8 +75,18 @@ public class Question implements Serializable {
 	}
 	public void storeImg(){
 		if(path != null){
-			im = new ImageIcon(path);
-			imgName = path.split("\\\\")[path.split("\\\\").length-1];
+			File f = new File(path);
+			if(f.exists() && (path.split(".")[path.split(".").length-1].equalsIgnoreCase("png") || path.split(".")[path.split(".").length-1].equalsIgnoreCase("png"))){
+				im = new ImageIcon(path);
+				imgName = path.split("\\\\")[path.split("\\\\").length-1];
+			}
+			else{
+				imgName = "None";
+			}
+			
+
+			
+			
 		}
 
 	}
