@@ -365,8 +365,8 @@ public class DomainEditor extends JFrame {
 
 		if(check == JFileChooser.APPROVE_OPTION) {
 			picDisplay.setVisible(false);
-			ps.updateFile();
 			currentQu.storeImg(jfc.getSelectedFile());
+			ps.updateFile();
 			updateWindow();
 		}
 	}
@@ -374,6 +374,7 @@ public class DomainEditor extends JFrame {
 	public void removeImg(){
 		currentQu.removeImg();
 		picDisplay.setVisible(false);
+		ps.updateFile();
 		updateWindow();
 	}
 	
