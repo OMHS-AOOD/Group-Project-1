@@ -36,6 +36,7 @@ public class MainMenu extends JFrame {
 		JButton selDomB = new JButton("Select Domain");
 		JButton addUserB = new JButton("Add User");
 		JButton selUserB = new JButton("Select Users");
+		JButton randQus = new JButton("Toggle Randomize Questions");
 		JButton delUserB = new JButton("Delete all Users");
 		JButton startDomB = new JButton("Start Domain");
 		JButton editDomB = new JButton("Edit Domain");
@@ -64,6 +65,7 @@ public class MainMenu extends JFrame {
 		
 		m1.add(addUser);
 		m1.add(selUser);
+		m1.add(randQus);
 		m1.add(delUser);
 		
 		m2.add(startDom);
@@ -135,6 +137,13 @@ public class MainMenu extends JFrame {
 			public void actionPerformed(ActionEvent e)
 			{
 				sh.importProblemSet();
+			}
+		});
+		randQus.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				sh.toggleUserRandomization();
 			}
 		});
 		

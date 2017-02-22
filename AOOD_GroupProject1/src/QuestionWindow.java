@@ -98,7 +98,7 @@ public class QuestionWindow extends JFrame {
 		
 	}
 	
-	public void loadWindow(ProblemSet ps){
+	public void loadWindow(ProblemSet ps, boolean randomize){
 		numRight = 0;
 		numWrong = 0;
 		setLocation(0, 0);
@@ -109,6 +109,9 @@ public class QuestionWindow extends JFrame {
 		mh.setWrong(0);
 		ansLab.setText("");
 		qStorage = new ArrayList<Question>(currentSet.getList());
+		if(randomize){
+			randomizeOrder();
+		}
 		loadQu();
 		
 		

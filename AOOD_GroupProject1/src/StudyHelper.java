@@ -114,7 +114,7 @@ public class StudyHelper {
 			us.setVisible(false);
 			ds.setVisible(false);
 			mh.setVisible(false);
-			qw.loadWindow(currentDomain);
+			qw.loadWindow(currentDomain, currentUser.getRandomize());
 		}
 		else{
 			JOptionPane.showMessageDialog(null, "No problem set loaded", "Error" , JOptionPane.INFORMATION_MESSAGE);
@@ -219,6 +219,10 @@ public class StudyHelper {
 			}
 			
 		}
+	}
+
+	public void toggleUserRandomization() {
+		currentUser.toggleRandomize();
 	}
 
 	

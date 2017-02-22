@@ -7,6 +7,7 @@ public class User implements Serializable{
 	private static final long serialVersionUID = 8480537917758471033L;
 	private String name;
 	private String password;
+	private boolean randomize = false;
 	public User(String n, String p){
 		name = n;
 		password = p;
@@ -30,5 +31,13 @@ public class User implements Serializable{
 			return true;
 		}
 		return false;
+	}
+	
+	public boolean getRandomize(){
+		return randomize;
+	}
+	
+	public void toggleRandomize(){
+		randomize = !randomize;
 	}
 }
