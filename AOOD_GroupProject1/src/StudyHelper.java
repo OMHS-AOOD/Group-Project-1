@@ -45,9 +45,21 @@ public class StudyHelper {
 		mh.setUser(currentUser.getName());
 		mh.setDomain("None");
 		mh.setRand(currentUser.getRandomize());
-		
-		initUserData();
+
 		db.loadUserData(userData);
+		initUserData();
+		
+		
+		///COME BACK TO
+		//TODO
+		while(userData.get(userData.size()-1).getArrayLength()<ps.getLength()){
+			for(UserProblemStorage ups: userData){
+				ups.addSet(ps.getPSByIndex(userData.get(userData.size()-1).getArrayLength()));
+			}
+		}
+		db.updateFile();
+		ps.updateFile();
+		//TODO
 	}
 	
 	public void addNewUser(){

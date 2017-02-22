@@ -51,4 +51,8 @@ public class User implements Serializable{
 	public UserProblemStorage getUserPS(){
 		return ups;
 	}
+	
+	public void setUPS(ProblemStorage ps){
+		ups = new UserProblemStorage(ps);
+	}
 }

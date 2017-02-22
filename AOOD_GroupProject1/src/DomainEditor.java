@@ -121,9 +121,9 @@ public class DomainEditor extends JFrame {
 		remImg.setBounds(490, 280, 150, 30);
 		
 		panel.add(attemptLabel);
-		attemptLabel.setBounds(675, 230, 150, 30);
+		attemptLabel.setBounds(675, 220, 150, 30);
 		panel.add(correctLabel);
-		correctLabel.setBounds(675, 260, 150, 30);
+		correctLabel.setBounds(675, 250, 150, 30);
 		
 		
 		
@@ -272,9 +272,8 @@ public class DomainEditor extends JFrame {
 		else{
 			prevImg.setVisible(true);
 		}
-		System.out.println(currentUser.getUserPS());
-		attemptLabel.setText("Number of attempts: " + currentUser.getUserPS().getAsked(currentSet.getIndex(), qIndex));
-		correctLabel.setText("Number of correct attempts: " + currentUser.getUserPS().getRight(currentSet.getIndex(), qIndex));
+		attemptLabel.setText("Attempts: " + currentUser.getUserPS().getAsked(currentSet.getIndex(), qIndex));
+		correctLabel.setText("Correct attempts: " + currentUser.getUserPS().getRight(currentSet.getIndex(), qIndex));
 	}
 	public void loadWindow(ProblemSet ps){
 		qIndex = 0;

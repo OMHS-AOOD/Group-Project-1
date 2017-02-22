@@ -45,4 +45,11 @@ public class UserProblemStorage {
 		numAsked.get(setIndex).remove(qIndex);
 		numRight.get(setIndex).remove(qIndex);
 	}
+	
+	public int getArrayLength(){
+		return numAsked.size();
+	}
+	public int getQLength(int setIndex){
+		return numAsked.get(setIndex).size();
+	}
 }
