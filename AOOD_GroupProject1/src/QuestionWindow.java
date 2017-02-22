@@ -11,13 +11,14 @@ public class QuestionWindow extends JFrame {
 	private static final long serialVersionUID = 38476236516135752L;
 	private JTextField entry;
 	private JLabel question, extra, ansLab, image;
-	private JButton submit;
+	private JButton submit, know, notKnow;
 	private ProblemSet currentSet;
 	private int qIndex, numRight, numWrong;
 	private JPanel panel;
 	private Question currentQu;
 	private StudyHelper sh;
 	private miniHUD mh;
+	private SingleQuestionEditor quEdit;
 	private ArrayList<Question> qStorage;
 	public QuestionWindow(StudyHelper s, miniHUD m){
 		setSize(800, 450);
@@ -27,18 +28,23 @@ public class QuestionWindow extends JFrame {
 		mh = m;
 		sh = s;
 		qIndex = 0;	
+		
+		quEdit = new SingleQuestionEditor(this);
+		
 		JMenuBar jmb = new JMenuBar();
 		question = new JLabel("");
 		extra = new JLabel("");
 		submit = new JButton("Submit Answer");
+		know = new JButton("I knew the answer");
+		notKnow = new JButton("I didn't know the answer");
 		ansLab = new JLabel("");
 		image = new JLabel();
 		panel = new JPanel();
 		entry = new JTextField();
 		JMenu m1 = new JMenu("Options");
-		JMenuItem randomize = new JMenuItem("Randomize question order");
-		JMenuItem unrandomize = new JMenuItem("Unrandomize question order");
 		JMenuItem toggleHUD = new JMenuItem("Toggle miniHUD");
+		JMenuItem exitDomain = new JMenuItem("Exit Domain");
+		JMenuItem editQuestion = new JMenuItem("Edit Question");
 		panel.setLayout(null);
 		entry.setColumns(50);
 		entry.setBounds(75, 300, 650, 25);
@@ -46,6 +52,8 @@ public class QuestionWindow extends JFrame {
 		extra.setBounds(75, 50, 1000, 25);
 		image.setBounds(75, 100, 600, 150);
 		submit.setBounds(300, 350, 200, 40);
+		know.setBounds(75, 350, 200, 40);
+		notKnow.setBounds(525, 350, 200, 40);
 		ansLab.setBounds(75, 310, 1000, 40);
 		this.add(panel);
 		panel.add(question);
@@ -54,14 +62,18 @@ public class QuestionWindow extends JFrame {
 		panel.add(entry);
 		panel.add(ansLab);
 		panel.add(image);
+		panel.add(know);
+		panel.add(notKnow);
 		
+		know.setVisible(false);
+		notKnow.setVisible(false);
 		
 		
 		
 		this.setJMenuBar(jmb);
 		jmb.add(m1);
-		m1.add(randomize);
-		m1.add(unrandomize);
+		m1.add(exitDomain);
+		m1.add(editQuestion);
 		m1.add(toggleHUD);
 		
 		
@@ -80,25 +92,45 @@ public class QuestionWindow extends JFrame {
 				submit();
 			}
 		});
-		randomize.addActionListener(new ActionListener() {
+		know.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				randomizeOrder();
+				know();
 			}
 		});
-		unrandomize.addActionListener(new ActionListener() {
+		notKnow.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				unrandomizeOrder();
+				notKnow();
 			}
 		});
-		
+		exitDomain.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				mh.emptyRight();
+				mh.emptyLeft();
+				currentQu= null;
+				question.setText("");
+				extra.setText("");
+				qIndex = 0;
+				sh.reload();
+			}
+		});
+		editQuestion.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				editQuestion();
+			}
+		});
 		
 	}
 	
 	public void loadWindow(ProblemSet ps, boolean randomize){
+		mh.setVisible(true);
 		numRight = 0;
 		numWrong = 0;
 		setLocation(0, 0);
@@ -117,6 +149,62 @@ public class QuestionWindow extends JFrame {
 		
 	}
 	
+	public void submit(){
+		submit.setVisible(false);
+		know.setVisible(true);
+		notKnow.setVisible(true);
+		entry.setText("");
+		ansLab.setText("The correct answer was: " + currentQu.getAns() + ".");
+	}
+	
+	public void know(){
+		submit.setVisible(true);
+		know.setVisible(false);
+		notKnow.setVisible(false);
+		numRight++;
+		mh.setRight(numRight);
+		ansLab.setText("");
+		
+		qIndex++;
+		if(qIndex < qStorage.size()){
+			loadQu();
+		}
+		else{
+			mh.emptyRight();
+			mh.emptyLeft();
+			JOptionPane.showMessageDialog(null, "You knew " + numRight + " and did not know" + numWrong + ".", "Results" , JOptionPane.INFORMATION_MESSAGE);
+			currentQu= null;
+			question.setText("");
+			extra.setText("");
+			qIndex = 0;
+			sh.reload();
+		}
+		
+	}
+	public void notKnow(){
+		submit.setVisible(true);
+		know.setVisible(false);
+		notKnow.setVisible(false);
+		numWrong++;
+		mh.setWrong(numWrong);
+		ansLab.setText("");
+		
+		qIndex++;
+		if(qIndex < qStorage.size()){
+			loadQu();
+		}
+		else{
+			mh.emptyRight();
+			mh.emptyLeft();
+			JOptionPane.showMessageDialog(null, "You got " + numRight + " correct and " + numWrong + " incorrect.", "Results" , JOptionPane.INFORMATION_MESSAGE);
+			currentQu= null;
+			question.setText("");
+			extra.setText("");
+			qIndex = 0;
+			sh.reload();
+		}
+	}
+	/*
 	public void submit(){
 		String answer = entry.getText().trim();
 		entry.setText("");
@@ -147,7 +235,7 @@ public class QuestionWindow extends JFrame {
 		}
 		
 	}
-	
+	*/
 	public void loadQu(){
 		currentQu = qStorage.get(qIndex);
 		question.setText(currentQu.getPrompt());
@@ -178,19 +266,15 @@ public class QuestionWindow extends JFrame {
 		loadQu();
 	}
 	
-	public void unrandomizeOrder(){
-		qStorage = currentSet.getList();
-		qIndex = 0;
-		mh.setRight(0);
-		mh.setWrong(0);
-		numRight = 0;
-		numWrong = 0;
-		ansLab.setText("");
-		loadQu();
-		
+	
+	public void editQuestion(){
+		quEdit.loadWindow(currentSet, currentQu);
+		this.setVisible(false);
 	}
 	
-	
+	public void reload(){
+		this.setVisible(true);
+	}
 
 	
 	

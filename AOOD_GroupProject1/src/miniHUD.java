@@ -13,7 +13,7 @@ public class miniHUD extends JFrame{
 	private JLabel userDisplay, userDisplay2, quDisplay, quDisplay2, randDisplay;
 	public miniHUD(){
 		super("miniHUD");
-		this.setSize(200, 100);
+		this.setSize(200, 125);
 		this.setResizable(false);
 		this.setLocation(800, 0);
 		this.setVisible(true);
@@ -52,10 +52,10 @@ public class miniHUD extends JFrame{
 	}
 	
 	public void setRight(int c){
-		quDisplay.setText("# of Correct Answers: " + c);
+		quDisplay.setText("# of Known Answers: " + c);
 	}
 	public void setWrong(int w){
-		quDisplay2.setText("# of Incorrect Answers: " + w);
+		quDisplay2.setText("# of Unknown Answers: " + w);
 	}
 	public void emptyRight(){
 		quDisplay.setText("");

@@ -26,6 +26,10 @@ public class MainMenu extends JFrame {
 		JMenuItem selDom = new JMenuItem("Select Domain");
 		JMenuItem addUser = new JMenuItem("Add User");
 		JMenuItem selUser = new JMenuItem("Select Users");
+		
+		JMenuItem nameCh = new JMenuItem("Change Username");
+		JMenuItem passCh = new JMenuItem("Change Password");
+		
 		JMenuItem delUser = new JMenuItem("Delete all Users");
 		JMenuItem startDom = new JMenuItem("Start Domain");
 		JMenuItem editDom = new JMenuItem("Edit Domain");
@@ -144,6 +148,20 @@ public class MainMenu extends JFrame {
 			public void actionPerformed(ActionEvent e)
 			{
 				sh.toggleUserRandomization();
+			}
+		});
+		nameCh.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				sh.changeUsername();
+			}
+		});
+		passCh.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				sh.changePassword();
 			}
 		});
 		

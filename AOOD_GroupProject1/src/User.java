@@ -40,4 +40,8 @@ public class User implements Serializable{
 	public void toggleRandomize(){
 		randomize = !randomize;
 	}
+	public void setName(String newName) {
+		name = newName;
+		
+	}
 }

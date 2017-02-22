@@ -23,6 +23,10 @@ public class StudyHelper {
 	private miniHUD mh;
 	private ProblemStorage ps;
 	private UserSelect us;
+	
+	
+	private ProblemStorage personalps;
+	
 	public StudyHelper(){
 		
 		db = new Database();
@@ -226,6 +230,30 @@ public class StudyHelper {
 		currentUser.toggleRandomize();
 		mh.setRand(currentUser.getRandomize());
 		db.updateFile();
+	}
+
+	public void changeUsername() {
+		String newName = JOptionPane.showInputDialog("Enter a new username: ");
+		if(newName == null ||db.checkForUserName(newName)){
+			JOptionPane.showMessageDialog(null, "Username is invalid/already taken", "New User" , JOptionPane.INFORMATION_MESSAGE);
+		}
+		currentUser.setName(newName);
+		mh.setUser(currentUser.getName());
+	}
+	
+	public void changePassword(){
+		String oldPass = JOptionPane.showInputDialog("Enter your current password: ");
+		if(oldPass == null || !oldPass.equals(currentUser.getPassword())){
+			JOptionPane.showMessageDialog(null, "Incorrect Password", "User Select" , JOptionPane.INFORMATION_MESSAGE);
+			return;
+		}
+		String password = JOptionPane.showInputDialog("Enter a password: ");
+		String passCheck = JOptionPane.showInputDialog("Re-enter the password: ");
+		if(!password.equals(passCheck)){
+			JOptionPane.showMessageDialog(null, "Passwords do not match", "New User" , JOptionPane.INFORMATION_MESSAGE);
+			return;
+		}
+		currentUser.setPassword(password);
 	}
 
 	
