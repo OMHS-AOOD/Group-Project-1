@@ -21,12 +21,13 @@ public class DomainEditor extends JFrame {
 	private JMenuBar jmb;
 	private JMenu m1;
 	private JFrame picDisplay;
-	private JLabel nameLabel, promptLabel, extraLabel, answerLabel;
+	private JLabel nameLabel, promptLabel, extraLabel, answerLabel, attemptLabel, correctLabel;
 	private JTextField nameEntry, promptEntry, extraEntry, answerEntry;
 	private JButton nameSubmit, promptSubmit, extraSubmit, answerSubmit, newQu, deleteQu, nextQu, lastQu, finish, export, selIm, remImg, prevImg;
 	private JLabel imgDisplay;
 	private JMenuItem selQu; 
 	private int qIndex;
+	private User currentUser;
 	private QuestionSelect qs;
 	public DomainEditor(ProblemStorage p, StudyHelper s){
 		setSize(900, 370);
@@ -45,6 +46,8 @@ public class DomainEditor extends JFrame {
 		extraLabel = new JLabel();
 		answerLabel = new JLabel();
 		imgDisplay = new JLabel();
+		correctLabel = new JLabel();
+		attemptLabel = new JLabel();
 		panel = new JPanel();
 		nameEntry = new JTextField();
 		promptEntry = new JTextField();
@@ -116,6 +119,11 @@ public class DomainEditor extends JFrame {
 		prevImg.setBounds(490, 230, 150, 30);
 		panel.add(remImg);
 		remImg.setBounds(490, 280, 150, 30);
+		
+		panel.add(attemptLabel);
+		attemptLabel.setBounds(675, 230, 150, 30);
+		panel.add(correctLabel);
+		correctLabel.setBounds(675, 260, 150, 30);
 		
 		
 		
@@ -264,6 +272,9 @@ public class DomainEditor extends JFrame {
 		else{
 			prevImg.setVisible(true);
 		}
+		System.out.println(currentUser.getUserPS());
+		attemptLabel.setText("Number of attempts: " + currentUser.getUserPS().getAsked(currentSet.getIndex(), qIndex));
+		correctLabel.setText("Number of correct attempts: " + currentUser.getUserPS().getRight(currentSet.getIndex(), qIndex));
 	}
 	public void loadWindow(ProblemSet ps){
 		qIndex = 0;
@@ -315,6 +326,7 @@ public class DomainEditor extends JFrame {
 		qIndex = currentSet.getLength()-1;
 		currentQu = currentSet.getQuestionByIndex(qIndex);
 		updateWindow();
+		qs.setSet(currentSet);
 		qs.updateList();
 		ps.updateFile();
 	}
@@ -419,6 +431,8 @@ public class DomainEditor extends JFrame {
 		
 	}
 
-
+	public void loadUser(User u){
+		currentUser = u;
+	}
 
 }

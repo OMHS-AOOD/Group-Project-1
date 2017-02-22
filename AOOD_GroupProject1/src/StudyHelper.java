@@ -24,18 +24,19 @@ public class StudyHelper {
 	private ProblemStorage ps;
 	private UserSelect us;
 	
-	
-	private ProblemStorage personalps;
+	private ArrayList<UserProblemStorage> userData;
+
 	
 	public StudyHelper(){
 		
-		db = new Database();
+		
 		mm = new MainMenu("Study Helper v1.0", this);
 		ps = new ProblemStorage();
 		ds = new DomainSelect("Select a domain", ps, this);
+		db = new Database(ps);
 		de = new DomainEditor(ps, this);
 		mh = new miniHUD();
-		qw = new QuestionWindow(this, mh);
+		qw = new QuestionWindow(this, mh, ps);
 		us = new UserSelect("Select a user", db, this);
 		
 		currentUser = db.getUserByIndex(0);
@@ -44,6 +45,9 @@ public class StudyHelper {
 		mh.setUser(currentUser.getName());
 		mh.setDomain("None");
 		mh.setRand(currentUser.getRandomize());
+		
+		initUserData();
+		db.loadUserData(userData);
 	}
 	
 	public void addNewUser(){
@@ -66,6 +70,7 @@ public class StudyHelper {
 		}
 		db.addUser(name, password);
 		us.updateList();
+		
 	}
 	
 	public void showUsersWindow(){
@@ -119,7 +124,7 @@ public class StudyHelper {
 			us.setVisible(false);
 			ds.setVisible(false);
 			mh.setVisible(false);
-			qw.loadWindow(currentDomain, currentUser.getRandomize());
+			qw.loadWindow(currentDomain, currentUser.getRandomize(), currentUser);
 		}
 		else{
 			JOptionPane.showMessageDialog(null, "No problem set loaded", "Error" , JOptionPane.INFORMATION_MESSAGE);
@@ -179,7 +184,9 @@ public class StudyHelper {
 			us.setVisible(false);
 			ds.setVisible(false);
 			mh.setVisible(false);
+			de.loadUser(currentUser);
 			de.loadWindow(currentDomain);
+			
 		}
 		else{
 			JOptionPane.showMessageDialog(null, "No problem set loaded", "Error" , JOptionPane.INFORMATION_MESSAGE);
@@ -256,5 +263,12 @@ public class StudyHelper {
 		currentUser.setPassword(password);
 	}
 
+	
+	public void initUserData(){
+		userData = new ArrayList<UserProblemStorage>();
+		for(User u: db.getUserArray()){
+			userData.add(u.getUserPS());
+		}
+	}
 	
 }

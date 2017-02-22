@@ -19,8 +19,10 @@ public class QuestionWindow extends JFrame {
 	private StudyHelper sh;
 	private miniHUD mh;
 	private SingleQuestionEditor quEdit;
+	private ProblemStorage ps;
 	private ArrayList<Question> qStorage;
-	public QuestionWindow(StudyHelper s, miniHUD m){
+	private User currentUser;
+	public QuestionWindow(StudyHelper s, miniHUD m, ProblemStorage p){
 		setSize(800, 450);
 		setResizable(false);
 		setVisible(false);
@@ -28,8 +30,8 @@ public class QuestionWindow extends JFrame {
 		mh = m;
 		sh = s;
 		qIndex = 0;	
-		
-		quEdit = new SingleQuestionEditor(this);
+		ps = p;
+		quEdit = new SingleQuestionEditor(this, ps);
 		
 		JMenuBar jmb = new JMenuBar();
 		question = new JLabel("");
@@ -45,6 +47,7 @@ public class QuestionWindow extends JFrame {
 		JMenuItem toggleHUD = new JMenuItem("Toggle miniHUD");
 		JMenuItem exitDomain = new JMenuItem("Exit Domain");
 		JMenuItem editQuestion = new JMenuItem("Edit Question");
+		JMenuItem delQu = new JMenuItem("Delete Question");
 		panel.setLayout(null);
 		entry.setColumns(50);
 		entry.setBounds(75, 300, 650, 25);
@@ -74,6 +77,7 @@ public class QuestionWindow extends JFrame {
 		jmb.add(m1);
 		m1.add(exitDomain);
 		m1.add(editQuestion);
+		m1.add(delQu);
 		m1.add(toggleHUD);
 		
 		
@@ -126,11 +130,18 @@ public class QuestionWindow extends JFrame {
 				editQuestion();
 			}
 		});
-		
+		delQu.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				deleteCurrentQu();
+			}
+		});
 	}
 	
-	public void loadWindow(ProblemSet ps, boolean randomize){
+	public void loadWindow(ProblemSet ps, boolean randomize, User cU){
 		mh.setVisible(true);
+		currentUser = cU;
 		numRight = 0;
 		numWrong = 0;
 		setLocation(0, 0);
@@ -155,6 +166,7 @@ public class QuestionWindow extends JFrame {
 		notKnow.setVisible(true);
 		entry.setText("");
 		ansLab.setText("The correct answer was: " + currentQu.getAns() + ".");
+		currentUser.getUserPS().addAsked(currentSet.getIndex(), qIndex);
 	}
 	
 	public void know(){
@@ -164,20 +176,13 @@ public class QuestionWindow extends JFrame {
 		numRight++;
 		mh.setRight(numRight);
 		ansLab.setText("");
-		
+		currentUser.getUserPS().addRight(currentSet.getIndex(), qIndex);
 		qIndex++;
 		if(qIndex < qStorage.size()){
 			loadQu();
 		}
 		else{
-			mh.emptyRight();
-			mh.emptyLeft();
-			JOptionPane.showMessageDialog(null, "You knew " + numRight + " and did not know" + numWrong + ".", "Results" , JOptionPane.INFORMATION_MESSAGE);
-			currentQu= null;
-			question.setText("");
-			extra.setText("");
-			qIndex = 0;
-			sh.reload();
+			close();
 		}
 		
 	}
@@ -194,15 +199,9 @@ public class QuestionWindow extends JFrame {
 			loadQu();
 		}
 		else{
-			mh.emptyRight();
-			mh.emptyLeft();
-			JOptionPane.showMessageDialog(null, "You got " + numRight + " correct and " + numWrong + " incorrect.", "Results" , JOptionPane.INFORMATION_MESSAGE);
-			currentQu= null;
-			question.setText("");
-			extra.setText("");
-			qIndex = 0;
-			sh.reload();
+			close();
 		}
+		
 	}
 	/*
 	public void submit(){
@@ -268,15 +267,51 @@ public class QuestionWindow extends JFrame {
 	
 	
 	public void editQuestion(){
-		quEdit.loadWindow(currentSet, currentQu);
+		quEdit.loadWindow(currentSet, currentQu, qIndex);
 		this.setVisible(false);
 	}
 	
 	public void reload(){
 		this.setVisible(true);
+		if(qIndex >= currentSet.getLength()){
+			close();
+		}
+		else{
+			this.loadQu();
+		}
+		
+	}
+	
+	public void close(){
+		mh.emptyRight();
+		mh.emptyLeft();
+		JOptionPane.showMessageDialog(null, "You knew " + numRight + " and did not know " + numWrong + ".", "Results" , JOptionPane.INFORMATION_MESSAGE);			currentQu= null;
+		question.setText("");
+		extra.setText("");
+		qIndex = 0;
+		sh.reload();
 	}
 
-	
+	public void deleteCurrentQu(){
+		String check = JOptionPane.showInputDialog("Are you sure?(Y/N)\nNumber of Attempts: " + currentUser.getUserPS().getAsked(currentSet.getIndex(), qIndex) + "\nNumber of correct attempts: "+currentUser.getUserPS().getRight(currentSet.getIndex(), qIndex));
+		if(check == null){
+			return;
+		}
+		check = check.toUpperCase();
+		if(check.equals("Y")){
+			currentSet.deleteQuestion(qIndex);
+			ps.updateFile();
+			if(qIndex >= currentSet.getLength()){
+				close();
+			}
+			else{
+				currentQu = currentSet.getQuestionByIndex(qIndex);
+				this.loadQu();
+			}
+			
+		}
+		
+	}
 	
 	
 	

@@ -15,34 +15,31 @@ public class SingleQuestionEditor extends JFrame {
 	private ProblemStorage ps;
 	private JPanel panel;
 	private JFrame picDisplay;
-	private JLabel nameLabel, promptLabel, extraLabel, answerLabel;
-	private JTextField nameEntry, promptEntry, extraEntry, answerEntry;
-	private JButton nameSubmit, promptSubmit, extraSubmit, answerSubmit, newQu, deleteQu, nextQu, lastQu, finish, export, selIm, remImg, prevImg;
+	private JLabel promptLabel, extraLabel, answerLabel;
+	private JTextField promptEntry, extraEntry, answerEntry;
+	private JButton promptSubmit, extraSubmit, answerSubmit, deleteQu, finish, selIm, remImg, prevImg;
 	private JLabel imgDisplay;
 	private int qIndex;
 	private QuestionWindow qw;
-	public SingleQuestionEditor(QuestionWindow q){
-		setSize(900, 370);
+	public SingleQuestionEditor(QuestionWindow q, ProblemStorage p){
+		setSize(900, 300);
 		setResizable(false);
 		setVisible(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
 		
-		qw = q;
-		
-		nameLabel = new JLabel();
+		ps = p;
+		qw = q;		
 		promptLabel = new JLabel();
 		extraLabel = new JLabel();
 		answerLabel = new JLabel();
 		imgDisplay = new JLabel();
 		panel = new JPanel();
-		nameEntry = new JTextField();
 		promptEntry = new JTextField();
 		extraEntry = new JTextField();
 		answerEntry = new JTextField();
 		promptSubmit = new JButton("Change Prompt");
 		extraSubmit = new JButton("Change Extra Info");
 		answerSubmit = new JButton("Change Answer");
-		newQu = new JButton("New Question");
 		deleteQu = new JButton("Delete Question");
 		finish = new JButton("Close Editor");
 		selIm = new JButton("Select Image");
@@ -52,48 +49,34 @@ public class SingleQuestionEditor extends JFrame {
 		
 		this.add(panel);
 		panel.setLayout(null);
-		panel.add(nameEntry);
-		nameEntry.setBounds(10, 35, 650, 25);
 		panel.add(promptEntry);
-		promptEntry.setBounds(10, 85, 650, 25);
+		promptEntry.setBounds(10, 35, 650, 25);
 		panel.add(extraEntry);
-		extraEntry.setBounds(10, 135, 650, 25);
+		extraEntry.setBounds(10, 85, 650, 25);
 		panel.add(answerEntry);
-		answerEntry.setBounds(10, 185, 650, 25);
-		panel.add(nameSubmit);
-		nameSubmit.setBounds(675, 30, 150, 30);
+		answerEntry.setBounds(10, 135, 650, 25);
 		panel.add(promptSubmit);
-		promptSubmit.setBounds(675, 80, 150, 30);
+		promptSubmit.setBounds(675, 30, 150, 30);
 		panel.add(extraSubmit);
-		extraSubmit.setBounds(675, 130, 150, 30);
+		extraSubmit.setBounds(675, 80, 150, 30);
 		panel.add(answerSubmit);
-		answerSubmit.setBounds(675, 180, 150, 30);
-		panel.add(newQu);
-		newQu.setBounds(10, 280, 150, 30);
+		answerSubmit.setBounds(675, 130, 150, 30);
 		panel.add(deleteQu);
-		deleteQu.setBounds(170, 280, 150, 30);
-		panel.add(nameLabel);
-		nameLabel.setBounds(10, 10, 650, 25);
+		deleteQu.setBounds(170, 230, 150, 30);
 		panel.add(promptLabel);
-		promptLabel.setBounds(10, 60, 650, 25);
+		promptLabel.setBounds(10, 10, 650, 25);
 		panel.add(extraLabel);
-		extraLabel.setBounds(10, 110, 650, 25);
+		extraLabel.setBounds(10, 60, 650, 25);
 		panel.add(answerLabel);
-		answerLabel.setBounds(10, 160, 650, 25);
-		panel.add(nextQu);
-		nextQu.setBounds(170, 230, 150, 30);
-		panel.add(lastQu);
-		lastQu.setBounds(10, 230, 150, 30);
+		answerLabel.setBounds(10, 110, 650, 25);
 		panel.add(finish);
-		finish.setBounds(725, 280, 150, 30);
-		panel.add(export);
-		export.setBounds(330, 280, 150, 30);
+		finish.setBounds(725, 230, 150, 30);
 		panel.add(selIm);
-		selIm.setBounds(330, 230, 150, 30);
+		selIm.setBounds(10, 180, 150, 30);
 		panel.add(prevImg);
-		prevImg.setBounds(490, 230, 150, 30);
+		prevImg.setBounds(10, 180, 150, 30);
 		panel.add(remImg);
-		remImg.setBounds(490, 280, 150, 30);
+		remImg.setBounds(10, 230, 150, 30);
 		
 		
 		
@@ -186,8 +169,7 @@ public class SingleQuestionEditor extends JFrame {
 	}
 	
 	public void updateWindow(){
-		nameLabel.setText("Set Name: " + currentSet.getName());
-		setTitle("Editing: " + currentSet.getName());
+		setTitle("Editing: " + currentSet.getName() + " Question");
 		promptLabel.setText("Current Question: " + currentQu.getPrompt());
 		if(currentQu.getExtra() == null){
 			extraLabel.setText("Current Extra Info: None");
@@ -203,13 +185,13 @@ public class SingleQuestionEditor extends JFrame {
 			prevImg.setVisible(true);
 		}
 	}
-	public void loadWindow(ProblemSet ps, Question q){
+	public void loadWindow(ProblemSet ps, Question q, int qi){
 		setLocation(0, 0);
 		currentSet = ps;
 		currentQu = q;
+		qIndex = qi;
 		setTitle("Editing: " + currentSet.getName());
 		setVisible(true);
-		nameLabel.setText("Set Name: " + ps.getName());
 		promptLabel.setText("Current Question: " + currentQu.getPrompt());
 		updateWindow();
 		
@@ -249,12 +231,14 @@ public class SingleQuestionEditor extends JFrame {
 		currentQu = currentSet.getQuestionByIndex(qIndex);
 		ps.updateFile();
 		updateWindow();
+		closeEditor();
 	}
 	
 	public void closeEditor(){
 		currentSet = null;
 		currentQu = null;
-		
+		this.setVisible(false);
+		qw.reload();
 	}
 
 	

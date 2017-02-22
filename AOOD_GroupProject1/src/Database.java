@@ -19,11 +19,12 @@ public class Database {
 	private URL location;
 	private File f;
 	private ArrayList<User> users;
-
-	public Database() {
+	private ProblemStorage ps;
+	private ArrayList<UserProblemStorage> userData = new ArrayList<UserProblemStorage>();
+	public Database(ProblemStorage p) {
 		location = StudyHelper.class.getProtectionDomain().getCodeSource().getLocation();
 		f = new File(location.getPath().substring(0, location.getPath().length() - 4) + "src/Users");
-
+		ps = p;
 		users = new ArrayList<User>();
 		getUsersFromFile();
 	}
@@ -36,8 +37,9 @@ public class Database {
 
 				ObjectOutputStream oos = new ObjectOutputStream(fos);
 
-				User u = new User(n);
+				User u = new User(n, ps);
 				users.add(u);
+				userData.add(u.getUserPS());
 				oos.writeObject(users);
 				oos.close();
 			} catch (IOException e) {
@@ -64,8 +66,9 @@ public class Database {
 
 				ObjectOutputStream oos = new ObjectOutputStream(fos);
 
-				User u = new User(n, p);
+				User u = new User(n, p, ps);
 				users.add(u);
+				userData.add(u.getUserPS());
 				oos.writeObject(users);
 				oos.close();
 			} catch (IOException e) {
@@ -79,9 +82,6 @@ public class Database {
 
 	}
 
-	public void remove(User u) {
-		// Fill later
-	}
 
 	public void getUsersFromFile() {
 
@@ -124,7 +124,7 @@ public class Database {
 				return u;
 			}
 		}
-		return new User("Error", "");
+		return new User("Error", "", ps);
 	}
 
 	public int getUserIndexByName(String n) {
@@ -140,6 +140,7 @@ public class Database {
 	public void resetUsers() {
 		try {
 			users = new ArrayList<User>();
+			userData = new ArrayList<UserProblemStorage>();
 			addUser("Default", "");
 			FileOutputStream fos = new FileOutputStream(f);
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
@@ -154,6 +155,7 @@ public class Database {
 	public void deleteUser(int i) {
 		try {
 			users.remove(i);
+			userData.remove(i);
 			FileOutputStream fos = new FileOutputStream(f);
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
 			oos.writeObject(users);
@@ -174,5 +176,14 @@ public class Database {
 		} catch (IOException e) {
 			JOptionPane.showMessageDialog(null, "Error when writing to problems file", "Error" , JOptionPane.INFORMATION_MESSAGE);
 		}
+	}
+
+	public int size() {
+		
+		return users.size();
+	}
+	
+	public void loadUserData(ArrayList<UserProblemStorage> data){
+		userData = data;
 	}
 }

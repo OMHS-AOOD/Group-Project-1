@@ -8,13 +8,16 @@ public class User implements Serializable{
 	private String name;
 	private String password;
 	private boolean randomize = false;
-	public User(String n, String p){
+	private UserProblemStorage ups;
+	public User(String n, String p, ProblemStorage ps){
 		name = n;
 		password = p;
+		ups = new UserProblemStorage(ps);
 	}
-	public User(String n){
+	public User(String n, ProblemStorage ps){
 		name = n;
 		password = "";
+		ups = new UserProblemStorage(ps);
 	}
 	public String getName(){
 		return name;
@@ -43,5 +46,9 @@ public class User implements Serializable{
 	public void setName(String newName) {
 		name = newName;
 		
+	}
+	
+	public UserProblemStorage getUserPS(){
+		return ups;
 	}
 }
