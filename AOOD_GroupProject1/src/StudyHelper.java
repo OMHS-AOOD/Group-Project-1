@@ -39,6 +39,7 @@ public class StudyHelper {
 		
 		mh.setUser(currentUser.getName());
 		mh.setDomain("None");
+		mh.setRand(currentUser.getRandomize());
 	}
 	
 	public void addNewUser(){
@@ -223,6 +224,8 @@ public class StudyHelper {
 
 	public void toggleUserRandomization() {
 		currentUser.toggleRandomize();
+		mh.setRand(currentUser.getRandomize());
+		db.updateFile();
 	}
 
 	

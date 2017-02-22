@@ -32,11 +32,11 @@ public class MainMenu extends JFrame {
 		JMenuItem newDom = new JMenuItem("New Domain");
 		JMenuItem impDom = new JMenuItem("Import Domain");
 		JMenuItem toggleHUD = new JMenuItem("Toggle miniHUD");
+		JMenuItem randQus = new JMenuItem("Toggle Randomize Questions");
 		
 		JButton selDomB = new JButton("Select Domain");
 		JButton addUserB = new JButton("Add User");
-		JButton selUserB = new JButton("Select Users");
-		JButton randQus = new JButton("Toggle Randomize Questions");
+		JButton selUserB = new JButton("Select Users");	
 		JButton delUserB = new JButton("Delete all Users");
 		JButton startDomB = new JButton("Start Domain");
 		JButton editDomB = new JButton("Edit Domain");

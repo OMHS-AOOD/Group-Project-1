@@ -164,4 +164,15 @@ public class Database {
 		}
 
 	}
+
+	public void updateFile(){
+		try {
+	    	FileOutputStream fos = new FileOutputStream(f);
+		    ObjectOutputStream oos = new ObjectOutputStream(fos);
+		    oos.writeObject(users);
+			oos.close();
+		} catch (IOException e) {
+			JOptionPane.showMessageDialog(null, "Error when writing to problems file", "Error" , JOptionPane.INFORMATION_MESSAGE);
+		}
+	}
 }
