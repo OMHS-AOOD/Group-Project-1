@@ -18,6 +18,7 @@ public class QuestionWindow extends JFrame {
 	private Question currentQu;
 	private StudyHelper sh;
 	private miniHUD mh;
+	private ArrayList<Question> qStorage;
 	public QuestionWindow(StudyHelper s, miniHUD m){
 		setSize(800, 450);
 		setResizable(false);
@@ -25,7 +26,7 @@ public class QuestionWindow extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mh = m;
 		sh = s;
-		qIndex = 0;
+		qIndex = 0;	
 		JMenuBar jmb = new JMenuBar();
 		question = new JLabel("");
 		extra = new JLabel("");
@@ -35,6 +36,8 @@ public class QuestionWindow extends JFrame {
 		panel = new JPanel();
 		entry = new JTextField();
 		JMenu m1 = new JMenu("Options");
+		JMenuItem randomize = new JMenuItem("Randomize question order");
+		JMenuItem unrandomize = new JMenuItem("Unrandomize question order");
 		JMenuItem toggleHUD = new JMenuItem("Toggle miniHUD");
 		panel.setLayout(null);
 		entry.setColumns(50);
@@ -57,7 +60,10 @@ public class QuestionWindow extends JFrame {
 		
 		this.setJMenuBar(jmb);
 		jmb.add(m1);
+		m1.add(randomize);
+		m1.add(unrandomize);
 		m1.add(toggleHUD);
+		
 		
 		
 		toggleHUD.addActionListener(new ActionListener() {
@@ -74,11 +80,27 @@ public class QuestionWindow extends JFrame {
 				submit();
 			}
 		});
+		randomize.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				randomizeOrder();
+			}
+		});
+		unrandomize.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				unrandomizeOrder();
+			}
+		});
 		
 		
 	}
 	
 	public void loadWindow(ProblemSet ps){
+		numRight = 0;
+		numWrong = 0;
 		setLocation(0, 0);
 		setTitle("Quizzing on: " + ps.getName());
 		currentSet = ps;
@@ -86,6 +108,7 @@ public class QuestionWindow extends JFrame {
 		mh.setRight(0);
 		mh.setWrong(0);
 		ansLab.setText("");
+		qStorage = new ArrayList<Question>(currentSet.getList());
 		loadQu();
 		
 		
@@ -123,7 +146,7 @@ public class QuestionWindow extends JFrame {
 	}
 	
 	public void loadQu(){
-		currentQu = currentSet.getQuestionByIndex(qIndex);
+		currentQu = qStorage.get(qIndex);
 		question.setText(currentQu.getPrompt());
 		extra.setText(currentQu.getExtra());
 		if(currentQu.getImage() != null){
@@ -132,6 +155,35 @@ public class QuestionWindow extends JFrame {
 		else{
 			image.setIcon(null);
 		}
+		
+	}
+	
+	public void randomizeOrder(){
+		ArrayList<Question> randQ = new ArrayList<Question>();
+		while(qStorage.size() > 0){
+			int randInt = (int)(Math.random() * qStorage.size());
+			randQ.add(qStorage.remove(randInt));
+		}
+		
+		qStorage = randQ;
+		qIndex = 0;
+		mh.setRight(0);
+		mh.setWrong(0);
+		numRight = 0;
+		numWrong = 0;
+		ansLab.setText("");
+		loadQu();
+	}
+	
+	public void unrandomizeOrder(){
+		qStorage = currentSet.getList();
+		qIndex = 0;
+		mh.setRight(0);
+		mh.setWrong(0);
+		numRight = 0;
+		numWrong = 0;
+		ansLab.setText("");
+		loadQu();
 		
 	}
 	
