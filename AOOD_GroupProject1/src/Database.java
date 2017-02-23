@@ -39,7 +39,7 @@ public class Database {
 
 				User u = new User(n, ps);
 				users.add(u);
-				userData.add(u.getUserPS());
+				//userData.add(u.getUserPS());
 				oos.writeObject(users);
 				oos.close();
 			} catch (IOException e) {
@@ -68,7 +68,7 @@ public class Database {
 
 				User u = new User(n, p, ps);
 				users.add(u);
-				userData.add(u.getUserPS());
+				//userData.add(u.getUserPS());
 				oos.writeObject(users);
 				oos.close();
 			} catch (IOException e) {

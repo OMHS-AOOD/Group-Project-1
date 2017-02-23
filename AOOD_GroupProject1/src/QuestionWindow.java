@@ -166,7 +166,7 @@ public class QuestionWindow extends JFrame {
 		notKnow.setVisible(true);
 		entry.setText("");
 		ansLab.setText("The correct answer was: " + currentQu.getAns() + ".");
-		currentUser.getUserPS().addAsked(currentSet.getIndex(), qIndex);
+		//currentUser.getUserPS().addAsked(currentSet.getIndex(), qIndex);
 	}
 	
 	public void know(){
@@ -176,7 +176,7 @@ public class QuestionWindow extends JFrame {
 		numRight++;
 		mh.setRight(numRight);
 		ansLab.setText("");
-		currentUser.getUserPS().addRight(currentSet.getIndex(), qIndex);
+		//currentUser.getUserPS().addRight(currentSet.getIndex(), qIndex);
 		qIndex++;
 		if(qIndex < qStorage.size()){
 			loadQu();
@@ -293,7 +293,9 @@ public class QuestionWindow extends JFrame {
 	}
 
 	public void deleteCurrentQu(){
-		String check = JOptionPane.showInputDialog("Are you sure?(Y/N)\nNumber of Attempts: " + currentUser.getUserPS().getAsked(currentSet.getIndex(), qIndex) + "\nNumber of correct attempts: "+currentUser.getUserPS().getRight(currentSet.getIndex(), qIndex));
+		//String check = JOptionPane.showInputDialog("Are you sure?(Y/N)\nNumber of Attempts: " + currentUser.getUserPS().getAsked(currentSet.getIndex(), qIndex) + "\nNumber of correct attempts: "+currentUser.getUserPS().getRight(currentSet.getIndex(), qIndex));
+		String check = JOptionPane.showInputDialog("Are you sure?(Y/N)");
+
 		if(check == null){
 			return;
 		}

@@ -23,7 +23,7 @@ public class ProblemStorage {
 		location = StudyHelper.class.getProtectionDomain().getCodeSource().getLocation();
 		f = new File(location.getPath().substring(0,  location.getPath().length()-4) + "src/Problems");
 		getProblemsFromFile();
-		updateFile();
+
 	}
 	
 	public void getProblemsFromFile(){
@@ -51,6 +51,7 @@ public class ProblemStorage {
 			JOptionPane.showMessageDialog(null, "Problems set with that name already exists", "Error" , JOptionPane.INFORMATION_MESSAGE);
 		}
 		else{
+			System.out.println("hey");
 			problems.add(new ProblemSet(n, index,userData));
 			index++;
 			problems.get(problems.size() - 1).setAdmin(u);

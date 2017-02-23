@@ -24,7 +24,7 @@ public class StudyHelper {
 	private ProblemStorage ps;
 	private UserSelect us;
 	
-	private ArrayList<UserProblemStorage> userData;
+	//private ArrayList<UserProblemStorage> userData;
 
 	
 	public StudyHelper(){
@@ -45,21 +45,30 @@ public class StudyHelper {
 		mh.setUser(currentUser.getName());
 		mh.setDomain("None");
 		mh.setRand(currentUser.getRandomize());
-
+		/*
 		db.loadUserData(userData);
 		initUserData();
 		
-		
+		System.out.println(userData.size());
 		///COME BACK TO
 		//TODO
+		for(UserProblemStorage ups: userData){
+			while(ups.getArrayLength() < ps.getLength()){
+				for(ProblemSet pset: ps.getArray()){
+					ups.addSet(pset);
+					if(ups.getQLength(pset.getIndex())< pset.getLength()){
+						
+					}
+				}
+			}
+		}
 		while(userData.get(userData.size()-1).getArrayLength()<ps.getLength()){
 			for(UserProblemStorage ups: userData){
 				ups.addSet(ps.getPSByIndex(userData.get(userData.size()-1).getArrayLength()));
 			}
 		}
 		db.updateFile();
-		ps.updateFile();
-		//TODO
+		*/
 	}
 	
 	public void addNewUser(){
@@ -252,35 +261,44 @@ public class StudyHelper {
 	}
 
 	public void changeUsername() {
+		if(currentUser.getName().equals("Default")){
+			JOptionPane.showMessageDialog(null, "Can't edit default user", "Change Password" , JOptionPane.INFORMATION_MESSAGE);
+			return;
+		}
 		String newName = JOptionPane.showInputDialog("Enter a new username: ");
 		if(newName == null ||db.checkForUserName(newName)){
-			JOptionPane.showMessageDialog(null, "Username is invalid/already taken", "New User" , JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Username is invalid/already taken", "Change Username" , JOptionPane.INFORMATION_MESSAGE);
 		}
 		currentUser.setName(newName);
 		mh.setUser(currentUser.getName());
 	}
 	
 	public void changePassword(){
+		if(currentUser.getName().equals("Default")){
+			JOptionPane.showMessageDialog(null, "Can't edit default user", "Change Password" , JOptionPane.INFORMATION_MESSAGE);
+			return;
+		}
 		String oldPass = JOptionPane.showInputDialog("Enter your current password: ");
 		if(oldPass == null || !oldPass.equals(currentUser.getPassword())){
-			JOptionPane.showMessageDialog(null, "Incorrect Password", "User Select" , JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Incorrect Password", "Change Password" , JOptionPane.INFORMATION_MESSAGE);
 			return;
 		}
 		String password = JOptionPane.showInputDialog("Enter a password: ");
 		String passCheck = JOptionPane.showInputDialog("Re-enter the password: ");
 		if(!password.equals(passCheck)){
-			JOptionPane.showMessageDialog(null, "Passwords do not match", "New User" , JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Passwords do not match", "Change Password" , JOptionPane.INFORMATION_MESSAGE);
 			return;
 		}
 		currentUser.setPassword(password);
 	}
 
-	
+	/*
 	public void initUserData(){
 		userData = new ArrayList<UserProblemStorage>();
 		for(User u: db.getUserArray()){
 			userData.add(u.getUserPS());
 		}
 	}
+	*/
 	
 }

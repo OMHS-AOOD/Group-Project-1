@@ -4,9 +4,12 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.DefaultListModel;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 
@@ -20,11 +23,15 @@ public class DomainSelect extends JFrame {
 	private JList<String> domainList;
 	private StudyHelper sh;
 	private ProblemStorage ps;
+	private JButton delete, edit, launch;
+	private JPanel panel;
 	public DomainSelect(String n, ProblemStorage prob, StudyHelper s){
 		super(n);
 		dlm = new DefaultListModel<String>();
 		sh = s;
 		ps = prob;
+		
+		panel = new JPanel();
 		setSize(300, 250);
 		setResizable(false);
 		setVisible(false);
@@ -35,7 +42,61 @@ public class DomainSelect extends JFrame {
 		domainList = new JList<String>(dlm);
 		domainPane = new JScrollPane(domainList, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		add(domainPane);
+		//add(panel);
 		domainList.addMouseListener(new CoolAdapter());
+		
+		JButton delete = new JButton("Delete");
+		JButton edit = new JButton("Edit");
+		JButton launch = new JButton("Launch");
+		panel.add(launch);
+		panel.add(edit);
+		panel.add(delete);
+		
+		launch.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				final int i = domainList.getSelectedIndex();
+				if(i != -1){
+					sh.setDomain(i);
+				}
+				else{
+					JOptionPane.showMessageDialog(null, "No domain selected", "Error" , JOptionPane.INFORMATION_MESSAGE);
+				}
+			}
+		});
+		edit.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				final int i = domainList.getSelectedIndex();
+				if(i != -1){
+					sh.setDomain(i);
+					sh.startEditor();
+				}
+				else{
+					JOptionPane.showMessageDialog(null, "No domain selected", "Error" , JOptionPane.INFORMATION_MESSAGE);
+				}
+			}
+		});
+		delete.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e)
+			{
+				final int i = domainList.getSelectedIndex();
+				if(i != -1){
+					sh.deleteDomain(i);
+					dlm.removeAllElements();
+					for(ProblemSet p: ps.getArray()){
+						dlm.addElement(p.getName());
+					}
+				}
+				else{
+					JOptionPane.showMessageDialog(null, "No domain selected", "Error" , JOptionPane.INFORMATION_MESSAGE);
+				}
+				
+			}
+		});
+		
 	}
 	
 	private class CoolAdapter extends MouseAdapter{

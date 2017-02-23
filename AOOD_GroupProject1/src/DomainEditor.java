@@ -22,8 +22,8 @@ public class DomainEditor extends JFrame {
 	private JMenu m1;
 	private JFrame picDisplay;
 	private JLabel nameLabel, promptLabel, extraLabel, answerLabel, attemptLabel, correctLabel;
-	private JTextField nameEntry, promptEntry, extraEntry, answerEntry;
-	private JButton nameSubmit, promptSubmit, extraSubmit, answerSubmit, newQu, deleteQu, nextQu, lastQu, finish, export, selIm, remImg, prevImg;
+	private JTextField nameEntry, promptEntry, extraEntry, answerEntry, editAttempts, editRight;
+	private JButton nameSubmit, promptSubmit, extraSubmit, answerSubmit, newQu, deleteQu, nextQu, lastQu, finish, export, selIm, remImg, prevImg, submitAttempts, submitRight;
 	private JLabel imgDisplay;
 	private JMenuItem selQu; 
 	private int qIndex;
@@ -272,8 +272,8 @@ public class DomainEditor extends JFrame {
 		else{
 			prevImg.setVisible(true);
 		}
-		attemptLabel.setText("Attempts: " + currentUser.getUserPS().getAsked(currentSet.getIndex(), qIndex));
-		correctLabel.setText("Correct attempts: " + currentUser.getUserPS().getRight(currentSet.getIndex(), qIndex));
+		//attemptLabel.setText("Attempts: " + currentUser.getUserPS().getAsked(currentSet.getIndex(), qIndex));
+		//correctLabel.setText("Correct attempts: " + currentUser.getUserPS().getRight(currentSet.getIndex(), qIndex));
 	}
 	public void loadWindow(ProblemSet ps){
 		qIndex = 0;

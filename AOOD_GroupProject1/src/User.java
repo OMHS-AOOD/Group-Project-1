@@ -8,16 +8,32 @@ public class User implements Serializable{
 	private String name;
 	private String password;
 	private boolean randomize = false;
-	private UserProblemStorage ups;
+	//private UserProblemStorage ups;
 	public User(String n, String p, ProblemStorage ps){
 		name = n;
 		password = p;
+		/*
 		ups = new UserProblemStorage(ps);
+		for(ProblemSet pset: ps.getArray()){
+			ups.addSet(pset);
+			for(Question q: pset.getList()){
+				ups.addQu(pset.getIndex());
+			}
+		}
+		*/
 	}
 	public User(String n, ProblemStorage ps){
 		name = n;
 		password = "";
+		/*
 		ups = new UserProblemStorage(ps);
+		for(ProblemSet pset: ps.getArray()){
+			ups.addSet(pset);
+			for(Question q: pset.getList()){
+				ups.addQu(pset.getIndex());
+			}
+		}
+		*/
 	}
 	public String getName(){
 		return name;
@@ -47,7 +63,7 @@ public class User implements Serializable{
 		name = newName;
 		
 	}
-	
+	/*
 	public UserProblemStorage getUserPS(){
 		return ups;
 	}
@@ -55,4 +71,5 @@ public class User implements Serializable{
 	public void setUPS(ProblemStorage ps){
 		ups = new UserProblemStorage(ps);
 	}
+	*/
 }
