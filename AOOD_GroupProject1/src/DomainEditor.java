@@ -295,6 +295,7 @@ public class DomainEditor extends JFrame {
 						JOptionPane.showMessageDialog(null, "Invalid number", "Error", JOptionPane.INFORMATION_MESSAGE);
 					}
 				} catch (NumberFormatException err) {
+					editRight.setText("");
 					JOptionPane.showMessageDialog(null, "Invalid input", "Error", JOptionPane.INFORMATION_MESSAGE);
 
 				}
@@ -417,7 +418,8 @@ public class DomainEditor extends JFrame {
 	}
 	public void closeEditor(){
 		currentQu = null;
-		sh.reload();
+		
+		sh.reload(currentSet);
 	}
 
 	public void showQuestionWindow() {

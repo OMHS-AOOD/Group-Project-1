@@ -15,15 +15,16 @@ public class SingleQuestionEditor extends JFrame {
 	private ProblemStorage ps;
 	private JPanel panel;
 	private JFrame picDisplay;
-	private JLabel promptLabel, extraLabel, answerLabel;
-	private JTextField promptEntry, extraEntry, answerEntry;
-	private JButton promptSubmit, extraSubmit, answerSubmit, deleteQu, finish, selIm, remImg, prevImg;
+	private JLabel promptLabel, extraLabel, answerLabel, attemptLabel, correctLabel;
+	private JTextField promptEntry, extraEntry, answerEntry, editAttempts, editRight;
+	private JButton promptSubmit, extraSubmit, answerSubmit, deleteQu, finish, selIm, remImg, prevImg, submitAttempts, submitRight;
 	private JLabel imgDisplay;
 	private int qIndex;
 	private QuestionWindow qw;
+	private User currentUser;
 	private Database db;
 	public SingleQuestionEditor(QuestionWindow q, ProblemStorage p, Database d){
-		setSize(900, 300);
+		setSize(900, 400);
 		setResizable(false);
 		setVisible(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
@@ -35,6 +36,10 @@ public class SingleQuestionEditor extends JFrame {
 		answerLabel = new JLabel();
 		imgDisplay = new JLabel();
 		panel = new JPanel();
+		correctLabel = new JLabel();
+		attemptLabel = new JLabel();
+		editRight = new JTextField();
+		editAttempts = new JTextField();
 		promptEntry = new JTextField();
 		extraEntry = new JTextField();
 		answerEntry = new JTextField();
@@ -46,6 +51,8 @@ public class SingleQuestionEditor extends JFrame {
 		selIm = new JButton("Select Image");
 		remImg = new JButton("Remove Image");
 		prevImg = new JButton("Preview Image");
+		submitAttempts = new JButton("Change Attempts");
+		submitRight = new JButton("Change Correct");
 		
 		
 		this.add(panel);
@@ -63,7 +70,7 @@ public class SingleQuestionEditor extends JFrame {
 		panel.add(answerSubmit);
 		answerSubmit.setBounds(675, 130, 150, 30);
 		panel.add(deleteQu);
-		deleteQu.setBounds(170, 230, 150, 30);
+		deleteQu.setBounds(170, 330, 150, 30);
 		panel.add(promptLabel);
 		promptLabel.setBounds(10, 10, 650, 25);
 		panel.add(extraLabel);
@@ -71,15 +78,28 @@ public class SingleQuestionEditor extends JFrame {
 		panel.add(answerLabel);
 		answerLabel.setBounds(10, 110, 650, 25);
 		panel.add(finish);
-		finish.setBounds(725, 230, 150, 30);
+		finish.setBounds(725, 330, 150, 30);
 		panel.add(selIm);
-		selIm.setBounds(10, 180, 150, 30);
+		selIm.setBounds(10, 280, 150, 30);
 		panel.add(prevImg);
-		prevImg.setBounds(10, 180, 150, 30);
+		prevImg.setBounds(10, 280, 150, 30);
 		panel.add(remImg);
-		remImg.setBounds(10, 230, 150, 30);
+		remImg.setBounds(10, 330, 150, 30);
 		
+		panel.add(attemptLabel);
+		attemptLabel.setBounds(10, 180, 150, 30);
+		panel.add(correctLabel);
+		correctLabel.setBounds(170, 180, 150, 30);
 		
+		panel.add(submitAttempts);
+		panel.add(submitRight);
+		submitAttempts.setBounds(10, 210, 150, 20);
+		submitRight.setBounds(170, 210, 150, 20);
+		
+		panel.add(editAttempts);
+		panel.add(editRight);
+		editAttempts.setBounds(10, 240, 150, 30);
+		editRight.setBounds(170, 240, 150, 30);
 		
 		picDisplay = new JFrame("Image Display");
 		picDisplay.setVisible(false);
@@ -159,7 +179,53 @@ public class SingleQuestionEditor extends JFrame {
 
 			
 		});
+		submitAttempts.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				try{
+					Integer i = Integer.parseInt(editAttempts.getText().trim());
+					editAttempts.setText("");
+					if (i >= 0) {
+						db.getData().get(currentUser.getName()).setAsked(currentSet, currentQu, i);
+						updateWindow();
+						db.updateFileData();
+					} else {
+						JOptionPane.showMessageDialog(null, "Invalid number", "Error", JOptionPane.INFORMATION_MESSAGE);
+					}
+				} catch (NumberFormatException err) {
+					JOptionPane.showMessageDialog(null, "Invalid input", "Error", JOptionPane.INFORMATION_MESSAGE);
+
+				}
+
+			}
+
+		});
+		submitRight.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				try{
+					Integer i = Integer.parseInt(editRight.getText().trim());
+					editRight.setText("");
+					if (i >= 0) {
+						db.getData().get(currentUser.getName()).setRight(currentSet, currentQu, i);
+						updateWindow();
+						db.updateFileData();
+					} else {
+						JOptionPane.showMessageDialog(null, "Invalid number", "Error", JOptionPane.INFORMATION_MESSAGE);
+					}
+				} catch (NumberFormatException err) {
+					editRight.setText("");
+					JOptionPane.showMessageDialog(null, "Invalid input", "Error", JOptionPane.INFORMATION_MESSAGE);
+
+				}
+
+			}
+
+		});
 	}
+	
 	
 	
 	public void previewImg(){
@@ -185,6 +251,8 @@ public class SingleQuestionEditor extends JFrame {
 		else{
 			prevImg.setVisible(true);
 		}
+		attemptLabel.setText("Attempts: " + db.getData().get(currentUser.getName()).getAsked(currentSet, currentQu));
+		correctLabel.setText("Correct attempts: " + db.getData().get(currentUser.getName()).getRight(currentSet, currentQu));
 	}
 	public void loadWindow(ProblemSet ps, Question q, int qi){
 		setLocation(0, 0);
@@ -269,6 +337,8 @@ public class SingleQuestionEditor extends JFrame {
 		
 		
 	
-
+	public void getAUser(User u){
+		currentUser = u;
+	}
 
 }

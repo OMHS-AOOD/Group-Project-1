@@ -132,7 +132,8 @@ public class StudyHelper {
 		mh.setVisible(!mh.isVisible());
 
 	}
-	public void reload(){
+	public void reload(ProblemSet cS){
+		currentDomain = cS;
 		mm.setVisible(true);
 		us.setVisible(false);
 		ds.setVisible(false);

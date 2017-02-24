@@ -122,7 +122,7 @@ public class QuestionWindow extends JFrame {
 				question.setText("");
 				extra.setText("");
 				qIndex = 0;
-				sh.reload();
+				sh.reload(currentSet);
 			}
 		});
 		editQuestion.addActionListener(new ActionListener() {
@@ -217,6 +217,7 @@ public class QuestionWindow extends JFrame {
 			image.setIcon(null);
 		}
 		
+		
 	}
 	
 	public void randomizeOrder(){
@@ -238,6 +239,7 @@ public class QuestionWindow extends JFrame {
 	
 	
 	public void editQuestion(){
+		quEdit.getAUser(currentUser);
 		quEdit.loadWindow(currentSet, currentQu, qIndex);
 		this.setVisible(false);
 	}
@@ -260,12 +262,12 @@ public class QuestionWindow extends JFrame {
 		question.setText("");
 		extra.setText("");
 		qIndex = 0;
-		sh.reload();
+		sh.reload(currentSet);
 	}
 
 	public void deleteCurrentQu(){
-		//String check = JOptionPane.showInputDialog("Are you sure?(Y/N)\nNumber of Attempts: " + currentUser.getUserPS().getAsked(currentSet.getIndex(), qIndex) + "\nNumber of correct attempts: "+currentUser.getUserPS().getRight(currentSet.getIndex(), qIndex));
-		String check = JOptionPane.showInputDialog("Are you sure?(Y/N)");
+		String check = JOptionPane.showInputDialog("Are you sure?(Y/N)\nNumber of Attempts: " + db.getData().get(currentUser.getName()).getAsked(currentSet, currentQu) + "\nNumber of correct attempts: "+db.getData().get(currentUser.getName()).getAsked(currentSet, currentQu));
+		
 
 		if(check == null){
 			return;
