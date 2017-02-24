@@ -168,7 +168,7 @@ public class QuestionWindow extends JFrame {
 		notKnow.setVisible(true);
 		entry.setText("");
 		ansLab.setText("The correct answer was: " + currentQu.getAns() + ".");
-		//currentUser.getUserPS().addAsked(currentSet.getIndex(), qIndex);
+		db.getData().get(currentUser.getName()).addAsked(currentSet, currentQu);
 	}
 	
 	public void know(){
@@ -178,7 +178,7 @@ public class QuestionWindow extends JFrame {
 		numRight++;
 		mh.setRight(numRight);
 		ansLab.setText("");
-		//currentUser.getUserPS().addRight(currentSet.getIndex(), qIndex);
+		db.getData().get(currentUser.getName()).addRight(currentSet, currentQu);
 		qIndex++;
 		if(qIndex < qStorage.size()){
 			loadQu();
@@ -205,38 +205,7 @@ public class QuestionWindow extends JFrame {
 		}
 		
 	}
-	/*
-	public void submit(){
-		String answer = entry.getText().trim();
-		entry.setText("");
-		
-		if(currentQu.getAns().equalsIgnoreCase(answer)){
-			numRight++;
-			mh.setRight(numRight);
-			ansLab.setText("Correct!");
-		}
-		else{
-			numWrong++;
-			mh.setWrong(numWrong);
-			ansLab.setText("The correct answer was: " + currentQu.getAns() + ".");
-		}
-		qIndex++;
-		if(qIndex < currentSet.getLength()){
-			loadQu();
-		}
-		else{
-			mh.emptyRight();
-			mh.emptyLeft();
-			JOptionPane.showMessageDialog(null, "You got " + numRight + " correct and " + numWrong + " incorrect.", "Results" , JOptionPane.INFORMATION_MESSAGE);
-			currentQu= null;
-			question.setText("");
-			extra.setText("");
-			qIndex = 0;
-			sh.reload();
-		}
-		
-	}
-	*/
+	
 	public void loadQu(){
 		currentQu = qStorage.get(qIndex);
 		question.setText(currentQu.getPrompt());

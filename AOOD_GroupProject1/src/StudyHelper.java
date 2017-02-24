@@ -268,13 +268,8 @@ public class StudyHelper {
 		currentUser.setPassword(password);
 	}
 
-	/*
-	public void initUserData(){
-		userData = new ArrayList<UserProblemStorage>();
-		for(User u: db.getUserArray()){
-			userData.add(u.getUserPS());
-		}
+	public User getCurrentUser(){
+		return currentUser;
 	}
-	*/
 	
 }

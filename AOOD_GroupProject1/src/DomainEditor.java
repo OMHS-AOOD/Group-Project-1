@@ -272,8 +272,8 @@ public class DomainEditor extends JFrame {
 		else{
 			prevImg.setVisible(true);
 		}
-		//attemptLabel.setText("Attempts: " + currentUser.getUserPS().getAsked(currentSet.getIndex(), qIndex));
-		//correctLabel.setText("Correct attempts: " + currentUser.getUserPS().getRight(currentSet.getIndex(), qIndex));
+		attemptLabel.setText("Attempts: " + db.getData().get(sh.getCurrentUser().getName()).getAsked(currentSet, currentQu));
+		correctLabel.setText("Correct attempts: " + db.getData().get(sh.getCurrentUser().getName()).getRight(currentSet, currentQu));
 	}
 	public void loadWindow(ProblemSet ps){
 		qIndex = 0;
