@@ -416,7 +416,6 @@ public class DomainEditor extends JFrame {
 		updateWindow();
 	}
 	public void closeEditor(){
-		currentSet = null;
 		currentQu = null;
 		sh.reload();
 	}

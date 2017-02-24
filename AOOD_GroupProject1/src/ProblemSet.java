@@ -14,6 +14,9 @@ public class ProblemSet implements Serializable {
 		name = n;
 		admin = "Default";
 		password = "";
+		for(User u: db.getUserArray()){
+			db.getData().get(u.getName()).addSet(this);
+		}
 		addQuestion(db, this);
 	}
 

@@ -220,6 +220,9 @@ public class StudyHelper {
 			    ObjectInputStream ois = new ObjectInputStream(fis);
 			    ProblemSet p = (ProblemSet) ois.readObject();
 		        ps.addProblemSet(p);
+		        for(User u: db.getUserArray()){
+		        	db.getData().get(u.getName()).addSet(p);
+		        }
 		        ds.updateList();
 		        ois.close();
 			}
