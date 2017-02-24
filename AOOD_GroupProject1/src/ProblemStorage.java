@@ -16,8 +16,8 @@ public class ProblemStorage {
 	private ArrayList<ProblemSet> problems;
 	private File f;
 	private URL location;
-	private ArrayList<UserProblemStorage> userData = new ArrayList<UserProblemStorage>();
 	private int index = 0;
+	private Database db;
 	public ProblemStorage(){
 		problems = new ArrayList<ProblemSet>();
 		location = StudyHelper.class.getProtectionDomain().getCodeSource().getLocation();
@@ -52,12 +52,9 @@ public class ProblemStorage {
 		}
 		else{
 			System.out.println("hey");
-			problems.add(new ProblemSet(n, index,userData));
+			problems.add(new ProblemSet(n, db));
 			index++;
 			problems.get(problems.size() - 1).setAdmin(u);
-			for(UserProblemStorage ups: userData){
-				ups.addSet(problems.get(problems.size() - 1));
-			}
 			updateFile();
 		}
 	}
@@ -67,11 +64,9 @@ public class ProblemStorage {
 			JOptionPane.showMessageDialog(null, "Problems set with that name already exists", "Error" , JOptionPane.INFORMATION_MESSAGE);
 		}
 		else{
-			problems.add(new ProblemSet(n, index, userData));
+			problems.add(new ProblemSet(n, db));
 			index++;
-			for(UserProblemStorage ups: userData){
-				ups.addSet(problems.get(problems.size() - 1));
-			}
+
 			updateFile();
 		}
 	}
@@ -81,9 +76,6 @@ public class ProblemStorage {
 		}
 		else{
 			problems.add(p);
-			for(UserProblemStorage ups: userData){
-				ups.addSet(problems.get(problems.size() - 1));
-			}
 			updateFile();
 		}
 	}
@@ -105,9 +97,7 @@ public class ProblemStorage {
 	
 	public void removeDomain(int i){
 		problems.remove(i);
-		for(UserProblemStorage ups: userData){
-			ups.removeSet(i);
-		}
+
 		updateFile();
 	}
 	
@@ -132,8 +122,8 @@ public class ProblemStorage {
 	public int getLength(){
 		return problems.size();
 	}
-	public void loadUserData(ArrayList<UserProblemStorage> data){
-		userData = data;
+	public void loadDb(Database d){
+		db = d;
 	}
 	
 }

@@ -27,14 +27,14 @@ public class DomainEditor extends JFrame {
 	private JLabel imgDisplay;
 	private JMenuItem selQu; 
 	private int qIndex;
-	private User currentUser;
+	private Database db;
 	private QuestionSelect qs;
-	public DomainEditor(ProblemStorage p, StudyHelper s){
+	public DomainEditor(ProblemStorage p, StudyHelper s, Database d){
 		setSize(900, 370);
 		setResizable(false);
 		setVisible(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
-		
+		db =d;
 		sh =s;
 		ps = p;
 		qIndex = 0;
@@ -290,7 +290,7 @@ public class DomainEditor extends JFrame {
 	}
 	public void submitName(){
 		if(nameEntry.getText() != null){
-			currentSet.setName(nameEntry.getText().trim());
+			currentSet.setName(currentSet.getName(), db);
 			nameEntry.setText("");
 			ps.updateFile();
 			updateWindow();
@@ -298,7 +298,7 @@ public class DomainEditor extends JFrame {
 	}
 	public void submitPrompt(){
 		if(promptEntry.getText() != null){
-			currentQu.setPrompt(promptEntry.getText().trim());
+			currentQu.setPrompt(promptEntry.getText().trim(), db, currentSet);
 			promptEntry.setText("");
 			ps.updateFile();
 			updateWindow();
@@ -321,9 +321,12 @@ public class DomainEditor extends JFrame {
 		}
 	}
 	public void createNewQuestion(){
-		currentSet.addQuestion();
+		
+		currentSet.addQuestion(db, currentSet);
 		qIndex = currentSet.getLength()-1;
 		currentQu = currentSet.getQuestionByIndex(qIndex);
+		
+		
 		updateWindow();
 		qs.setSet(currentSet);
 		qs.updateList();
@@ -347,7 +350,8 @@ public class DomainEditor extends JFrame {
 		updateWindow();
 	}
 	public void deleteQu(){
-		currentSet.deleteQuestion(qIndex);
+		
+		currentSet.deleteQuestion(qIndex, db);
 		qIndex = 0;
 		currentQu = currentSet.getQuestionByIndex(qIndex);
 		ps.updateFile();
@@ -430,8 +434,5 @@ public class DomainEditor extends JFrame {
 		
 	}
 
-	public void loadUser(User u){
-		currentUser = u;
-	}
 
 }

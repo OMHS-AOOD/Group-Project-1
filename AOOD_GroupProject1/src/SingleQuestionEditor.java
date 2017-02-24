@@ -21,12 +21,13 @@ public class SingleQuestionEditor extends JFrame {
 	private JLabel imgDisplay;
 	private int qIndex;
 	private QuestionWindow qw;
-	public SingleQuestionEditor(QuestionWindow q, ProblemStorage p){
+	private Database db;
+	public SingleQuestionEditor(QuestionWindow q, ProblemStorage p, Database d){
 		setSize(900, 300);
 		setResizable(false);
 		setVisible(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
-		
+		db = d;
 		ps = p;
 		qw = q;		
 		promptLabel = new JLabel();
@@ -200,7 +201,7 @@ public class SingleQuestionEditor extends JFrame {
 
 	public void submitPrompt(){
 		if(promptEntry.getText() != null){
-			currentQu.setPrompt(promptEntry.getText().trim());
+			currentQu.setPrompt(promptEntry.getText().trim(), db, currentSet);
 			promptEntry.setText("");
 			ps.updateFile();
 			updateWindow();
@@ -226,7 +227,7 @@ public class SingleQuestionEditor extends JFrame {
 	
 
 	public void deleteQu(){
-		currentSet.deleteQuestion(qIndex);
+		currentSet.deleteQuestion(qIndex, db);
 		qIndex = 0;
 		currentQu = currentSet.getQuestionByIndex(qIndex);
 		ps.updateFile();

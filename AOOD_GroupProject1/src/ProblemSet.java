@@ -8,63 +8,76 @@ public class ProblemSet implements Serializable {
 	private static final long serialVersionUID = 8755540553842138073L;
 	private String name, admin, password;
 	private ArrayList<Question> questions;
-	private ArrayList<UserProblemStorage> userData;
-	private int setIndex;
-	public ProblemSet(String n, int index, ArrayList<UserProblemStorage> ups){
+
+	public ProblemSet(String n, Database db) {
 		questions = new ArrayList<Question>();
 		name = n;
 		admin = "Default";
 		password = "";
-		userData = ups;
-		setIndex = index;
-		addQuestion();
+		addQuestion(db, this);
 	}
-	
-	public void addQuestion(Question q){
-		
+
+	public void addQuestion(Question q, Database db, ProblemSet ps) {
+
 		questions.add(q);
-		for(UserProblemStorage ups: userData){
-			ups.addQu(setIndex);
+		for (User u : db.getUserArray()) {
+			db.getData().get(u.getName()).addQu(ps, q);
 		}
+		db.updateFileData();
+
 	}
-	public void addQuestion(){
-		questions.add(new Question("New Question", "Answer"));
-		for(UserProblemStorage ups: userData){
-			ups.addQu(setIndex);
+
+	public void addQuestion(Database db, ProblemSet ps) {
+		Question q = new Question("New Question", "Answer");
+		questions.add(q);
+		for (User u : db.getUserArray()) {
+			db.getData().get(u.getName()).addQu(ps, q);
 		}
+		db.updateFileData();
+
 	}
-	public String getName(){
+
+	public String getName() {
 		return name;
 	}
-	public void setName(String n){
+
+	public void setName(String n, Database db) {
+		for (User u : db.getUserArray()) {
+			db.getData().get(u.getName()).updateSetName(this, n);
+		}
+		db.updateFileData();
 		name = n;
+		
 	}
-	
-	public Question getQuestionByIndex(int i){
+
+	public Question getQuestionByIndex(int i) {
 		return questions.get(i);
 	}
-	
-	public void setAdmin(String n){
+
+	public void setAdmin(String n) {
 		admin = n;
 	}
-	public void setPassword(String n){
+
+	public void setPassword(String n) {
 		password = n;
 	}
-	public int getLength(){
+
+	public int getLength() {
 		return questions.size();
 	}
-	
-	public void deleteQuestion(int i){
-		questions.remove(i);
-		for(UserProblemStorage ups: userData){
-			ups.removeQuestion(setIndex, i);
+
+	public void deleteQuestion(int i, Database db) {
+		Question q = questions.remove(i);
+		for (User u : db.getUserArray()) {
+			db.getData().get(u.getName()).removeQuestion(this, q);
+
 		}
+		db.updateFileData();
+
 	}
-	public ArrayList<Question> getList(){
+
+	public ArrayList<Question> getList() {
 		return questions;
 	}
-	
-	public int getIndex(){
-		return setIndex;
-	}
+
 }

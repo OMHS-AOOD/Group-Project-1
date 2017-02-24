@@ -22,16 +22,18 @@ public class QuestionWindow extends JFrame {
 	private ProblemStorage ps;
 	private ArrayList<Question> qStorage;
 	private User currentUser;
-	public QuestionWindow(StudyHelper s, miniHUD m, ProblemStorage p){
+	private Database db;
+	public QuestionWindow(StudyHelper s, miniHUD m, ProblemStorage p, Database d){
 		setSize(800, 450);
 		setResizable(false);
 		setVisible(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mh = m;
 		sh = s;
+		db = d;
 		qIndex = 0;	
 		ps = p;
-		quEdit = new SingleQuestionEditor(this, ps);
+		quEdit = new SingleQuestionEditor(this, ps, db);
 		
 		JMenuBar jmb = new JMenuBar();
 		question = new JLabel("");
@@ -301,7 +303,7 @@ public class QuestionWindow extends JFrame {
 		}
 		check = check.toUpperCase();
 		if(check.equals("Y")){
-			currentSet.deleteQuestion(qIndex);
+			currentSet.deleteQuestion(qIndex, db);
 			ps.updateFile();
 			if(qIndex >= currentSet.getLength()){
 				close();

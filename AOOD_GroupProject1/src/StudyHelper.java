@@ -24,7 +24,6 @@ public class StudyHelper {
 	private ProblemStorage ps;
 	private UserSelect us;
 	
-	//private ArrayList<UserProblemStorage> userData;
 
 	
 	public StudyHelper(){
@@ -34,9 +33,10 @@ public class StudyHelper {
 		ps = new ProblemStorage();
 		ds = new DomainSelect("Select a domain", ps, this);
 		db = new Database(ps);
-		de = new DomainEditor(ps, this);
+		ps.loadDb(db);
+		de = new DomainEditor(ps, this, db);
 		mh = new miniHUD();
-		qw = new QuestionWindow(this, mh, ps);
+		qw = new QuestionWindow(this, mh, ps, db);
 		us = new UserSelect("Select a user", db, this);
 		
 		currentUser = db.getUserByIndex(0);
@@ -45,30 +45,7 @@ public class StudyHelper {
 		mh.setUser(currentUser.getName());
 		mh.setDomain("None");
 		mh.setRand(currentUser.getRandomize());
-		/*
-		db.loadUserData(userData);
-		initUserData();
 		
-		System.out.println(userData.size());
-		///COME BACK TO
-		//TODO
-		for(UserProblemStorage ups: userData){
-			while(ups.getArrayLength() < ps.getLength()){
-				for(ProblemSet pset: ps.getArray()){
-					ups.addSet(pset);
-					if(ups.getQLength(pset.getIndex())< pset.getLength()){
-						
-					}
-				}
-			}
-		}
-		while(userData.get(userData.size()-1).getArrayLength()<ps.getLength()){
-			for(UserProblemStorage ups: userData){
-				ups.addSet(ps.getPSByIndex(userData.get(userData.size()-1).getArrayLength()));
-			}
-		}
-		db.updateFile();
-		*/
 	}
 	
 	public void addNewUser(){
@@ -205,7 +182,6 @@ public class StudyHelper {
 			us.setVisible(false);
 			ds.setVisible(false);
 			mh.setVisible(false);
-			de.loadUser(currentUser);
 			de.loadWindow(currentDomain);
 			
 		}

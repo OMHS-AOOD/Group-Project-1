@@ -31,8 +31,13 @@ public class Question implements Serializable {
 		prompt = p;
 	}
 
-	public void setPrompt(String p) {
+	public void setPrompt(String p, Database db, ProblemSet currentSet) {
+		for(User u: db.getUserArray()){
+			db.getData().get(u.getName()).updateQuName(currentSet, this, p);
+		}
+		db.updateFileData();
 		prompt = p;
+		
 	}
 
 	public void setAnswer(String a) {

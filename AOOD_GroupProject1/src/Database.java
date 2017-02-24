@@ -10,23 +10,45 @@ import java.io.ObjectOutputStream;
 import java.net.URL;
 
 import java.util.ArrayList;
-
-
+import java.util.HashMap;
 
 import javax.swing.JOptionPane;
 
 public class Database {
 	private URL location;
-	private File f;
+	private File f, f2;
 	private ArrayList<User> users;
 	private ProblemStorage ps;
-	private ArrayList<UserProblemStorage> userData = new ArrayList<UserProblemStorage>();
+	private HashMap<String, UserProblemStorage> userData;
 	public Database(ProblemStorage p) {
 		location = StudyHelper.class.getProtectionDomain().getCodeSource().getLocation();
 		f = new File(location.getPath().substring(0, location.getPath().length() - 4) + "src/Users");
+		f2 = new File(location.getPath().substring(0, location.getPath().length() - 4) + "src/UserData");
 		ps = p;
 		users = new ArrayList<User>();
+		userData = new HashMap<String, UserProblemStorage>();
 		getUsersFromFile();
+		getUserDataFromFile();
+	}
+
+	private void getUserDataFromFile() {
+		try {
+
+			FileInputStream fis = new FileInputStream(f2);
+			ObjectInputStream ois = new ObjectInputStream(fis);
+			HashMap<String, UserProblemStorage> u = (HashMap<String, UserProblemStorage>) ois.readObject();
+			userData = u;
+			ois.close();
+
+		} catch (ClassNotFoundException | IOException e) {
+			JOptionPane.showMessageDialog(null, "Error when trying to read user data file", "Error",
+					JOptionPane.INFORMATION_MESSAGE);
+			if(users.size() == 1){
+				userData.put("Default", new UserProblemStorage(ps));
+				updateFileData();
+			}
+		}
+		
 	}
 
 	public void addUser(String n) {
@@ -39,7 +61,7 @@ public class Database {
 
 				User u = new User(n, ps);
 				users.add(u);
-				//userData.add(u.getUserPS());
+				userData.put(n, new UserProblemStorage(ps));
 				oos.writeObject(users);
 				oos.close();
 			} catch (IOException e) {
@@ -68,7 +90,7 @@ public class Database {
 
 				User u = new User(n, p, ps);
 				users.add(u);
-				//userData.add(u.getUserPS());
+				userData.put(n, new UserProblemStorage(ps));
 				oos.writeObject(users);
 				oos.close();
 			} catch (IOException e) {
@@ -97,6 +119,7 @@ public class Database {
 			JOptionPane.showMessageDialog(null, "Error when trying to read users file", "Error",
 					JOptionPane.INFORMATION_MESSAGE);
 			this.addUser("Default");
+			
 		}
 
 	}
@@ -138,32 +161,23 @@ public class Database {
 	}
 
 	public void resetUsers() {
-		try {
+
 			users = new ArrayList<User>();
-			userData = new ArrayList<UserProblemStorage>();
+			userData = new HashMap<String, UserProblemStorage>();
 			addUser("Default", "");
-			FileOutputStream fos = new FileOutputStream(f);
-			ObjectOutputStream oos = new ObjectOutputStream(fos);
-			oos.writeObject(users);
-			oos.close();
-		} catch (IOException e) {
-			JOptionPane.showMessageDialog(null, "Error when writing to users file", "Error",
-					JOptionPane.INFORMATION_MESSAGE);
-		}
+			userData.put("Default", new UserProblemStorage(ps));
+			this.updateFile();
+			this.updateFileData();
+
 	}
 
 	public void deleteUser(int i) {
-		try {
-			users.remove(i);
-			userData.remove(i);
-			FileOutputStream fos = new FileOutputStream(f);
-			ObjectOutputStream oos = new ObjectOutputStream(fos);
-			oos.writeObject(users);
-			oos.close();
-		} catch (IOException e) {
-			JOptionPane.showMessageDialog(null, "Error when writing to users file", "Error",
-					JOptionPane.INFORMATION_MESSAGE);
-		}
+	
+			User u = users.remove(i);
+			userData.remove(u.getName());
+			
+			this.updateFile();
+			this.updateFileData();
 
 	}
 
@@ -174,7 +188,17 @@ public class Database {
 		    oos.writeObject(users);
 			oos.close();
 		} catch (IOException e) {
-			JOptionPane.showMessageDialog(null, "Error when writing to problems file", "Error" , JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Error when writing to user file", "Error" , JOptionPane.INFORMATION_MESSAGE);
+		}
+	}
+	public void updateFileData(){
+		try {
+	    	FileOutputStream fos = new FileOutputStream(f2);
+		    ObjectOutputStream oos = new ObjectOutputStream(fos);
+		    oos.writeObject(userData);
+			oos.close();
+		} catch (IOException e) {
+			JOptionPane.showMessageDialog(null, "Error when writing to user data file", "Error" , JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
 
@@ -183,7 +207,9 @@ public class Database {
 		return users.size();
 	}
 	
-	public void loadUserData(ArrayList<UserProblemStorage> data){
-		userData = data;
+	public HashMap<String, UserProblemStorage> getData(){
+		return userData;
 	}
+	
+
 }

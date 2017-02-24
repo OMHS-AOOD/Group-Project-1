@@ -3,59 +3,66 @@ import java.util.HashMap;
 
 public class UserProblemStorage {
 	private ProblemStorage ps;
-	private ArrayList<ArrayList<Integer>> numAsked, numRight;
-	private HashMap <String, Integer> setName;
+	private HashMap <String, HashMap<String, IntegerSet>> storage;
 	public UserProblemStorage(ProblemStorage p){
 		ps = p;
-		numAsked = new ArrayList<ArrayList<Integer>>();
-		numRight = new ArrayList<ArrayList<Integer>>();
-		setName = new HashMap<String, Integer>();
-	}
-	
-	public void addAsked(int setIndex, int qIndex){
-		numAsked.get(setIndex).set(qIndex, numAsked.get(setIndex).get(qIndex)+1);
-	}
-	public void addRight(int setIndex, int qIndex){
-		numRight.get(setIndex).set(qIndex, numRight.get(setIndex).get(qIndex)+1);
-	}
-	public void addSet(ProblemSet p){
-		numAsked.add(new ArrayList<Integer>());
-		numRight.add(new ArrayList<Integer>());
-		//setName.put(p.getName(), numAsked.size()-1);
-		for(int i = 0; i < p.getLength(); i++){
-			numAsked.get(numAsked.size()-1).add(0);
-			numRight.get(numRight.size()-1).add(0);
+		storage = new HashMap <String, HashMap<String, IntegerSet>>();
+		for(ProblemSet ps: p.getArray()){
+			this.addSet(ps);
+			for(Question q: ps.getList()){
+				this.addQu(ps, q);
+			}
 		}
-	}
-	public void addQu(int setIndex){
-		numAsked.get(setIndex).add(0);
-		numRight.get(setIndex).add(0);
-	}
-	
-	public Integer getAsked(int setIndex, int qIndex){
-		return numAsked.get(setIndex).get(qIndex);
-	}
-	public Integer getRight(int setIndex, int qIndex){
-		return numRight.get(setIndex).get(qIndex);
-	}
-	
-	public void removeSet(int setIndex){
-		//int index = setName.get(name);
-		//setName.remove(name);
-		numAsked.remove(setIndex);
-		numRight.remove(setIndex);
 		
 	}
 	
-	public void removeQuestion(int setIndex, int qIndex){
-		numAsked.get(setIndex).remove(qIndex);
-		numRight.get(setIndex).remove(qIndex);
+	public void addAsked(ProblemSet p, Question q){
+		storage.get(p.getName()).get(q.getPrompt()).addAsked();
+	}
+	public void addRight(ProblemSet p, Question q){
+		storage.get(p.getName()).get(q.getPrompt()).addRight();
+	}
+	public void addSet(ProblemSet p){
+		storage.put(p.getName(), new HashMap<String, IntegerSet>());
+		for(Question q: p.getList()){
+			addQu(p, q);
+		}
+	}
+	public void addQu(ProblemSet p, Question q){
+		storage.get(p.getName()).put(q.getPrompt(), new IntegerSet());
+	}
+	
+	public Integer getAsked(ProblemSet p, Question q){
+		return storage.get(p.getName()).get(q.getPrompt()).getAsked();
+	}
+	public Integer getRight(ProblemSet p, Question q){
+		return storage.get(p.getName()).get(q.getPrompt()).getRight();
+	}
+	
+	public void removeSet(ProblemSet p){
+		storage.remove(p.getName());
+		
+	}
+	
+	public void removeQuestion(ProblemSet p, Question q){
+		storage.get(p.getName()).remove(q.getPrompt());
 	}
 	
 	public int getArrayLength(){
-		return numAsked.size();
+		return storage.size();
 	}
-	public int getQLength(int setIndex){
-		return numAsked.get(setIndex).size();
+	public int getQLength(ProblemSet p){
+		return storage.get(p.getName()).size();
+	}
+	
+	public void updateSetName(ProblemSet p, String newName){
+		HashMap<String, IntegerSet> qus = storage.get(p.getName());
+		storage.remove(p.getName());
+		storage.put(newName, qus);
+	}
+	public void updateQuName(ProblemSet p, Question q, String newPrompt){
+		IntegerSet iSet =  storage.get(p.getName()).get(q.getPrompt());
+		storage.get(p.getName()).remove(q.getPrompt());
+		storage.get(p.getName()).put(newPrompt, iSet);
 	}
 }
