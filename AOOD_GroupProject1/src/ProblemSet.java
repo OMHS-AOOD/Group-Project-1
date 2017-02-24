@@ -83,4 +83,11 @@ public class ProblemSet implements Serializable {
 		return questions;
 	}
 
+	public String getAdmin() {
+		return admin;
+	}
+	public String getPassword(){
+		return password;
+	}
+
 }

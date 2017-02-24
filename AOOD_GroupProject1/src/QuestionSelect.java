@@ -4,10 +4,12 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.DefaultListModel;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 
@@ -21,17 +23,29 @@ public class QuestionSelect extends JFrame {
 	private JList<String> domainList;
 	private DomainEditor de;
 	private ProblemSet ps;
+	private JPanel panel;
+	private JButton delete, edit;
 	public QuestionSelect(DomainEditor d){
 		super("Select a Question");
 		dlm = new DefaultListModel<String>();
 		de = d;
-		setSize(500, 250);
+		delete = new JButton("Delete Question");
+		edit = new JButton("Edit Question");
+		setSize(500, 335);
 		setResizable(false);
 		setVisible(false);
-
+		panel = new JPanel();
+		panel.setLayout(null);
 		domainList = new JList<String>(dlm);
 		domainPane = new JScrollPane(domainList, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		add(domainPane);
+		add(panel);
+		panel.add(edit);
+		panel.add(delete);
+		domainPane.setBounds(0, 0, 495, 250);
+		panel.setBounds(0, 250, 500, 100);
+		edit.setBounds(0, 250, 500, 30);
+		delete.setBounds(0, 280, 500, 30);
 		domainList.addMouseListener(new CoolAdapter());
 	}
 	

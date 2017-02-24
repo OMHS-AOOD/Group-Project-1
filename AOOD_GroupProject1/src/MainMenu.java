@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -21,6 +22,9 @@ public class MainMenu extends JFrame {
 		JPanel panel = new JPanel();
 		add(panel);
 		
+		panel.setBackground(Color.BLACK);
+		jmb.setBackground(Color.BLACK);
+		
 		this.setJMenuBar(jmb);
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		JMenuItem selDom = new JMenuItem("Select Domain");
@@ -37,29 +41,18 @@ public class MainMenu extends JFrame {
 		JMenuItem impDom = new JMenuItem("Import Domain");
 		JMenuItem toggleHUD = new JMenuItem("Toggle miniHUD");
 		JMenuItem randQus = new JMenuItem("Toggle Randomize Questions");
+
 		
-		JButton selDomB = new JButton("Select Domain");
-		JButton addUserB = new JButton("Add User");
-		JButton selUserB = new JButton("Select Users");	
-		JButton delUserB = new JButton("Delete all Users");
-		JButton startDomB = new JButton("Start Domain");
-		JButton editDomB = new JButton("Edit Domain");
-		JButton newDomB = new JButton("New Domain");
-		
-		panel.add(selDomB);
-		panel.add(addUserB);
-		panel.add(selUserB);
-		panel.add(delUserB);
-		panel.add(startDomB);
-		panel.add(editDomB);
-		panel.add(newDomB);
-		
+
 		
 		
 		JMenu m1 = new JMenu("User");
 		JMenu m2 = new JMenu("Domain");
 		JMenu m3 = new JMenu("Windows");
 		
+		m1.setForeground(Color.GREEN);
+		m2.setForeground(Color.GREEN);
+		m3.setForeground(Color.GREEN);
 		 
 		
 		
@@ -72,14 +65,37 @@ public class MainMenu extends JFrame {
 		m1.add(randQus);
 		m1.add(delUser);
 		
+		addUser.setBackground(Color.BLACK);
+		addUser.setForeground(Color.GREEN);
+		selUser.setBackground(Color.BLACK);
+		selUser.setForeground(Color.GREEN);
+		randQus.setBackground(Color.BLACK);
+		randQus.setForeground(Color.GREEN);
+		delUser.setBackground(Color.BLACK);
+		delUser.setForeground(Color.GREEN);
+		
+		
 		m2.add(startDom);
 		m2.add(selDom);
 		m2.add(editDom);
 		m2.add(newDom);
 		m2.add(impDom);
 		
+		startDom.setBackground(Color.BLACK);
+		startDom.setForeground(Color.GREEN);
+		selDom.setBackground(Color.BLACK);
+		selDom.setForeground(Color.GREEN);
+		editDom.setBackground(Color.BLACK);
+		editDom.setForeground(Color.GREEN);
+		newDom.setBackground(Color.BLACK);
+		newDom.setForeground(Color.GREEN);
+		impDom.setBackground(Color.BLACK);
+		impDom.setForeground(Color.GREEN);
+		
 		m3.add(toggleHUD);
 		
+		toggleHUD.setBackground(Color.BLACK);
+		toggleHUD.setForeground(Color.GREEN);
 		addUser.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e)
@@ -167,56 +183,7 @@ public class MainMenu extends JFrame {
 		
 		
 		
-		
-		addUserB.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e)
-			{
-				sh.addNewUser();
-			}
-		});
-		selUserB.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e)
-			{
-				sh.showUsersWindow();
-			}
-		});
-		selDomB.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e)
-			{
-				sh.selectDomain();
-			}
-		});
-		delUserB.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e)
-			{
-				sh.deleteUsers();
-			}
-		});
-		startDomB.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e)
-			{
-				sh.startProblems();
-			}
-		});
-		editDomB.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e)
-			{
-				sh.startEditor();
-			}
-		});
-		newDomB.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e)
-			{
-				sh.newDomain();
-			}
-		});
+	
 		
 	}
 	

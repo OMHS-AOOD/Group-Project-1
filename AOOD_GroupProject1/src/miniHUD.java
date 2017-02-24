@@ -1,3 +1,5 @@
+import java.awt.Color;
+
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -31,7 +33,12 @@ public class miniHUD extends JFrame{
 		userPanel.add(quDisplay2);
 		userPanel.setLayout(new BoxLayout(userPanel, BoxLayout.Y_AXIS));
 		
-		
+		userPanel.setBackground(Color.BLACK);
+		userDisplay.setForeground(Color.GREEN);
+		userDisplay2.setForeground(Color.GREEN);
+		randDisplay.setForeground(Color.GREEN);
+		quDisplay.setForeground(Color.GREEN);
+		quDisplay2.setForeground(Color.GREEN);
 		
 	}
 	

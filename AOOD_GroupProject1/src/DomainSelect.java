@@ -27,24 +27,26 @@ public class DomainSelect extends JFrame {
 	private ProblemStorage ps;
 	private JButton delete, edit, launch;
 	private JPanel panel;
-	public DomainSelect(String n, ProblemStorage prob, StudyHelper s){
+
+	public DomainSelect(String n, ProblemStorage prob, StudyHelper s) {
 		super(n);
 		dlm = new DefaultListModel<String>();
 		sh = s;
 		ps = prob;
-		
+
 		panel = new JPanel();
-		setSize(310, 500);
+		setSize(310, 415);
 		setResizable(false);
 		setVisible(false);
-		for(ProblemSet p: ps.getArray()){
+		for (ProblemSet p : ps.getArray()) {
 			dlm.addElement(p.getName());
 		}
 
 		domainList = new JList<String>(dlm);
-		domainPane = new JScrollPane(domainList, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		domainPane = new JScrollPane(domainList, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		add(domainPane);
-		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+		panel.setLayout(null);
 		delete = new JButton("Delete");
 		edit = new JButton("Edit");
 		launch = new JButton("Launch");
@@ -53,65 +55,62 @@ public class DomainSelect extends JFrame {
 		panel.add(delete);
 		domainPane.setBounds(0, 0, 305, 300);
 		add(panel);
-		
-		panel.setBounds(0, 300, 310, 100);
 		domainList.addMouseListener(new CoolAdapter());
-		
-		
-		
+		panel.setBounds(0, 300, 310, 200);
+		launch.setBounds(0, 300, 310, 30);
+		edit.setBounds(0, 330, 310, 30);
+		delete.setBounds(0, 360, 310, 30);
+
 		launch.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e)
-			{
+			public void actionPerformed(ActionEvent e) {
 				final int i = domainList.getSelectedIndex();
-				if(i != -1){
+				if (i != -1) {
 					sh.setDomain(i);
-				}
-				else{
-					JOptionPane.showMessageDialog(null, "No domain selected", "Error" , JOptionPane.INFORMATION_MESSAGE);
+					sh.startProblems();
+				} else {
+					JOptionPane.showMessageDialog(null, "No domain selected", "Error", JOptionPane.INFORMATION_MESSAGE);
 				}
 			}
 		});
 		edit.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e)
-			{
+			public void actionPerformed(ActionEvent e) {
 				final int i = domainList.getSelectedIndex();
-				if(i != -1){
+				if (i != -1) {
 					sh.setDomain(i);
 					sh.startEditor();
-				}
-				else{
-					JOptionPane.showMessageDialog(null, "No domain selected", "Error" , JOptionPane.INFORMATION_MESSAGE);
+				} else {
+					JOptionPane.showMessageDialog(null, "No domain selected", "Error", JOptionPane.INFORMATION_MESSAGE);
 				}
 			}
 		});
 		delete.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e)
-			{
+			public void actionPerformed(ActionEvent e) {
 				final int i = domainList.getSelectedIndex();
-				if(i != -1){
+				if (i != -1) {
 					sh.deleteDomain(i);
 					dlm.removeAllElements();
-					for(ProblemSet p: ps.getArray()){
+					for (ProblemSet p : ps.getArray()) {
 						dlm.addElement(p.getName());
 					}
+				} else {
+					JOptionPane.showMessageDialog(null, "No domain selected", "Error", JOptionPane.INFORMATION_MESSAGE);
 				}
-				else{
-					JOptionPane.showMessageDialog(null, "No domain selected", "Error" , JOptionPane.INFORMATION_MESSAGE);
-				}
-				
+
 			}
 		});
-		
+
 	}
-	
-	private class CoolAdapter extends MouseAdapter{
+
+	private class CoolAdapter extends MouseAdapter {
+
 		@Override
-		public void mousePressed(MouseEvent e){
-			if(e.getButton() == MouseEvent.BUTTON3){
+		public void mousePressed(MouseEvent e) {
+
+			if (e.getButton() == MouseEvent.BUTTON3) {
 				final int i = domainList.getSelectedIndex();
-				if(i != -1){
+				if (i != -1) {
 					JPopupMenu jp = new JPopupMenu();
 					JMenuItem jm1 = new JMenuItem("Select Domain");
 					JMenuItem jm2 = new JMenuItem("Edit Domain");
@@ -121,52 +120,49 @@ public class DomainSelect extends JFrame {
 					jp.add(jm3);
 					jm1.addActionListener(new ActionListener() {
 						@Override
-						public void actionPerformed(ActionEvent e)
-						{
+						public void actionPerformed(ActionEvent e) {
 							sh.setDomain(i);
 						}
 					});
 					jm2.addActionListener(new ActionListener() {
 						@Override
-						public void actionPerformed(ActionEvent e)
-						{
+						public void actionPerformed(ActionEvent e) {
 							sh.setDomain(i);
 							sh.startEditor();
 						}
 					});
 					jm3.addActionListener(new ActionListener() {
 						@Override
-						public void actionPerformed(ActionEvent e)
-						{
+						public void actionPerformed(ActionEvent e) {
 							sh.deleteDomain(i);
 							dlm.removeAllElements();
-							for(ProblemSet p: ps.getArray()){
+							for (ProblemSet p : ps.getArray()) {
 								dlm.addElement(p.getName());
 							}
-							
+
 						}
 					});
-					jp.show(domainPane.getViewport(), e.getX(),e.getY());
+					jp.show(domainPane.getViewport(), e.getX(), e.getY());
 				}
-				
-				
+
 			}
 		}
-		public void mouseClicked(MouseEvent e)
-		{
-		  if (e.getClickCount() == 2 && e.getButton() == MouseEvent.BUTTON1) {
-			  final int i = domainList.getSelectedIndex();
-			  if(i != -1){
-				  sh.setDomain(i);
-				  sh.startProblems();
-			  }
-		  }
+
+		public void mouseClicked(MouseEvent e) {
+
+			if (e.getClickCount() == 2 && e.getButton() == MouseEvent.BUTTON1) {
+				final int i = domainList.getSelectedIndex();
+				if (i != -1) {
+					sh.setDomain(i);
+					sh.startProblems();
+				}
+			}
 		}
 	}
-	
-	public void updateList(){
+
+	public void updateList() {
 		dlm.removeAllElements();
-		for(ProblemSet p: ps.getArray()){
+		for (ProblemSet p : ps.getArray()) {
 			dlm.addElement(p.getName());
 		}
 	}
