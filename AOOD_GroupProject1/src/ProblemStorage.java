@@ -7,12 +7,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.net.URL;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
-public class ProblemStorage {
+public class ProblemStorage implements Serializable {
 	private ArrayList<ProblemSet> problems;
 	private File f;
 	private URL location;

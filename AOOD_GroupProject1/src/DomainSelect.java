@@ -32,7 +32,7 @@ public class DomainSelect extends JFrame {
 		ps = prob;
 		
 		panel = new JPanel();
-		setSize(300, 250);
+		setSize(300, 400);
 		setResizable(false);
 		setVisible(false);
 		for(ProblemSet p: ps.getArray()){
@@ -42,7 +42,8 @@ public class DomainSelect extends JFrame {
 		domainList = new JList<String>(dlm);
 		domainPane = new JScrollPane(domainList, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		add(domainPane);
-		//add(panel);
+		domainPane.setBounds(0, 0, 300, 300);
+		add(panel);
 		domainList.addMouseListener(new CoolAdapter());
 		
 		JButton delete = new JButton("Delete");

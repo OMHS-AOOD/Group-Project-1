@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.net.URL;
 
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ import java.util.HashMap;
 
 import javax.swing.JOptionPane;
 
-public class Database {
+public class Database implements Serializable{
 	private URL location;
 	private File f, f2;
 	private ArrayList<User> users;
@@ -63,6 +64,7 @@ public class Database {
 		} catch (ClassNotFoundException | IOException e) {
 			JOptionPane.showMessageDialog(null, "Error when trying to read user data file", "Error",
 					JOptionPane.INFORMATION_MESSAGE);
+			e.printStackTrace(System.out);
 			if (users.size() == 1) {
 				userData.put("Default", new UserProblemStorage(ps));
 				updateFileData();

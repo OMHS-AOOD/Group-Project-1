@@ -1,7 +1,8 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class UserProblemStorage {
+public class UserProblemStorage implements Serializable{
 	private ProblemStorage ps;
 	private HashMap <String, HashMap<String, IntegerSet>> storage;
 	public UserProblemStorage(ProblemStorage p){
