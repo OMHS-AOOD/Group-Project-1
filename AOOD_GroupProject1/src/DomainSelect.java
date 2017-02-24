@@ -1,8 +1,10 @@
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -32,7 +34,7 @@ public class DomainSelect extends JFrame {
 		ps = prob;
 		
 		panel = new JPanel();
-		setSize(310, 400);
+		setSize(310, 500);
 		setResizable(false);
 		setVisible(false);
 		for(ProblemSet p: ps.getArray()){
@@ -42,17 +44,20 @@ public class DomainSelect extends JFrame {
 		domainList = new JList<String>(dlm);
 		domainPane = new JScrollPane(domainList, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		add(domainPane);
-		domainPane.setBounds(0, 0, 305, 300);
-		add(panel);
-		panel.setBounds(0, 300, 310, 100);
-		domainList.addMouseListener(new CoolAdapter());
-		
-		JButton delete = new JButton("Delete");
-		JButton edit = new JButton("Edit");
-		JButton launch = new JButton("Launch");
+		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+		delete = new JButton("Delete");
+		edit = new JButton("Edit");
+		launch = new JButton("Launch");
 		panel.add(launch);
 		panel.add(edit);
 		panel.add(delete);
+		domainPane.setBounds(0, 0, 305, 300);
+		add(panel);
+		
+		panel.setBounds(0, 300, 310, 100);
+		domainList.addMouseListener(new CoolAdapter());
+		
+		
 		
 		launch.addActionListener(new ActionListener() {
 			@Override
