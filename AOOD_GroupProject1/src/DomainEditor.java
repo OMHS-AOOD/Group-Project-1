@@ -30,7 +30,7 @@ public class DomainEditor extends JFrame {
 	private Database db;
 	private QuestionSelect qs;
 	public DomainEditor(ProblemStorage p, StudyHelper s, Database d){
-		setSize(900, 370);
+		setSize(900, 450);
 		setResizable(false);
 		setVisible(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
@@ -53,12 +53,16 @@ public class DomainEditor extends JFrame {
 		promptEntry = new JTextField();
 		extraEntry = new JTextField();
 		answerEntry = new JTextField();
+		editRight = new JTextField();
+		editAttempts = new JTextField();
 		nameSubmit = new JButton("Change Name");
 		promptSubmit = new JButton("Change Prompt");
 		extraSubmit = new JButton("Change Extra Info");
 		answerSubmit = new JButton("Change Answer");
 		newQu = new JButton("New Question");
 		deleteQu = new JButton("Delete Question");
+		submitAttempts = new JButton("Change Attempts");
+		submitRight = new JButton("Change Correct");
 		nextQu = new JButton(">>");
 		lastQu = new JButton("<<");
 		finish = new JButton("Close Editor");
@@ -94,9 +98,9 @@ public class DomainEditor extends JFrame {
 		panel.add(answerSubmit);
 		answerSubmit.setBounds(675, 180, 150, 30);
 		panel.add(newQu);
-		newQu.setBounds(10, 280, 150, 30);
+		newQu.setBounds(10, 360, 150, 30);
 		panel.add(deleteQu);
-		deleteQu.setBounds(170, 280, 150, 30);
+		deleteQu.setBounds(170, 360, 150, 30);
 		panel.add(nameLabel);
 		nameLabel.setBounds(10, 10, 650, 25);
 		panel.add(promptLabel);
@@ -106,26 +110,34 @@ public class DomainEditor extends JFrame {
 		panel.add(answerLabel);
 		answerLabel.setBounds(10, 160, 650, 25);
 		panel.add(nextQu);
-		nextQu.setBounds(170, 230, 150, 30);
+		nextQu.setBounds(170, 310, 150, 30);
 		panel.add(lastQu);
-		lastQu.setBounds(10, 230, 150, 30);
+		lastQu.setBounds(10, 310, 150, 30);
 		panel.add(finish);
-		finish.setBounds(725, 280, 150, 30);
+		finish.setBounds(725, 360, 150, 30);
 		panel.add(export);
-		export.setBounds(330, 280, 150, 30);
+		export.setBounds(330, 360, 150, 30);
 		panel.add(selIm);
-		selIm.setBounds(330, 230, 150, 30);
+		selIm.setBounds(330, 310, 150, 30);
 		panel.add(prevImg);
-		prevImg.setBounds(490, 230, 150, 30);
+		prevImg.setBounds(490, 310, 150, 30);
 		panel.add(remImg);
-		remImg.setBounds(490, 280, 150, 30);
+		remImg.setBounds(490, 360, 150, 30);
 		
 		panel.add(attemptLabel);
-		attemptLabel.setBounds(675, 220, 150, 30);
+		attemptLabel.setBounds(10, 210, 150, 30);
 		panel.add(correctLabel);
-		correctLabel.setBounds(675, 250, 150, 30);
+		correctLabel.setBounds(170, 210, 150, 30);
 		
+		panel.add(submitAttempts);
+		panel.add(submitRight);
+		submitAttempts.setBounds(10, 270, 150, 20);
+		submitRight.setBounds(170, 270, 150, 20);
 		
+		panel.add(editAttempts);
+		panel.add(editRight);
+		editAttempts.setBounds(10, 240, 150, 30);
+		editRight.setBounds(170, 240, 150, 30);
 		
 		picDisplay = new JFrame("Image Display");
 		picDisplay.setVisible(false);
@@ -244,6 +256,51 @@ public class DomainEditor extends JFrame {
 			}
 
 			
+		});
+		
+		submitAttempts.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				try{
+					Integer i = Integer.parseInt(editAttempts.getText().trim());
+					editAttempts.setText("");
+					if (i >= 0) {
+						db.getData().get(sh.getCurrentUser().getName()).setAsked(currentSet, currentQu, i);
+						updateWindow();
+						db.updateFileData();
+					} else {
+						JOptionPane.showMessageDialog(null, "Invalid number", "Error", JOptionPane.INFORMATION_MESSAGE);
+					}
+				} catch (NumberFormatException err) {
+					JOptionPane.showMessageDialog(null, "Invalid input", "Error", JOptionPane.INFORMATION_MESSAGE);
+
+				}
+
+			}
+
+		});
+		submitRight.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				try{
+					Integer i = Integer.parseInt(editRight.getText().trim());
+					editRight.setText("");
+					if (i >= 0) {
+						db.getData().get(sh.getCurrentUser().getName()).setRight(currentSet, currentQu, i);
+						updateWindow();
+						db.updateFileData();
+					} else {
+						JOptionPane.showMessageDialog(null, "Invalid number", "Error", JOptionPane.INFORMATION_MESSAGE);
+					}
+				} catch (NumberFormatException err) {
+					JOptionPane.showMessageDialog(null, "Invalid input", "Error", JOptionPane.INFORMATION_MESSAGE);
+
+				}
+
+			}
+
 		});
 	}
 	

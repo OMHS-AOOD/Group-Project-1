@@ -22,6 +22,13 @@ public class UserProblemStorage {
 	public void addRight(ProblemSet p, Question q){
 		storage.get(p.getName()).get(q.getPrompt()).addRight();
 	}
+	
+	public void setAsked(ProblemSet p, Question q, int i){
+		storage.get(p.getName()).get(q.getPrompt()).setAsked(i);
+	}
+	public void setRight(ProblemSet p, Question q, int i){
+		storage.get(p.getName()).get(q.getPrompt()).setRight(i);
+	}
 	public void addSet(ProblemSet p){
 		storage.put(p.getName(), new HashMap<String, IntegerSet>());
 		for(Question q: p.getList()){

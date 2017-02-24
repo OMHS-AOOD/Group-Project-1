@@ -245,7 +245,11 @@ public class StudyHelper {
 		if(newName == null ||db.checkForUserName(newName)){
 			JOptionPane.showMessageDialog(null, "Username is invalid/already taken", "Change Username" , JOptionPane.INFORMATION_MESSAGE);
 		}
+		UserProblemStorage temp = db.getData().get(currentUser.getName());
+		db.getData().remove(currentUser.getName());
 		currentUser.setName(newName);
+		db.getData().put(newName, temp);
+		db.updateFileData();
 		mh.setUser(currentUser.getName());
 	}
 	
