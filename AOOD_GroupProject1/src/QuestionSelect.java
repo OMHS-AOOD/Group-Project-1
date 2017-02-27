@@ -47,6 +47,33 @@ public class QuestionSelect extends JFrame {
 		edit.setBounds(0, 250, 500, 30);
 		delete.setBounds(0, 280, 500, 30);
 		domainList.addMouseListener(new CoolAdapter());
+
+		edit.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				final int i = domainList.getSelectedIndex();
+				if (i != -1) {
+					de.updateQIndex(i); 
+					setVisible(false);
+				} else {
+					JOptionPane.showMessageDialog(null, "No question selected", "Error", JOptionPane.INFORMATION_MESSAGE);
+				}
+			}
+		});
+		delete.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String check = JOptionPane.showInputDialog("Are you sure?(Y/N)");
+				if(check == null){
+					return;
+				}
+				check = check.toUpperCase();
+				if(check.equals("Y")){
+					de.deleteQu();
+					setVisible(false);
+				}
+
+			}
+		});
 	}
 	
 	private class CoolAdapter extends MouseAdapter{
