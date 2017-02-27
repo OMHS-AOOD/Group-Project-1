@@ -43,14 +43,7 @@ public class DomainEditor extends JFrame {
 		qIndex = 0;
 
 		
-		jmb.setBackground(Color.BLACK);
-		nameLabel.setForeground(Color.GREEN);
-		promptLabel.setForeground(Color.GREEN);
-		extraLabel.setForeground(Color.GREEN);
-		answerLabel.setForeground(Color.GREEN);
-		correctLabel.setForeground(Color.GREEN);
-		attemptLabel.setForeground(Color.GREEN);
-		panel.setBackground(Color.BLACK);
+		
 		
 		
 		
@@ -98,6 +91,17 @@ public class DomainEditor extends JFrame {
 		m1.add(selQu);
 		m1.add(editPass);
 
+		
+		jmb.setBackground(Color.BLACK);
+		nameLabel.setForeground(Color.GREEN);
+		promptLabel.setForeground(Color.GREEN);
+		extraLabel.setForeground(Color.GREEN);
+		answerLabel.setForeground(Color.GREEN);
+		correctLabel.setForeground(Color.GREEN);
+		attemptLabel.setForeground(Color.GREEN);
+		panel.setBackground(Color.BLACK);
+		
+		
 		this.add(panel);
 		panel.setLayout(null);
 		panel.add(nameEntry);
