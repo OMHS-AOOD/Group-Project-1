@@ -92,6 +92,56 @@ public class DomainEditor extends JFrame {
 		m1.add(editPass);
 
 		
+		nameEntry.setBackground(Color.BLACK);
+		promptEntry.setBackground(Color.BLACK);
+		extraEntry.setBackground(Color.BLACK);
+		answerEntry.setBackground(Color.BLACK);
+		editRight.setBackground(Color.BLACK);
+		editAttempts.setBackground(Color.BLACK);
+		nameSubmit.setBackground(Color.BLACK);
+		promptSubmit.setBackground(Color.BLACK);
+		extraSubmit.setBackground(Color.BLACK);
+		answerSubmit.setBackground(Color.BLACK);
+		newQu.setBackground(Color.BLACK);
+		deleteQu.setBackground(Color.BLACK);
+		submitAttempts.setBackground(Color.BLACK);
+		submitRight.setBackground(Color.BLACK);
+		nextQu.setBackground(Color.BLACK);
+		lastQu.setBackground(Color.BLACK);
+		finish.setBackground(Color.BLACK);
+		export.setBackground(Color.BLACK);
+		selQu.setBackground(Color.BLACK);
+		editPass.setBackground(Color.BLACK);
+		selIm.setBackground(Color.BLACK);
+		remImg.setBackground(Color.BLACK);
+		prevImg.setBackground(Color.BLACK);
+		
+		
+		m1.setForeground(Color.GREEN);
+		nameEntry.setForeground(Color.GREEN);
+		promptEntry.setForeground(Color.GREEN);
+		extraEntry.setForeground(Color.GREEN);
+		answerEntry.setForeground(Color.GREEN);
+		editRight.setForeground(Color.GREEN);
+		editAttempts.setForeground(Color.GREEN);
+		nameSubmit.setForeground(Color.GREEN);
+		promptSubmit.setForeground(Color.GREEN);
+		extraSubmit.setForeground(Color.GREEN);
+		answerSubmit.setForeground(Color.GREEN);
+		newQu.setForeground(Color.GREEN);
+		deleteQu.setForeground(Color.GREEN);
+		submitAttempts.setForeground(Color.GREEN);
+		submitRight.setForeground(Color.GREEN);
+		nextQu.setForeground(Color.GREEN);
+		lastQu.setForeground(Color.GREEN);
+		finish.setForeground(Color.GREEN);
+		export.setForeground(Color.GREEN);
+		selQu.setForeground(Color.GREEN);
+		editPass.setForeground(Color.GREEN);
+		selIm.setForeground(Color.GREEN);
+		remImg.setForeground(Color.GREEN);
+		prevImg.setForeground(Color.GREEN);
+		
 		jmb.setBackground(Color.BLACK);
 		nameLabel.setForeground(Color.GREEN);
 		promptLabel.setForeground(Color.GREEN);
@@ -100,6 +150,8 @@ public class DomainEditor extends JFrame {
 		correctLabel.setForeground(Color.GREEN);
 		attemptLabel.setForeground(Color.GREEN);
 		panel.setBackground(Color.BLACK);
+		
+		
 		
 		
 		this.add(panel);
