@@ -52,29 +52,7 @@ public class DomainEditor extends JFrame {
 		attemptLabel.setForeground(Color.GREEN);
 		panel.setBackground(Color.BLACK);
 		
-		nameEntry = new JTextField();
-		promptEntry = new JTextField();
-		extraEntry = new JTextField();
-		answerEntry = new JTextField();
-		editRight = new JTextField();
-		editAttempts = new JTextField();
-		nameSubmit = new JButton("Change Name");
-		promptSubmit = new JButton("Change Prompt");
-		extraSubmit = new JButton("Change Extra Info");
-		answerSubmit = new JButton("Change Answer");
-		newQu = new JButton("New Question");
-		deleteQu = new JButton("Delete Question");
-		submitAttempts = new JButton("Change Attempts");
-		submitRight = new JButton("Change Correct");
-		nextQu = new JButton(">>");
-		lastQu = new JButton("<<");
-		finish = new JButton("Close Editor");
-		export = new JButton("Export Set");
-		selQu = new JMenuItem("Select Question");
-		editPass = new JMenuItem("Edit Password");
-		selIm = new JButton("Select Image");
-		remImg = new JButton("Remove Image");
-		prevImg = new JButton("Preview Image");
+		
 		
 		
 		
