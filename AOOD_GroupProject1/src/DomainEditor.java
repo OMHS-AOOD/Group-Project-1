@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -41,6 +42,43 @@ public class DomainEditor extends JFrame {
 		ps = p;
 		qIndex = 0;
 
+		
+		jmb.setBackground(Color.BLACK);
+		nameLabel.setForeground(Color.GREEN);
+		promptLabel.setForeground(Color.GREEN);
+		extraLabel.setForeground(Color.GREEN);
+		answerLabel.setForeground(Color.GREEN);
+		correctLabel.setForeground(Color.GREEN);
+		attemptLabel.setForeground(Color.GREEN);
+		panel.setBackground(Color.BLACK);
+		
+		nameEntry = new JTextField();
+		promptEntry = new JTextField();
+		extraEntry = new JTextField();
+		answerEntry = new JTextField();
+		editRight = new JTextField();
+		editAttempts = new JTextField();
+		nameSubmit = new JButton("Change Name");
+		promptSubmit = new JButton("Change Prompt");
+		extraSubmit = new JButton("Change Extra Info");
+		answerSubmit = new JButton("Change Answer");
+		newQu = new JButton("New Question");
+		deleteQu = new JButton("Delete Question");
+		submitAttempts = new JButton("Change Attempts");
+		submitRight = new JButton("Change Correct");
+		nextQu = new JButton(">>");
+		lastQu = new JButton("<<");
+		finish = new JButton("Close Editor");
+		export = new JButton("Export Set");
+		selQu = new JMenuItem("Select Question");
+		editPass = new JMenuItem("Edit Password");
+		selIm = new JButton("Select Image");
+		remImg = new JButton("Remove Image");
+		prevImg = new JButton("Preview Image");
+		
+		
+		
+		
 		jmb = new JMenuBar();
 		nameLabel = new JLabel();
 		promptLabel = new JLabel();
