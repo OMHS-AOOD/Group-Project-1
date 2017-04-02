@@ -7,12 +7,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.net.URL;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
-public class ProblemStorage {
+public class ProblemStorage implements Serializable {
 	private ArrayList<ProblemSet> problems;
 	private File f;
 	private URL location;
@@ -51,7 +52,6 @@ public class ProblemStorage {
 			JOptionPane.showMessageDialog(null, "Problems set with that name already exists", "Error" , JOptionPane.INFORMATION_MESSAGE);
 		}
 		else{
-			System.out.println("hey");
 			problems.add(new ProblemSet(n, db));
 			index++;
 			problems.get(problems.size() - 1).setAdmin(u);

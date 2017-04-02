@@ -1,5 +1,6 @@
+import java.io.Serializable;
 
-public class IntegerSet {
+public class IntegerSet implements Serializable{
 	private int asked, right;
 	public IntegerSet(){
 		asked = 0;

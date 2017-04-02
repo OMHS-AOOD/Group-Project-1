@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -23,7 +24,8 @@ public class QuestionWindow extends JFrame {
 	private ArrayList<Question> qStorage;
 	private User currentUser;
 	private Database db;
-	public QuestionWindow(StudyHelper s, miniHUD m, ProblemStorage p, Database d){
+
+	public QuestionWindow(StudyHelper s, miniHUD m, ProblemStorage p, Database d) {
 		setSize(800, 450);
 		setResizable(false);
 		setVisible(false);
@@ -31,10 +33,10 @@ public class QuestionWindow extends JFrame {
 		mh = m;
 		sh = s;
 		db = d;
-		qIndex = 0;	
+		qIndex = 0;
 		ps = p;
 		quEdit = new SingleQuestionEditor(this, ps, db);
-		
+
 		JMenuBar jmb = new JMenuBar();
 		question = new JLabel("");
 		extra = new JLabel("");
@@ -60,6 +62,32 @@ public class QuestionWindow extends JFrame {
 		know.setBounds(75, 350, 200, 40);
 		notKnow.setBounds(525, 350, 200, 40);
 		ansLab.setBounds(75, 310, 1000, 40);
+
+		jmb.setBackground(Color.BLACK);
+		m1.setForeground(Color.GREEN);
+		toggleHUD.setForeground(Color.GREEN);
+		exitDomain.setForeground(Color.GREEN);
+		editQuestion.setForeground(Color.GREEN);
+		delQu.setForeground(Color.GREEN);
+		toggleHUD.setBackground(Color.BLACK);
+		exitDomain.setBackground(Color.BLACK);
+		editQuestion.setBackground(Color.BLACK);
+		delQu.setBackground(Color.BLACK);
+
+		entry.setBackground(Color.BLACK);
+		
+		entry.setForeground(Color.GREEN);
+		question.setForeground(Color.GREEN);
+		extra.setForeground(Color.GREEN);
+		submit.setForeground(Color.GREEN);
+		know.setForeground(Color.GREEN);
+		notKnow.setForeground(Color.GREEN);
+		ansLab.setForeground(Color.GREEN);
+		panel.setBackground(Color.BLACK);
+		submit.setBackground(Color.BLACK);
+		know.setForeground(Color.BLACK);
+		notKnow.setForeground(Color.BLACK);
+
 		this.add(panel);
 		panel.add(question);
 		panel.add(extra);
@@ -69,79 +97,68 @@ public class QuestionWindow extends JFrame {
 		panel.add(image);
 		panel.add(know);
 		panel.add(notKnow);
-		
+
 		know.setVisible(false);
 		notKnow.setVisible(false);
-		
-		
-		
+
 		this.setJMenuBar(jmb);
 		jmb.add(m1);
 		m1.add(exitDomain);
 		m1.add(editQuestion);
 		m1.add(delQu);
 		m1.add(toggleHUD);
-		
-		
-		
+
 		toggleHUD.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e)
-			{
+			public void actionPerformed(ActionEvent e) {
 				sh.toggleMiniHUD();
 			}
 		});
 		submit.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e)
-			{
+			public void actionPerformed(ActionEvent e) {
 				submit();
 			}
 		});
 		know.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e)
-			{
+			public void actionPerformed(ActionEvent e) {
 				know();
 			}
 		});
 		notKnow.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e)
-			{
+			public void actionPerformed(ActionEvent e) {
 				notKnow();
 			}
 		});
 		exitDomain.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e)
-			{
+			public void actionPerformed(ActionEvent e) {
 				mh.emptyRight();
 				mh.emptyLeft();
-				currentQu= null;
+				currentQu = null;
 				question.setText("");
 				extra.setText("");
 				qIndex = 0;
-				sh.reload();
+				sh.reload(currentSet);
 			}
 		});
 		editQuestion.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e)
-			{
+			public void actionPerformed(ActionEvent e) {
 				editQuestion();
 			}
 		});
 		delQu.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e)
-			{
+			public void actionPerformed(ActionEvent e) {
 				deleteCurrentQu();
 			}
 		});
 	}
-	
-	public void loadWindow(ProblemSet ps, boolean randomize, User cU){
+
+	public void loadWindow(ProblemSet ps, boolean randomize, User cU) {
 		mh.setVisible(true);
 		currentUser = cU;
 		numRight = 0;
@@ -154,15 +171,14 @@ public class QuestionWindow extends JFrame {
 		mh.setWrong(0);
 		ansLab.setText("");
 		qStorage = new ArrayList<Question>(currentSet.getList());
-		if(randomize){
+		if (randomize) {
 			randomizeOrder();
 		}
 		loadQu();
-		
-		
+
 	}
-	
-	public void submit(){
+
+	public void submit() {
 		submit.setVisible(false);
 		know.setVisible(true);
 		notKnow.setVisible(true);
@@ -170,8 +186,8 @@ public class QuestionWindow extends JFrame {
 		ansLab.setText("The correct answer was: " + currentQu.getAns() + ".");
 		db.getData().get(currentUser.getName()).addAsked(currentSet, currentQu);
 	}
-	
-	public void know(){
+
+	public void know() {
 		submit.setVisible(true);
 		know.setVisible(false);
 		notKnow.setVisible(false);
@@ -180,52 +196,50 @@ public class QuestionWindow extends JFrame {
 		ansLab.setText("");
 		db.getData().get(currentUser.getName()).addRight(currentSet, currentQu);
 		qIndex++;
-		if(qIndex < qStorage.size()){
+		if (qIndex < qStorage.size()) {
 			loadQu();
-		}
-		else{
+		} else {
 			close();
 		}
-		
+
 	}
-	public void notKnow(){
+
+	public void notKnow() {
 		submit.setVisible(true);
 		know.setVisible(false);
 		notKnow.setVisible(false);
 		numWrong++;
 		mh.setWrong(numWrong);
 		ansLab.setText("");
-		
+
 		qIndex++;
-		if(qIndex < qStorage.size()){
+		if (qIndex < qStorage.size()) {
 			loadQu();
-		}
-		else{
+		} else {
 			close();
 		}
-		
+
 	}
-	
-	public void loadQu(){
+
+	public void loadQu() {
 		currentQu = qStorage.get(qIndex);
 		question.setText(currentQu.getPrompt());
 		extra.setText(currentQu.getExtra());
-		if(currentQu.getImage() != null){
+		if (currentQu.getImage() != null) {
 			image.setIcon(currentQu.getImage());
-		}
-		else{
+		} else {
 			image.setIcon(null);
 		}
-		
+
 	}
-	
-	public void randomizeOrder(){
+
+	public void randomizeOrder() {
 		ArrayList<Question> randQ = new ArrayList<Question>();
-		while(qStorage.size() > 0){
-			int randInt = (int)(Math.random() * qStorage.size());
+		while (qStorage.size() > 0) {
+			int randInt = (int) (Math.random() * qStorage.size());
 			randQ.add(qStorage.remove(randInt));
 		}
-		
+
 		qStorage = randQ;
 		qIndex = 0;
 		mh.setRight(0);
@@ -235,58 +249,57 @@ public class QuestionWindow extends JFrame {
 		ansLab.setText("");
 		loadQu();
 	}
-	
-	
-	public void editQuestion(){
+
+	public void editQuestion() {
+		quEdit.getAUser(currentUser);
 		quEdit.loadWindow(currentSet, currentQu, qIndex);
 		this.setVisible(false);
 	}
-	
-	public void reload(){
+
+	public void reload() {
 		this.setVisible(true);
-		if(qIndex >= currentSet.getLength()){
+		if (qIndex >= currentSet.getLength()) {
 			close();
-		}
-		else{
+		} else {
 			this.loadQu();
 		}
-		
+
 	}
-	
-	public void close(){
+
+	public void close() {
 		mh.emptyRight();
 		mh.emptyLeft();
-		JOptionPane.showMessageDialog(null, "You knew " + numRight + " and did not know " + numWrong + ".", "Results" , JOptionPane.INFORMATION_MESSAGE);			currentQu= null;
+		JOptionPane.showMessageDialog(null, "You knew " + numRight + " and did not know " + numWrong + ".", "Results",
+				JOptionPane.INFORMATION_MESSAGE);
+		currentQu = null;
 		question.setText("");
 		extra.setText("");
 		qIndex = 0;
-		sh.reload();
+		sh.reload(currentSet);
 	}
 
-	public void deleteCurrentQu(){
-		//String check = JOptionPane.showInputDialog("Are you sure?(Y/N)\nNumber of Attempts: " + currentUser.getUserPS().getAsked(currentSet.getIndex(), qIndex) + "\nNumber of correct attempts: "+currentUser.getUserPS().getRight(currentSet.getIndex(), qIndex));
-		String check = JOptionPane.showInputDialog("Are you sure?(Y/N)");
+	public void deleteCurrentQu() {
+		String check = JOptionPane.showInputDialog("Are you sure?(Y/N)\nNumber of Attempts: "
+				+ db.getData().get(currentUser.getName()).getAsked(currentSet, currentQu)
+				+ "\nNumber of correct attempts: "
+				+ db.getData().get(currentUser.getName()).getAsked(currentSet, currentQu));
 
-		if(check == null){
+		if (check == null) {
 			return;
 		}
 		check = check.toUpperCase();
-		if(check.equals("Y")){
+		if (check.equals("Y")) {
 			currentSet.deleteQuestion(qIndex, db);
 			ps.updateFile();
-			if(qIndex >= currentSet.getLength()){
+			if (qIndex >= currentSet.getLength()) {
 				close();
-			}
-			else{
+			} else {
 				currentQu = currentSet.getQuestionByIndex(qIndex);
 				this.loadQu();
 			}
-			
+
 		}
-		
+
 	}
-	
-	
-	
-	
+
 }

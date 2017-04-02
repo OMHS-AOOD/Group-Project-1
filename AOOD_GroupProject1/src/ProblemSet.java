@@ -14,6 +14,9 @@ public class ProblemSet implements Serializable {
 		name = n;
 		admin = "Default";
 		password = "";
+		for(User u: db.getUserArray()){
+			db.getData().get(u.getName()).addSet(this);
+		}
 		addQuestion(db, this);
 	}
 
@@ -78,6 +81,13 @@ public class ProblemSet implements Serializable {
 
 	public ArrayList<Question> getList() {
 		return questions;
+	}
+
+	public String getAdmin() {
+		return admin;
+	}
+	public String getPassword(){
+		return password;
 	}
 
 }
